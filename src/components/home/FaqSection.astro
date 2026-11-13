@@ -1,16 +1,19 @@
 ---
 import Faq from '../react/Faq';
-import { faq } from '@/data/site';
+import { useTranslations, type Language } from '@/i18n';
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="faq" class="bg-cream py-20 lg:py-28">
   <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
     <div>
-      <p class="eyebrow">հարցեր</p>
-      <h2 class="section-title">Հաճախ տրվող հարցեր</h2>
-      <p class="mt-5 text-lg text-ink/75">Չգտա՞ք պատասխանը։ Գրեք մեզ, և մենք սիրով կպատասխանենք։</p>
-      <a href="#contact" class="btn-primary mt-8">Կապվել մեզ հետ</a>
+      <p class="eyebrow">{t.faq.eyebrow}</p>
+      <h2 class="section-title">{t.faq.title}</h2>
+      <p class="mt-5 text-lg text-ink/75">{t.faq.text}</p>
+      <a href="#contact" class="btn-primary mt-8">{t.faq.contact}</a>
     </div>
-    <Faq client:visible items={faq} />
+    <Faq client:visible items={t.faq.items} />
   </div>
 </section>

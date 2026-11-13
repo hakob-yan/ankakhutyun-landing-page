@@ -3,14 +3,19 @@ import * as Accordion from '@radix-ui/react-accordion';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import type { NavItem } from '@/data/site';
 
-type Props = { items: NavItem[]; siteName: string };
+type Props = {
+  items: NavItem[];
+  siteName: string;
+  donate: { label: string; href: string };
+  labels: { open: string; close: string; description: string };
+};
 
 /** Slide-in mobile menu: Radix Dialog + Accordion for sub-menus. */
-export default function MobileNav({ items, siteName }: Props) {
+export default function MobileNav({ items, siteName, donate, labels }: Props) {
   return (
     <Dialog.Root>
       <Dialog.Trigger
-        aria-label="Բացել մենյուն"
+        aria-label={labels.open}
         className="inline-flex size-11 items-center justify-center rounded-full bg-ink text-white transition-colors hover:bg-brand hover:text-ink"
       >
         <Menu className="size-5" />
@@ -21,13 +26,13 @@ export default function MobileNav({ items, siteName }: Props) {
           <div className="mb-8 flex items-center justify-between">
             <Dialog.Title className="text-lg font-bold">{siteName}</Dialog.Title>
             <Dialog.Close
-              aria-label="Փակել"
+              aria-label={labels.close}
               className="inline-flex size-10 items-center justify-center rounded-full bg-cream hover:bg-brand"
             >
               <X className="size-5" />
             </Dialog.Close>
           </div>
-          <Dialog.Description className="sr-only">Կայքի նավիգացիա</Dialog.Description>
+          <Dialog.Description className="sr-only">{labels.description}</Dialog.Description>
 
           <Accordion.Root type="single" collapsible className="divide-y divide-black/10">
             {items.map((item) =>
@@ -55,8 +60,8 @@ export default function MobileNav({ items, siteName }: Props) {
             )}
           </Accordion.Root>
 
-          <a href="/#support" className="btn-primary mt-8">
-            Աջակցել
+          <a href={donate.href} className="btn-primary mt-8">
+            {donate.label}
           </a>
         </Dialog.Content>
       </Dialog.Portal>

@@ -2,87 +2,53 @@
 import '@/styles/global.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import { site, getLanguage, translate } from '@/data/site';
+import { languages, localizePath, ogLocales, useTranslations, type Language } from '@/i18n';
 
 interface Props {
+  lang: Language;
+  /** Page path without the language prefix, e.g. '/articles/foo'. Used for the language switcher and hreflang. */
+  path: string;
   title?: string;
   description?: string;
   image?: string;
+  /** Set to false for pages that don't exist in other languages (e.g. 404). */
+  alternates?: boolean;
 }
-const { title, description = site.description, image } = Astro.props;
-const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const language = Astro.locals.language ?? getLanguage(Astro.url.pathname);
+const { lang, path, title, description, image, alternates = true } = Astro.props;
+const t = useTranslations(lang);
+const metaDescription = description ?? t.description;
+const fullTitle = title ? `${title} | ${t.siteName}` : `${t.siteName} — ${t.tagline}`;
+const canonical = new URL(localizePath(path, lang), Astro.site);
 ---
 
 <!doctype html>
-<html lang={language}>
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{fullTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
+    {alternates && languages.map((code) => (
+      <link rel="alternate" hreflang={code} href={new URL(localizePath(path, code), Astro.site)} />
+    ))}
+    {alternates && <link rel="alternate" hreflang="x-default" href={new URL(localizePath(path, 'hy'), Astro.site)} />}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
     {image && <meta property="og:image" content={image} />}
-    <meta property="og:locale" content={language === 'hy' ? 'hy_AM' : language === 'ru' ? 'ru_RU' : 'en_US'} />
+    <meta property="og:locale" content={ogLocales[lang]} />
   </head>
   <body class="min-h-screen">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-white">
-      Անցնել բովանդակությանը
+      {t.common.skipToContent}
     </a>
-    <Header />
+    <Header lang={lang} path={path} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
-
-<script>
-  import { translate } from '@/data/site';
-  const language = document.documentElement.lang as 'hy' | 'en' | 'ru';
-  if (language !== 'hy') {
-    const localizeLinks = (root: ParentNode) => {
-      root.querySelectorAll('a[href^="/"]').forEach((anchor) => {
-        const link = anchor as HTMLAnchorElement;
-        if (link.hasAttribute('lang')) return;
-        const path = link.pathname.replace(/^\/(en|ru)(?=\/|$)/, '') || '/';
-        link.pathname = `/${language}${path === '/' ? '' : path}`;
-      });
-      root.querySelectorAll('form[action^="/"]').forEach((form) => {
-        const element = form as HTMLFormElement;
-        const path = element.getAttribute('action')!.replace(/^\/(en|ru)(?=\/|$)/, '');
-        element.setAttribute('action', `/${language}${path}`);
-      });
-    };
-    const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const translateText = (node: Text) => {
-      const original = node.textContent ?? '';
-      const trimmed = original.trim();
-      const translated = translate(language, trimmed);
-      if (translated !== trimmed) node.textContent = original.replace(trimmed, translated);
-    };
-    const translateElement = (element: Element) => {
-      element.querySelectorAll('[placeholder], [aria-label], [title]').forEach((node) => {
-        for (const attribute of ['placeholder', 'aria-label', 'title']) {
-          const value = node.getAttribute(attribute);
-          if (value) node.setAttribute(attribute, translate(language, value));
-        }
-      });
-      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-      while (walker.nextNode()) translateText(walker.currentNode as Text);
-    };
-    translateElement(document.body);
-    localizeLinks(document);
-    new MutationObserver((changes) => changes.forEach((change) => {
-      change.addedNodes.forEach((node) => {
-        if (node.nodeType === Node.TEXT_NODE) translateText(node as Text);
-        else if (node instanceof Element) { translateElement(node); localizeLinks(node); }
-      });
-    })).observe(document.body, { childList: true, subtree: true });
-  }
-</script>

@@ -1,17 +1,22 @@
 ---
-import { programs } from '@/data/site';
+import { programCards, articlesPath } from '@/data/site';
+import { useTranslations, type Language } from '@/i18n';
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const programs = programCards.map((card, i) => ({ ...card, ...t.programs.items[i], href: articlesPath(lang, card.category) }));
 ---
 
 <section id="programs" class="bg-cream pb-20 lg:pb-28">
   <div class="container-x">
     <div class="mb-12 max-w-2xl">
-      <p class="eyebrow">ինչ ենք անում</p>
-      <h2 class="section-title">Ինչով ենք օգնում</h2>
+      <p class="eyebrow">{t.programs.eyebrow}</p>
+      <h2 class="section-title">{t.programs.title}</h2>
     </div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {programs.map((p) =>
         p.variant === 'photo' ? (
-          <a href={p.href} class="group flex flex-col overflow-hidden rounded-[20px] bg-brand">
+          <a href={p.href} class="group flex flex-col overflow-hidden rounded-card bg-brand">
             <div class="aspect-[4/3] overflow-hidden">
               <img src={p.image} alt="" loading="lazy" class="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
@@ -21,7 +26,7 @@ import { programs } from '@/data/site';
             </div>
           </a>
         ) : (
-          <a href={p.href} class="group flex flex-col overflow-hidden rounded-[20px] bg-white p-7 transition-colors duration-300 hover:bg-brand-soft">
+          <a href={p.href} class="group flex flex-col overflow-hidden rounded-card bg-white p-7 transition-colors duration-300 hover:bg-brand-soft">
             <div class="flex h-44 items-center justify-center">
               <img src={p.image} alt="" aria-hidden="true" loading="lazy" class="h-36 w-auto transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110" />
             </div>

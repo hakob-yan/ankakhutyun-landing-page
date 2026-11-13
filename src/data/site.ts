@@ -1,11 +1,12 @@
 /**
- * Central place for site-wide content.
+ * Site-wide data that is not language-specific (images, contact info, links).
+ * Translated text lives in src/i18n/ui.ts.
  *
  * IMAGES: for now every image is loaded from the reference demo site
- * (caridad.vamtam.com). These are licensed theme/stock (iStock) assets —
- * replace each URL with your own photo before the site goes public.
- * Changing a URL here updates it everywhere.
+ * (caridad.vamtam.com). These are licensed theme/stock (iStock) assets.
+ * Replace each URL with your own photo before the site goes public.
  */
+import { localizePath, useTranslations, type Language } from '@/i18n';
 
 const REF = 'https://caridad.vamtam.com/wp-content/uploads';
 
@@ -29,9 +30,6 @@ export const images = {
   card1: `${REF}/2021/04/iStock-463374569.jpg`,
   card4: `${REF}/2021/04/iStock-493698580.jpg`,
   events: `${REF}/2021/04/iStock-1172438359.jpg`,
-  news1: `${REF}/2021/04/iStock-626637946.jpg`,
-  news2: `${REF}/2021/04/iStock-501227604.jpg`,
-  news3: `${REF}/2021/04/iStock-498816281.jpg`,
 
   // partner logos
   partners: [
@@ -42,14 +40,9 @@ export const images = {
   ],
 } as const;
 
-export const site = {
-  name: 'Անկախության սերունդ',
-  tagline: 'Երիտասարդների ձայնը, պատմությունը և ապագան',
-  description:
-    'Անկախության սերունդ — հոդվածներ, պատմություններ և նախաձեռնություններ Հայաստանի անկախության տարիներին ծնված և մեծացած սերնդի մասին։',
+export const contact = {
   email: 'info@example.am',
   phone: '+374 00 000 000',
-  address: 'Երևան, Հայաստան',
   social: [
     { label: 'Facebook', href: 'https://facebook.com/' },
     { label: 'Instagram', href: 'https://instagram.com/' },
@@ -57,199 +50,66 @@ export const site = {
   ],
 };
 
-export type Language = 'hy' | 'en' | 'ru';
-export const languages: { code: Language; label: string }[] = [
-  { code: 'hy', label: 'ՀԱՅ' },
-  { code: 'en', label: 'EN' },
-  { code: 'ru', label: 'РУС' },
-];
+export const categorySlugs = ['history', 'education', 'culture', 'society'] as const;
+type CategorySlug = (typeof categorySlugs)[number];
 
-export function getLanguage(pathname: string): Language {
-  const prefix = pathname.split('/')[1];
-  return prefix === 'en' || prefix === 'ru' ? prefix : 'hy';
+export const categoryLabel = (slug: string, lang: Language) =>
+  useTranslations(lang).categories[slug as CategorySlug] ?? slug;
+
+/** /articles, /articles/category/history, /articles/page/2 … (localized) */
+export function articlesPath(lang: Language, category?: string, page = 1) {
+  const parts = ['/articles', category && `category/${category}`, page > 1 && `page/${page}`].filter(Boolean);
+  return localizePath(parts.join('/'), lang);
 }
-
-export function localizedPath(pathname: string, language: Language) {
-  const clean = pathname.replace(/^\/(en|ru)(?=\/|$)/, '') || '/';
-  return language === 'hy' ? clean : `/${language}${clean === '/' ? '' : clean}`;
-}
-
-const ui = {
-  hy: {},
-  en: {
-    'Անցնել բովանդակությանը': 'Skip to content', 'Գլխավոր մենյու': 'Main menu', 'Աջակցել': 'Donate',
-    'միացիր մեզ': 'Join us', 'Ստեղծենք տարբերություն միասին': 'Let’s make a difference together',
-    'Նավիգացիա': 'Navigation', 'Հոդվածներ': 'Articles', 'Կապ': 'Contact', 'Հաճախ տրվող հարցեր': 'Frequently asked questions',
-    'Բոլոր իրավունքները պաշտպանված են։': 'All rights reserved.', 'Կարդալ հոդվածները': 'Read articles', 'Մեր մասին': 'About us',
-    'Անկախության սերունդ': 'Generation of Independence', 'Մեր պատմությունը սկսվում է': 'Our story begins', 'այսօր': 'today',
-    'Հոդվածներ, հուշեր և նախաձեռնություններ այն սերնդի մասին, որը ծնվել և մեծացել է անկախ Հայաստանում։': 'Articles, memories, and initiatives about the generation born and raised in independent Armenia.',
-    'թվականից սկսվում է մեր սերնդի պատմությունը': 'The story of our generation begins', 'հրապարակված հոդված և հարցազրույց': 'Published articles and interviews', 'երիտասարդ ընթերցող ամեն ամիս': 'Young readers every month',
-    'աջակցություն': 'Support', 'Ուզո՞ւմ եք օգնել': 'Would you like to help?',
-    'Ձեր նվիրատվությունն օգնում է շարունակել կրթական ծրագրերը, հրատարակել նոր հոդվածներ և կազմակերպել միջոցառումներ երիտասարդների համար։': 'Your donation helps us continue educational programs, publish articles, and organize events for young people.',
-    'միացիր մեզ': 'Join us', 'Յուրաքանչյուր պատմություն կարևոր է․ օգնիր մեզ պահպանել դրանք': 'Every story matters. Help us preserve them.',
-    'Կամավորություն': 'Volunteer', 'Գրիր մեզ համար': 'Write for us', 'Մասնակցիր միջոցառման': 'Attend an event',
-    'ովքեր ենք մենք': 'Who we are', 'Միավորվենք՝ պատմելու մեր սերնդի պատմությունը': 'Together, let’s tell our generation’s story',
-    'Ավելին մեր մասին': 'Learn more about us', 'ինչ ենք անում': 'What we do', 'Ինչով ենք օգնում': 'How we help',
-    'միջոցառումներ': 'Events', 'Առաջիկա միջոցառումներ': 'Upcoming events', 'Բոլոր միջոցառումները →': 'All events →',
-    'հարցեր': 'Questions', 'Կապվել մեզ հետ': 'Contact us',
-    'հոդվածներ': 'Articles', 'Վերջին հոդվածները': 'Latest articles', 'Բոլոր հոդվածները': 'All articles',
-    'գործընկերներ': 'Partners', 'Շնորհակալություն մեր գործընկերներին': 'Thank you to our partners',
-    'Պատմություն': 'History', 'Կրթություն': 'Education', 'Մշակույթ': 'Culture', 'Հասարակություն': 'Society',
-    'Գլխավոր': 'Home', 'Առաքելություն': 'Mission', 'Ինչով ենք զբաղվում': 'What we do', 'Գործընկերներ': 'Partners',
-    'Միջոցառումներ': 'Events', 'Աջակցություն': 'Support', 'Երևան, Հայաստան': 'Yerevan, Armenia', 'Գործընկերոջ լոգո': 'Partner logo',
-    'Պատմության էջեր': 'Pages of history', 'Կրթական ծրագրեր': 'Education programs', 'Մշակութային կյանք': 'Cultural life', 'Քաղաքացիական ակտիվություն': 'Civic engagement',
-    'Վերհիշում ենք անկախության առաջին տարիները՝ մարդկանց պատմությունների միջոցով։': 'We revisit the early years of independence through people’s stories.',
-    'Դասախոսություններ և դասընթացներ դպրոցականների ու ուսանողների համար։': 'Lectures and courses for school and university students.',
-    'Գրականություն, երաժշտություն և արվեստ՝ նոր սերնդի աչքերով։': 'Literature, music, and art through the eyes of a new generation.',
-    'Աջակցում ենք երիտասարդական նախաձեռնություններին ամբողջ Հայաստանում։': 'We support youth initiatives across Armenia.',
-    '«Անկախության սերունդ»-ը հասարակական նախաձեռնություն է, որի առաքելությունն է հավաքել, պահպանել և տարածել անկախության տարիներին ծնված սերնդի պատմությունները, ինչպես նաև աջակցել երիտասարդների կրթական և քաղաքացիական նախաձեռնություններին։': 'Generation of Independence is a civic initiative that collects, preserves, and shares stories of people born during Armenia’s independence, while supporting youth education and civic initiatives.',
-    'Չգտա՞ք պատասխանը։ Գրեք մեզ, և մենք սիրով կպատասխանենք։': 'Didn’t find your answer? Write to us and we’ll be glad to help.',
-    'Մենք երախտապարտ ենք բոլոր անհատներին, կազմակերպություններին և ընկերներին, ովքեր մեզ հետ են։ Միասին մենք պահպանում ենք մի ամբողջ սերնդի հիշողությունը։': 'We are grateful to all the people, organizations, and friends who stand with us. Together, we preserve the memory of a generation.',
-    'տարի անկախություն': 'years of independence',
-    'Կիսվել': 'Share', 'կարդացեք նաև': 'Read also', 'Նմանատիպ հոդվածներ': 'Related articles', 'րոպե ընթերցանություն': 'min read',
-    'Որոնել': 'Search', 'Որոնում': 'Search', 'Բոլորը': 'All', 'Հոդվածներ չեն գտնվել': 'No articles found', 'Տեսնել բոլորը': 'See all',
-  },
-  ru: {
-    'Անցնել բովանդակությանը': 'Перейти к содержимому', 'Գլխավոր մենյու': 'Главное меню', 'Աջակցել': 'Поддержать',
-    'միացիր մեզ': 'Присоединяйтесь', 'Ստեղծենք տարբերություն միասին': 'Давайте вместе менять мир к лучшему',
-    'Նավիգացիա': 'Навигация', 'Հոդվածներ': 'Статьи', 'Կապ': 'Контакты', 'Հաճախ տրվող հարցեր': 'Часто задаваемые вопросы',
-    'Բոլոր իրավունքները պաշտպանված են։': 'Все права защищены.', 'Կարդալ հոդվածները': 'Читать статьи', 'Մեր մասին': 'О нас',
-    'Անկախության սերունդ': 'Поколение независимости', 'Մեր պատմությունը սկսվում է': 'Наша история начинается', 'այսօր': 'сегодня',
-    'Հոդվածներ, հուշեր և նախաձեռնություններ այն սերնդի մասին, որը ծնվել և մեծացել է անկախ Հայաստանում։': 'Статьи, воспоминания и инициативы о поколении, родившемся и выросшем в независимой Армении.',
-    'թվականից սկսվում է մեր սերնդի պատմությունը': 'Так начинается история нашего поколения', 'հրապարակված հոդված և հարցազրույց': 'Опубликованные статьи и интервью', 'երիտասարդ ընթերցող ամեն ամիս': 'Молодых читателей каждый месяц',
-    'աջակցություն': 'Поддержка', 'Ուզո՞ւմ եք օգնել': 'Хотите помочь?',
-    'Ձեր նվիրատվությունն օգնում է շարունակել կրթական ծրագրերը, հրատարակել նոր հոդվածներ և կազմակերպել միջոցառումներ երիտասարդների համար։': 'Ваше пожертвование помогает продолжать образовательные программы, публиковать статьи и проводить мероприятия для молодёжи.',
-    'Յուրաքանչյուր պատմություն կարևոր է․ օգնիր մեզ պահպանել դրանք': 'Каждая история важна. Помогите нам сохранить их.',
-    'Կամավորություն': 'Волонтёрство', 'Գրիր մեզ համար': 'Пишите для нас', 'Մասնակցիր միջոցառման': 'Участвуйте в мероприятиях',
-    'ովքեր ենք մենք': 'Кто мы', 'Միավորվենք՝ պատմելու մեր սերնդի պատմությունը': 'Давайте вместе расскажем историю нашего поколения',
-    'Ավելին մեր մասին': 'Подробнее о нас', 'ինչ ենք անում': 'Чем мы занимаемся', 'Ինչով ենք օգնում': 'Как мы помогаем',
-    'միջոցառումներ': 'Мероприятия', 'Առաջիկա միջոցառումներ': 'Предстоящие мероприятия', 'Բոլոր միջոցառումները →': 'Все мероприятия →',
-    'հարցեր': 'Вопросы', 'Կապվել մեզ հետ': 'Связаться с нами',
-    'հոդվածներ': 'Статьи', 'Վերջին հոդվածները': 'Последние статьи', 'Բոլոր հոդվածները': 'Все статьи',
-    'գործընկերներ': 'Партнёры', 'Շնորհակալություն մեր գործընկերներին': 'Благодарим наших партнёров',
-    'Պատմություն': 'История', 'Կրթություն': 'Образование', 'Մշակույթ': 'Культура', 'Հասարակություն': 'Общество',
-    'Գլխավոր': 'Главная', 'Առաքելություն': 'Миссия', 'Ինչով ենք զբաղվում': 'Чем мы занимаемся', 'Գործընկերներ': 'Партнёры',
-    'Աջակցություն': 'Поддержка', 'Երևան, Հայաստան': 'Ереван, Армения', 'Գործընկերոջ լոգո': 'Логотип партнёра',
-    'Պատմության էջեր': 'Страницы истории', 'Կրթական ծրագրեր': 'Образовательные программы', 'Մշակութային կյանք': 'Культурная жизнь', 'Քաղաքացիական ակտիվություն': 'Гражданская активность',
-    'Վերհիշում ենք անկախության առաջին տարիները՝ մարդկանց պատմությունների միջոցով։': 'Вспоминаем первые годы независимости через истории людей.',
-    'Դասախոսություններ և դասընթացներ դպրոցականների ու ուսանողների համար։': 'Лекции и курсы для школьников и студентов.',
-    'Գրականություն, երաժշտություն և արվեստ՝ նոր սերնդի աչքերով։': 'Литература, музыка и искусство глазами нового поколения.',
-    'Աջակցում ենք երիտասարդական նախաձեռնություններին ամբողջ Հայաստանում։': 'Поддерживаем молодёжные инициативы по всей Армении.',
-    '«Անկախության սերունդ»-ը հասարակական նախաձեռնություն է, որի առաքելությունն է հավաքել, պահպանել և տարածել անկախության տարիներին ծնված սերնդի պատմությունները, ինչպես նաև աջակցել երիտասարդների կրթական և քաղաքացիական նախաձեռնություններին։': '«Поколение независимости» — общественная инициатива, которая собирает, сохраняет и рассказывает истории поколения, родившегося в годы независимости, а также поддерживает образовательные и гражданские инициативы молодёжи.',
-    'Չգտա՞ք պատասխանը։ Գրեք մեզ, և մենք սիրով կպատասխանենք։': 'Не нашли ответ? Напишите нам — мы будем рады помочь.',
-    'Մենք երախտապարտ ենք բոլոր անհատներին, կազմակերպություններին և ընկերներին, ովքեր մեզ հետ են։ Միասին մենք պահպանում ենք մի ամբողջ սերնդի հիշողությունը։': 'Мы благодарны всем людям, организациям и друзьям, которые рядом с нами. Вместе мы сохраняем память целого поколения.',
-    'տարի անկախություն': 'лет независимости',
-    'Կիսվել': 'Поделиться', 'կարդացեք նաև': 'Читайте также', 'Նմանատիպ հոդվածներ': 'Похожие статьи', 'րոպե ընթերցանություն': 'мин. чтения',
-    'Որոնել': 'Поиск', 'Որոնում': 'Поиск', 'Բոլորը': 'Все', 'Հոդվածներ չեն գտնվել': 'Статьи не найдены', 'Տեսնել բոլորը': 'Посмотреть все',
-  },
-} satisfies Record<Language, Record<string, string>>;
-
-export const translate = (language: Language, text: string) => ui[language][text] ?? text;
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
-export const categories = [
-  { slug: 'history', label: 'Պատմություն' },
-  { slug: 'education', label: 'Կրթություն' },
-  { slug: 'culture', label: 'Մշակույթ' },
-  { slug: 'society', label: 'Հասարակություն' },
-] as const;
-
-export type CategorySlug = (typeof categories)[number]['slug'];
-
-export const categoryLabel = (slug: string) =>
-  categories.find((c) => c.slug === slug)?.label ?? slug;
-
-export const nav: NavItem[] = [
-  { label: 'Գլխավոր', href: '/' },
-  {
-    label: 'Մեր մասին',
-    href: '/#about',
-    children: [
-      { label: 'Առաքելություն', href: '/#about' },
-      { label: 'Ինչով ենք զբաղվում', href: '/#programs' },
-      { label: 'Հաճախ տրվող հարցեր', href: '/#faq' },
-      { label: 'Գործընկերներ', href: '/#partners' },
-    ],
-  },
-  {
-    label: 'Հոդվածներ',
-    href: '/articles',
-    children: [
-      { label: 'Բոլոր հոդվածները', href: '/articles' },
-      ...categories.map((c) => ({ label: c.label, href: `/articles?category=${c.slug}` })),
-    ],
-  },
-  { label: 'Միջոցառումներ', href: '/#events' },
-  {
-    label: 'Միացիր մեզ',
-    href: '/#get-involved',
-    children: [
-      { label: 'Կամավորություն', href: '/#get-involved' },
-      { label: 'Աջակցություն', href: '/#support' },
-      { label: 'Կապ', href: '/#contact' },
-    ],
-  },
-];
+export function getNav(lang: Language): NavItem[] {
+  const t = useTranslations(lang).nav;
+  const p = (path: string) => localizePath(path, lang);
+  return [
+    { label: t.home, href: p('/') },
+    {
+      label: t.about,
+      href: p('/#about'),
+      children: [
+        { label: t.mission, href: p('/#about') },
+        { label: t.whatWeDo, href: p('/#programs') },
+        { label: t.faq, href: p('/#faq') },
+        { label: t.partners, href: p('/#partners') },
+      ],
+    },
+    {
+      label: t.articles,
+      href: articlesPath(lang),
+      children: [
+        { label: t.allArticles, href: articlesPath(lang) },
+        ...categorySlugs.map((slug) => ({ label: categoryLabel(slug, lang), href: articlesPath(lang, slug) })),
+      ],
+    },
+    { label: t.events, href: p('/#events') },
+    {
+      label: t.join,
+      href: p('/#get-involved'),
+      children: [
+        { label: t.volunteer, href: p('/#get-involved') },
+        { label: t.support, href: p('/#support') },
+        { label: t.contact, href: p('/#contact') },
+      ],
+    },
+  ];
+}
 
 export const stats = [
-  { value: 1991, suffix: '', label: 'թվականից սկսվում է մեր սերնդի պատմությունը' },
-  { value: 350, suffix: '+', label: 'հրապարակված հոդված և հարցազրույց' },
-  { value: 12000, suffix: '+', label: 'երիտասարդ ընթերցող ամեն ամիս' },
+  { value: 1991, suffix: '' },
+  { value: 350, suffix: '+' },
+  { value: 12000, suffix: '+' },
 ];
 
-export const programs = [
-  {
-    title: 'Պատմության էջեր',
-    text: 'Վերհիշում ենք անկախության առաջին տարիները՝ մարդկանց պատմությունների միջոցով։',
-    href: '/articles?category=history',
-    image: images.card1,
-    variant: 'photo' as const,
-  },
-  {
-    title: 'Կրթական ծրագրեր',
-    text: 'Դասախոսություններ և դասընթացներ դպրոցականների ու ուսանողների համար։',
-    href: '/articles?category=education',
-    image: images.sunCard,
-    variant: 'doodle' as const,
-  },
-  {
-    title: 'Մշակութային կյանք',
-    text: 'Գրականություն, երաժշտություն և արվեստ՝ նոր սերնդի աչքերով։',
-    href: '/articles?category=culture',
-    image: images.appleCard,
-    variant: 'doodle' as const,
-  },
-  {
-    title: 'Քաղաքացիական ակտիվություն',
-    text: 'Աջակցում ենք երիտասարդական նախաձեռնություններին ամբողջ Հայաստանում։',
-    href: '/articles?category=society',
-    image: images.card4,
-    variant: 'photo' as const,
-  },
-];
-
-export const events = [
-  { day: '21', month: 'Սեպ', title: 'Անկախության օրվա երիտասարդական հավաք', place: 'Երևան' },
-  { day: '16', month: 'Նոյ', title: 'Բանավոր պատմության աշխատարան ուսանողների համար', place: 'Գյումրի' },
-  { day: '05', month: 'Դեկ', title: '«Իմ սերնդի պատմությունը» շարադրությունների մրցույթ', place: 'Առցանց' },
-];
-
-export const faq = [
-  {
-    q: 'Ի՞նչ է «Անկախության սերունդ» նախաձեռնությունը',
-    a: 'Դա հարթակ է, որտեղ հավաքում և հրապարակում ենք Հայաստանի անկախության տարիներին ծնված ու մեծացած սերնդի պատմությունները, մտքերը և նախաձեռնությունները։',
-  },
-  {
-    q: 'Կարո՞ղ եմ ես էլ հոդված գրել',
-    a: 'Այո։ Ուղարկեք ձեր հոդվածը կամ գաղափարը մեր էլ. հասցեին, և խմբագրական թիմը կկապվի ձեզ հետ մեկ շաբաթվա ընթացքում։',
-  },
-  {
-    q: 'Ինչպե՞ս դառնալ կամավոր',
-    a: 'Լրացրեք կամավորի հայտը «Միացիր մեզ» բաժնում։ Մենք ներգրավում ենք կամավորների միջոցառումների, թարգմանությունների և լուսանկարչության մեջ։',
-  },
-  {
-    q: 'Ինչպե՞ս են օգտագործվում նվիրատվությունները',
-    a: 'Բոլոր նվիրատվություններն ուղղվում են կրթական ծրագրերին, միջոցառումների կազմակերպմանը և կայքի զարգացմանը։ Տարեկան հաշվետվությունը հրապարակվում է կայքում։',
-  },
+/** Card visuals for the "How we help" section; text comes from ui.programs.items (same order). */
+export const programCards = [
+  { category: 'history', image: images.card1, variant: 'photo' as const },
+  { category: 'education', image: images.sunCard, variant: 'doodle' as const },
+  { category: 'culture', image: images.appleCard, variant: 'doodle' as const },
+  { category: 'society', image: images.card4, variant: 'photo' as const },
 ];

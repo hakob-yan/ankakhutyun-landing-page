@@ -1,15 +1,40 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-Astro.response.status = 404;
+import { articlesPath } from '@/data/site';
+import { languages, localizePath, useTranslations } from '@/i18n';
+
+// Static hosts serve this single file for every missing URL.
+// It is rendered in Armenian; the script below switches the text to EN/RU when the URL starts with /en or /ru.
+const t = useTranslations('hy');
+const variants = Object.fromEntries(
+  languages.map((lang) => {
+    const d = useTranslations(lang);
+    return [lang, { ...d.notFound, homeHref: localizePath('/', lang), articlesHref: articlesPath(lang) }];
+  }),
+);
 ---
 
-<BaseLayout title="Էջը չի գտնվել">
-  <PageHero eyebrow="404" title="Էջը չի գտնվել" subtitle="Հնարավոր է՝ էջը տեղափոխվել է կամ այլևս գոյություն չունի։">
+<BaseLayout lang="hy" path="/404" title={t.notFound.title} alternates={false}>
+  <PageHero eyebrow="404" title={t.notFound.title} subtitle={t.notFound.text}>
     <div class="mt-8 flex justify-center gap-3">
-      <a href="/" class="btn-primary">Գլխավոր էջ</a>
-      <a href="/articles" class="btn-outline">Հոդվածներ</a>
+      <a href="/" class="btn-primary" data-nf="home">{t.notFound.home}</a>
+      <a href={articlesPath('hy')} class="btn-outline" data-nf="articles">{t.notFound.articles}</a>
     </div>
   </PageHero>
   <div class="pb-40"></div>
 </BaseLayout>
+
+<script is:inline define:vars={{ variants }}>
+  const lang = location.pathname.split('/')[1];
+  const v = variants[lang];
+  if (v && lang !== 'hy') {
+    document.documentElement.lang = lang;
+    document.querySelector('h1').textContent = v.title;
+    document.querySelector('h1 + p').textContent = v.text;
+    const home = document.querySelector('[data-nf="home"]');
+    home.textContent = v.home; home.href = v.homeHref;
+    const articles = document.querySelector('[data-nf="articles"]');
+    articles.textContent = v.articles; articles.href = v.articlesHref;
+  }
+</script>

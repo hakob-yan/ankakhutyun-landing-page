@@ -11,7 +11,7 @@ export default function Faq({ items }: Props) {
         <Accordion.Item
           key={i}
           value={`item-${i}`}
-          className="overflow-hidden rounded-[20px] bg-white transition-shadow data-[state=open]:shadow-lg"
+          className="overflow-hidden rounded-card bg-white transition-shadow data-[state=open]:shadow-lg"
         >
           <Accordion.Header>
             <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-lg font-semibold sm:px-8">

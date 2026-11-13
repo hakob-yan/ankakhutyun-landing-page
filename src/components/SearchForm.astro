@@ -1,0 +1,12 @@
+---
+import { localizePath, useTranslations, type Language } from '@/i18n';
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang).blog;
+---
+
+<form action={localizePath('/articles/search', lang)} method="get" class="mx-auto mt-8 flex max-w-xl gap-2 rounded-full bg-white p-2 shadow-lg">
+  <label for="q" class="sr-only">{t.searchLabel}</label>
+  <input id="q" name="q" type="search" placeholder={t.searchPlaceholder} class="w-full rounded-full bg-transparent px-5 outline-none" />
+  <button class="btn-primary !py-3" type="submit">{t.searchButton}</button>
+</form>

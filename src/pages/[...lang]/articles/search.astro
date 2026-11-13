@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SearchForm from '@/components/SearchForm.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import { getArticles } from '@/lib/articles';
+import { articlesPath } from '@/data/site';
+import { languagePaths, useTranslations, type Language } from '@/i18n';
+
+// Static search page: every article is rendered, and a small script filters them by ?q=…
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as { lang: Language };
+const t = useTranslations(lang);
+const articles = await getArticles(lang);
+---
+
+<BaseLayout lang={lang} path="/articles/search" title={t.blog.searchTitle} description={t.blog.description}>
+  <PageHero eyebrow={t.blog.eyebrow} title={t.blog.searchTitle} subtitle={t.blog.subtitle}>
+    <SearchForm lang={lang} />
+  </PageHero>
+
+  <section class="container-x py-16 pb-40 lg:py-24 lg:pb-44" data-search-root data-results-template={t.blog.results} data-locale={lang}>
+    <p class="mb-8 text-ink/70" data-search-summary hidden></p>
+    <div class="rounded-card bg-cream p-12 text-center" data-search-empty hidden>
+      <p class="text-xl font-semibold">{t.blog.notFound}</p>
+      <a href={articlesPath(lang)} class="btn-primary mt-6">{t.blog.seeAll}</a>
+    </div>
+    <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+      {articles.map((a) => (
+        <div data-search-item data-search-text={`${a.data.title} ${a.data.description}`}>
+          <ArticleCard article={a} />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-search-root]');
+  if (root) {
+    const locale = root.dataset.locale;
+    const q = (new URLSearchParams(location.search).get('q') ?? '').trim();
+    const input = document.querySelector<HTMLInputElement>('#q');
+    if (input) input.value = q;
+    if (q) {
+      const needle = q.toLocaleLowerCase(locale);
+      let count = 0;
+      root.querySelectorAll<HTMLElement>('[data-search-item]').forEach((item) => {
+        const match = (item.dataset.searchText ?? '').toLocaleLowerCase(locale).includes(needle);
+        item.hidden = !match;
+        if (match) count++;
+      });
+      const summary = root.querySelector<HTMLElement>('[data-search-summary]')!;
+      summary.textContent = (root.dataset.resultsTemplate ?? '').replace('{q}', q).replace('{n}', String(count));
+      summary.hidden = false;
+      root.querySelector<HTMLElement>('[data-search-empty]')!.hidden = count > 0;
+    }
+  }
+</script>

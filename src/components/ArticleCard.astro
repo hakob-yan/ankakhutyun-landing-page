@@ -1,22 +1,25 @@
 ---
-import { articleUrl, formatDate, type Article } from '@/lib/articles';
+import { articleLang, articleUrl, formatDate, type Article } from '@/lib/articles';
 import { categoryLabel } from '@/data/site';
+import { useTranslations } from '@/i18n';
 interface Props { article: Article; large?: boolean }
 const { article, large = false } = Astro.props;
 const { title, description, date, category, image } = article.data;
+const lang = articleLang(article);
+const t = useTranslations(lang);
 ---
 
 <article class:list={['group', large && 'md:col-span-2 md:grid md:grid-cols-2 md:items-center md:gap-10']}>
-  <a href={articleUrl(article)} class="relative block aspect-[4/3] overflow-hidden rounded-[20px]">
+  <a href={articleUrl(article)} class="relative block aspect-[4/3] overflow-hidden rounded-card">
     <img src={image} alt="" loading="lazy" class="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
-    <span class="absolute top-4 left-4 rounded-full bg-brand px-3 py-1 text-xs font-semibold">{categoryLabel(category)}</span>
+    <span class="absolute top-4 left-4 rounded-full bg-brand px-3 py-1 text-xs font-semibold">{categoryLabel(category, lang)}</span>
   </a>
   <div class:list={[large ? 'mt-5 md:mt-0' : 'mt-5']}>
-    <time datetime={date.toISOString()} class="text-sm text-ink/60">{formatDate(date)}</time>
+    <time datetime={date.toISOString()} class="text-sm text-ink/60">{formatDate(date, lang)}</time>
     <h3 class:list={['mt-2 font-bold', large ? 'text-2xl lg:text-4xl' : 'text-xl']}>
       <a href={articleUrl(article)} class="transition-colors hover:text-ink/70">{title}</a>
     </h3>
     <p class="mt-3 line-clamp-3 text-ink/70">{description}</p>
-    <a href={articleUrl(article)} class="link-arrow mt-4 text-sm">Կարդալ ավելին</a>
+    <a href={articleUrl(article)} class="link-arrow mt-4 text-sm">{t.common.readMore}</a>
   </div>
 </article>

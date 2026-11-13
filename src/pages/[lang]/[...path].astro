@@ -1,9 +1,0 @@
----
-import { getLanguage } from '@/data/site';
-const language = getLanguage(Astro.url.pathname);
-if (language === 'hy') return Astro.redirect('/');
-const rest = Astro.params.path ?? '';
-if (!rest || rest === 'index') return Astro.redirect(`/${language}`);
-const target = `/${rest}${Astro.url.search}`;
-return Astro.rewrite(target);
----

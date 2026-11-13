@@ -2,12 +2,15 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { ChevronDown } from 'lucide-react';
 import type { NavItem } from '@/data/site';
 
-type Props = { items: NavItem[]; currentPath: string };
+type Props = { items: NavItem[]; currentPath: string; homePath: string };
 
 /** Desktop dropdown menu (keyboard accessible, powered by Radix NavigationMenu). */
-export default function DesktopNav({ items, currentPath }: Props) {
-  const isActive = (href: string) =>
-    href === '/' ? currentPath === '/' : currentPath.startsWith(href.split(/[?#]/)[0]) && href.split(/[?#]/)[0] !== '/';
+export default function DesktopNav({ items, currentPath, homePath }: Props) {
+  const isActive = (href: string) => {
+    if (href === homePath) return currentPath === homePath;
+    const base = href.split(/[?#]/)[0];
+    return base !== homePath && currentPath.startsWith(base);
+  };
 
   const linkCls = (active: boolean) =>
     `group relative inline-flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-ink transition-colors hover:text-ink/70 ${
@@ -28,7 +31,7 @@ export default function DesktopNav({ items, currentPath }: Props) {
                 />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className="absolute top-full left-0 z-50 pt-3 data-[motion^=from-]:animate-fade-up">
-                <ul className="min-w-60 rounded-[20px] bg-white p-3 shadow-xl ring-1 ring-black/5">
+                <ul className="min-w-60 rounded-card bg-white p-3 shadow-xl ring-1 ring-black/5">
                   {item.children.map((child) => (
                     <li key={child.href}>
                       <NavigationMenu.Link

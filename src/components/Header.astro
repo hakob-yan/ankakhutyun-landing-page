@@ -2,23 +2,42 @@
 import Logo from './Logo.astro';
 import DesktopNav from './react/DesktopNav';
 import MobileNav from './react/MobileNav';
-import { nav, site, languages, getLanguage, localizedPath } from '@/data/site';
-const language = Astro.locals.language ?? getLanguage(Astro.url.pathname);
+import { getNav } from '@/data/site';
+import { languages, languageLabels, localizePath, useTranslations, type Language } from '@/i18n';
+
+interface Props { lang: Language; path: string }
+const { lang, path } = Astro.props;
+const t = useTranslations(lang);
+const nav = getNav(lang);
 ---
 
 <header id="site-header" class="sticky top-0 z-40 bg-white/0 transition-all duration-300">
   <div class="container-x flex h-20 items-center justify-between gap-6 lg:h-24">
-    <Logo />
-    <nav class="hidden lg:block" aria-label="Գլխավոր մենյու">
-      <DesktopNav client:load items={nav} currentPath={Astro.url.pathname} />
+    <Logo lang={lang} />
+    <nav class="hidden lg:block" aria-label={t.common.mainMenu}>
+      <DesktopNav client:load items={nav} currentPath={localizePath(path, lang)} homePath={localizePath('/', lang)} />
     </nav>
     <div class="flex items-center gap-3">
-      <nav aria-label="Language" class="flex items-center gap-1 text-xs font-semibold">
-        {languages.map((item) => <a href={localizedPath(Astro.url.pathname, item.code)} lang={item.code} aria-current={language === item.code ? 'page' : undefined} class:list={['rounded-full px-2 py-1 transition-colors', language === item.code ? 'bg-brand text-ink' : 'text-ink/60 hover:text-ink']}>{item.label}</a>)}
+      <nav aria-label={t.common.language} class="flex items-center gap-1 text-xs font-semibold">
+        {languages.map((code) => (
+          <a
+            href={localizePath(path, code)}
+            lang={code}
+            hreflang={code}
+            aria-current={lang === code ? 'page' : undefined}
+            class:list={['rounded-full px-2 py-1 transition-colors', lang === code ? 'bg-brand text-ink' : 'text-ink/60 hover:text-ink']}
+          >{languageLabels[code]}</a>
+        ))}
       </nav>
-      <a href="/#support" class="btn-primary hidden !py-3 sm:inline-flex">Աջակցել</a>
+      <a href={localizePath('/#support', lang)} class="btn-primary hidden !py-3 sm:inline-flex">{t.common.donate}</a>
       <div class="lg:hidden">
-        <MobileNav client:idle items={nav} siteName={site.name} />
+        <MobileNav
+          client:idle
+          items={nav}
+          siteName={t.siteName}
+          donate={{ label: t.common.donate, href: localizePath('/#support', lang) }}
+          labels={{ open: t.common.openMenu, close: t.common.closeMenu, description: t.common.siteNavigation }}
+        />
       </div>
     </div>
   </div>

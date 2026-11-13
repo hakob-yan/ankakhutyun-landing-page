@@ -2,7 +2,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 
-export type CarouselArticle = {
+type CarouselArticle = {
   href: string;
   title: string;
   date: string;
@@ -11,7 +11,9 @@ export type CarouselArticle = {
 };
 
 /** Swipeable article slider (Embla). */
-export default function ArticleCarousel({ articles }: { articles: CarouselArticle[] }) {
+type Labels = { readMore: string; previous: string; next: string };
+
+export default function ArticleCarousel({ articles, labels }: { articles: CarouselArticle[]; labels: Labels }) {
   const [emblaRef, embla] = useEmblaCarousel({ align: 'start', loop: false });
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -38,7 +40,7 @@ export default function ArticleCarousel({ articles }: { articles: CarouselArticl
           {articles.map((a) => (
             <article key={a.href} className="min-w-0 shrink-0 grow-0 basis-full pl-6 sm:basis-1/2 lg:basis-1/3">
               <a href={a.href} className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[20px]">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-card">
                   <img
                     src={a.image}
                     alt=""
@@ -51,17 +53,17 @@ export default function ArticleCarousel({ articles }: { articles: CarouselArticl
                 </div>
                 <h3 className="mt-5 text-xl font-bold transition-colors group-hover:text-ink/70">{a.title}</h3>
                 <p className="mt-2 text-sm text-ink/60">{a.date}</p>
-                <span className="link-arrow mt-4 text-sm">Կարդալ ավելին</span>
+                <span className="link-arrow mt-4 text-sm">{labels.readMore}</span>
               </a>
             </article>
           ))}
         </div>
       </div>
       <div className="mt-8 flex gap-3">
-        <button type="button" className={btn} onClick={() => embla?.scrollPrev()} disabled={!canPrev} aria-label="Նախորդը">
+        <button type="button" className={btn} onClick={() => embla?.scrollPrev()} disabled={!canPrev} aria-label={labels.previous}>
           <ArrowLeft className="size-5" />
         </button>
-        <button type="button" className={btn} onClick={() => embla?.scrollNext()} disabled={!canNext} aria-label="Հաջորդը">
+        <button type="button" className={btn} onClick={() => embla?.scrollNext()} disabled={!canNext} aria-label={labels.next}>
           <ArrowRight className="size-5" />
         </button>
       </div>

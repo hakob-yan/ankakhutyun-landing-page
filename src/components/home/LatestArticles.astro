@@ -1,18 +1,23 @@
 ---
 import ArticleCarousel from '../react/ArticleCarousel';
 import { getArticles, toCard } from '@/lib/articles';
-const articles = (await getArticles()).slice(0, 6).map(toCard);
+import { articlesPath } from '@/data/site';
+import { useTranslations, type Language } from '@/i18n';
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const articles = (await getArticles(lang)).slice(0, 6).map(toCard);
 ---
 
 <section id="news" class="bg-cream-light py-20 lg:py-28">
   <div class="container-x">
     <div class="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
       <div>
-        <p class="eyebrow">հոդվածներ</p>
-        <h2 class="section-title">Վերջին հոդվածները</h2>
+        <p class="eyebrow">{t.latest.eyebrow}</p>
+        <h2 class="section-title">{t.latest.title}</h2>
       </div>
-      <a href="/articles" class="btn-outline shrink-0">Բոլոր հոդվածները</a>
+      <a href={articlesPath(lang)} class="btn-outline shrink-0">{t.latest.all}</a>
     </div>
-    <ArticleCarousel client:visible articles={articles} />
+    <ArticleCarousel client:visible articles={articles} labels={t.common} />
   </div>
 </section>

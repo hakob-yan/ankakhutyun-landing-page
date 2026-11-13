@@ -1,0 +1,92 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SearchForm from '@/components/SearchForm.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import { getArticles, type Article } from '@/lib/articles';
+import { articlesPath, categoryLabel, categorySlugs } from '@/data/site';
+import { languages, langParam, stripLanguage, useTranslations, type Language } from '@/i18n';
+
+// Pre-builds every list page for every language:
+//   /articles, /articles/page/2, /articles/category/history, /articles/category/history/page/2 …
+export const getStaticPaths = (async () => {
+  const PAGE_SIZE = 6; // must live inside getStaticPaths (it runs in isolation)
+  const paths = [];
+  for (const lang of languages) {
+    const all = await getArticles(lang);
+    for (const category of [undefined, ...categorySlugs]) {
+      const list = category ? all.filter((a) => a.data.category === category) : all;
+      const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+      for (let page = 1; page <= totalPages; page++) {
+        const path = stripLanguage(articlesPath(lang, category, page)).replace(/^\/articles\/?/, '') || undefined;
+        paths.push({
+          params: { lang: langParam(lang), path },
+          props: { lang, category, page, totalPages, items: list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE) },
+        });
+      }
+    }
+  }
+  return paths;
+}) satisfies GetStaticPaths;
+
+interface Props {
+  lang: Language;
+  category?: string;
+  page: number;
+  totalPages: number;
+  items: Article[];
+}
+const { lang, category, page, totalPages, items } = Astro.props;
+const t = useTranslations(lang);
+
+// the newest article is shown large on the first page of "All"
+const featured = page === 1 && !category ? items[0] : undefined;
+const rest = featured ? items.slice(1) : items;
+
+const pill = (active: boolean) =>
+  `rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${active ? 'bg-ink text-white' : 'bg-white text-ink hover:bg-brand'}`;
+---
+
+<BaseLayout
+  lang={lang}
+  path={stripLanguage(articlesPath(lang, category, page))}
+  title={category ? `${categoryLabel(category, lang)} — ${t.blog.title}` : t.blog.title}
+  description={t.blog.description}
+>
+  <PageHero eyebrow={t.blog.eyebrow} title={category ? categoryLabel(category, lang) : t.blog.title} subtitle={t.blog.subtitle}>
+    <SearchForm lang={lang} />
+    <nav class="mt-8 flex flex-wrap justify-center gap-2" aria-label={t.blog.categoriesLabel}>
+      <a href={articlesPath(lang)} class={pill(!category)}>{t.blog.all}</a>
+      {categorySlugs.map((slug) => (
+        <a href={articlesPath(lang, slug)} class={pill(category === slug)}>{categoryLabel(slug, lang)}</a>
+      ))}
+    </nav>
+  </PageHero>
+
+  <section class="container-x py-16 pb-40 lg:py-24 lg:pb-44">
+    {items.length === 0 ? (
+      <div class="rounded-card bg-cream p-12 text-center">
+        <p class="text-xl font-semibold">{t.blog.notFound}</p>
+        <a href={articlesPath(lang)} class="btn-primary mt-6">{t.blog.seeAll}</a>
+      </div>
+    ) : (
+      <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+        {featured && <div class="md:col-span-2 lg:col-span-3"><ArticleCard article={featured} large /></div>}
+        {rest.map((a) => <ArticleCard article={a} />)}
+      </div>
+    )}
+
+    {totalPages > 1 && (
+      <nav class="mt-16 flex justify-center gap-2" aria-label={t.blog.pagination}>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+          <a
+            href={articlesPath(lang, category, n)}
+            aria-current={n === page ? 'page' : undefined}
+            class:list={['flex size-12 items-center justify-center rounded-full font-semibold transition-colors', n === page ? 'bg-ink text-white' : 'bg-cream hover:bg-brand']}
+          >{n}</a>
+        ))}
+      </nav>
+    )}
+  </section>
+</BaseLayout>

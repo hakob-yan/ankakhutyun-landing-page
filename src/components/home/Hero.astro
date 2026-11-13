@@ -1,6 +1,10 @@
 ---
 import Counter from '../react/Counter';
-import { images, stats } from '@/data/site';
+import { images, stats, articlesPath } from '@/data/site';
+import { useTranslations, type Language } from '@/i18n';
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section class="relative -mt-20 overflow-hidden bg-cream pt-28 lg:-mt-24 lg:pt-36">
@@ -8,26 +12,26 @@ import { images, stats } from '@/data/site';
 
   <div class="container-x relative grid items-center gap-12 pb-16 lg:grid-cols-2 lg:pb-24">
     <div class="animate-fade-up">
-      <p class="eyebrow">Անկախության սերունդ</p>
+      <p class="eyebrow">{t.hero.eyebrow}</p>
       <h1 class="text-4xl sm:text-5xl lg:text-[64px] lg:leading-[1.05]">
-        Մեր պատմությունը սկսվում է <span class="relative whitespace-nowrap">
-          <span class="relative z-10">այսօր</span>
+        {t.hero.titleStart} <span class="relative whitespace-nowrap">
+          <span class="relative z-10">{t.hero.titleHighlight}</span>
           <span class="absolute inset-x-0 bottom-1 -z-0 h-4 rounded-full bg-brand" aria-hidden="true"></span>
         </span>
       </h1>
       <p class="mt-6 max-w-lg text-lg text-ink/75">
-        Հոդվածներ, հուշեր և նախաձեռնություններ այն սերնդի մասին, որը ծնվել և մեծացել է անկախ Հայաստանում։
+        {t.hero.text}
       </p>
       <div class="mt-9 flex flex-wrap gap-4">
-        <a href="/articles" class="btn-primary">Կարդալ հոդվածները</a>
-        <a href="#about" class="btn-outline">Մեր մասին</a>
+        <a href={articlesPath(lang)} class="btn-primary">{t.hero.ctaArticles}</a>
+        <a href="#about" class="btn-outline">{t.hero.ctaAbout}</a>
       </div>
     </div>
 
     <div class="relative mx-auto w-full max-w-xl">
       <img src={images.sun} alt="" aria-hidden="true" class="absolute -top-10 -right-4 z-10 w-28 animate-[spin_30s_linear_infinite] sm:w-32" />
-      <div class="overflow-hidden rounded-[20px] shadow-2xl">
-        <img src={images.hero} alt="Երիտասարդներ" class="aspect-[5/4] w-full object-cover" fetchpriority="high" />
+      <div class="overflow-hidden rounded-card shadow-2xl">
+        <img src={images.hero} alt={t.hero.imageAlt} class="aspect-[5/4] w-full object-cover" fetchpriority="high" />
       </div>
       <img src={images.kid} alt="" aria-hidden="true" class="absolute -bottom-10 -left-6 z-10 w-24 sm:w-28" />
     </div>
@@ -35,10 +39,10 @@ import { images, stats } from '@/data/site';
 
   <!-- Stats / counters -->
   <div class="container-x relative pb-20">
-    <dl class="grid gap-6 rounded-[20px] bg-white p-8 shadow-lg sm:grid-cols-3 sm:p-10">
-      {stats.map((s) => (
+    <dl class="grid gap-6 rounded-card bg-white p-8 shadow-lg sm:grid-cols-3 sm:p-10">
+      {stats.map((s, i) => (
         <div class="flex flex-col border-ink/10 sm:border-r sm:last:border-r-0 sm:px-6 first:sm:pl-0">
-          <dt class="order-2 mt-2 text-ink/70">{s.label}</dt>
+          <dt class="order-2 mt-2 text-ink/70">{t.stats[i]}</dt>
           <dd class="text-4xl font-bold lg:text-5xl">
             <Counter client:visible end={s.value} suffix={s.suffix} />
           </dd>
