@@ -1,5 +1,7 @@
 ---
 import Counter from '../react/Counter';
+import HeroDonate from '../react/HeroDonate';
+import { localizePath } from '@/i18n';
 import { images, stats, articlesPath } from '@/data/site';
 import { useTranslations, type Language } from '@/i18n';
 interface Props { lang: Language }
@@ -25,6 +27,7 @@ const t = useTranslations(lang);
       <div class="mt-9 flex flex-wrap gap-4">
         <a href={articlesPath(lang)} class="btn-primary">{t.hero.ctaArticles}</a>
         <a href="#about" class="btn-outline">{t.hero.ctaAbout}</a>
+        <HeroDonate client:load label={t.common.donate} href={localizePath('/#support', lang)} />
       </div>
     </div>
 
