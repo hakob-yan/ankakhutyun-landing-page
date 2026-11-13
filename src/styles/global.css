@@ -11,15 +11,23 @@
 @import '@fontsource/noto-sans-armenian/600.css';
 @import '@fontsource/noto-sans-armenian/700.css';
 
-/* Design tokens taken from the reference theme's global palette */
+/*
+ * Brand palette: deep steel navy (primary) + warm amber (orange-yellow highlight).
+ * Contrast: white on brand 11.5:1, ink on accent 8:1, brand text on white 11.5:1 (all WCAG AA).
+ * Rules of thumb: WHITE text on navy, INK text on amber; hovers go WHITE + colored border.
+ */
 @theme {
   --font-sans: 'Poppins', 'Noto Sans Armenian', ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand: #fec415;       /* accent 1 – yellow */
-  --color-brand-soft: #fee8b5;  /* accent 2 – pale yellow */
-  --color-cream: #f8f5ef;       /* accent 4 – section background */
-  --color-cream-light: #fcf8f1; /* accent 8 */
-  --color-ink: #1d1c1c;         /* accent 6 – text, dark buttons */
+  --color-brand: #1e3a5f;       /* primary navy: section labels, active states, solid surfaces */
+  --color-brand-dark: #152b47;  /* deeper navy for gradients */
+  --color-brand-soft: #e9eef5;  /* light navy-grey backgrounds */
+  --color-accent: #f59e0b;      /* amber: main call-to-action buttons, badges, highlights */
+  --color-accent-dark: #d98a06; /* deeper amber: underline hover */
+  --color-accent-soft: #fef3d9; /* light amber backgrounds */
+  --color-cream: #fdf7ec;       /* warm section background */
+  --color-cream-light: #f6f8fb; /* cool section background */
+  --color-ink: #0f1f33;         /* text, dark buttons, footer */
 
   --radius-card: 20px;
 
@@ -33,6 +41,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+  }
+  ::selection {
+    @apply bg-accent text-ink;
   }
   body {
     @apply bg-white font-sans text-base leading-relaxed text-ink antialiased;
@@ -49,10 +60,10 @@
 
 /* Small uppercase label above section titles ("who we are", "events" …) */
 @utility eyebrow {
-  @apply mb-3 inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-ink uppercase;
+  @apply mb-3 inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-brand uppercase;
   &::before {
     content: '';
-    @apply inline-block h-2.5 w-2.5 rounded-full bg-brand;
+    @apply inline-block h-2.5 w-2.5 rounded-full bg-accent;
   }
 }
 
@@ -60,26 +71,26 @@
   @apply text-3xl sm:text-4xl lg:text-[50px] lg:leading-[1.1];
 }
 
-/* Buttons — yellow pill that turns dark on hover, like the reference */
+/* Buttons: brand-colored pills; on hover they turn white, keep a colored border and lift slightly */
 @utility btn {
-  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border-2 px-7 py-3.5 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:hover:translate-y-0 disabled:hover:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50;
 }
 @utility btn-primary {
-  @apply btn bg-brand text-ink hover:bg-ink hover:text-white;
+  @apply btn border-accent bg-accent text-ink hover:bg-white;
 }
 @utility btn-dark {
-  @apply btn bg-ink text-white hover:bg-brand hover:text-ink;
+  @apply btn border-ink bg-ink text-white hover:bg-white hover:text-ink;
 }
 @utility btn-outline {
-  @apply btn border-2 border-ink bg-transparent text-ink hover:bg-ink hover:text-white;
+  @apply btn border-ink bg-transparent text-ink hover:border-accent hover:bg-white;
 }
 @utility btn-white {
-  @apply btn bg-white text-ink hover:bg-ink hover:text-white;
+  @apply btn border-white bg-white text-ink hover:border-accent;
 }
 
 /* Underlined text link */
 @utility link-arrow {
-  @apply inline-flex items-center gap-2 border-b-2 border-brand pb-0.5 font-semibold transition-colors hover:border-ink;
+  @apply inline-flex items-center gap-2 border-b-2 border-accent pb-0.5 font-semibold transition-colors hover:border-accent-dark;
 }
 
 /* Radix Accordion smooth open/close */

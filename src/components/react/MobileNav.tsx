@@ -16,7 +16,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
     <Dialog.Root>
       <Dialog.Trigger
         aria-label={labels.open}
-        className="inline-flex size-11 items-center justify-center rounded-full bg-ink text-white transition-colors hover:bg-brand hover:text-ink"
+        className="inline-flex size-11 items-center justify-center rounded-full border-2 border-ink bg-ink text-white transition-colors hover:bg-white hover:text-ink"
       >
         <Menu className="size-5" />
       </Dialog.Trigger>
@@ -27,7 +27,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
             <Dialog.Title className="text-lg font-bold">{siteName}</Dialog.Title>
             <Dialog.Close
               aria-label={labels.close}
-              className="inline-flex size-10 items-center justify-center rounded-full bg-cream hover:bg-brand"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-cream transition-colors hover:bg-accent"
             >
               <X className="size-5" />
             </Dialog.Close>
@@ -46,7 +46,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                   </Accordion.Header>
                   <Accordion.Content className="pb-3">
                     {item.children.map((c) => (
-                      <a key={c.href} href={c.href} className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-cream">
+                      <a key={c.href} href={c.href} className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-accent-soft">
                         {c.label}
                       </a>
                     ))}

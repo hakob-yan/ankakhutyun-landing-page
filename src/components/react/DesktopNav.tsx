@@ -13,8 +13,8 @@ export default function DesktopNav({ items, currentPath, homePath }: Props) {
   };
 
   const linkCls = (active: boolean) =>
-    `group relative inline-flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-ink transition-colors hover:text-ink/70 ${
-      active ? 'after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-ink' : ''
+    `group relative inline-flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-ink after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100 data-[state=open]:after:scale-x-100 ${
+      active ? 'after:scale-x-100' : 'after:scale-x-0'
     }`;
 
   return (
@@ -36,7 +36,7 @@ export default function DesktopNav({ items, currentPath, homePath }: Props) {
                     <li key={child.href}>
                       <NavigationMenu.Link
                         href={child.href}
-                        className="block rounded-xl px-4 py-2.5 text-[15px] text-ink transition-colors hover:bg-cream"
+                        className="block rounded-xl px-4 py-2.5 text-[15px] text-ink transition-colors hover:bg-accent-soft"
                       >
                         {child.label}
                       </NavigationMenu.Link>

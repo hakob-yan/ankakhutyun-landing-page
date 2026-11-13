@@ -31,7 +31,7 @@ export default function ArticleCarousel({ articles, labels }: { articles: Carous
   }, [embla, update]);
 
   const btn =
-    'inline-flex size-12 items-center justify-center rounded-full border-2 border-ink transition-colors hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30';
+    'inline-flex size-12 items-center justify-center rounded-full border-2 border-ink transition-all hover:border-accent hover:bg-white hover:shadow-md disabled:pointer-events-none disabled:opacity-30';
 
   return (
     <div>
@@ -47,11 +47,11 @@ export default function ArticleCarousel({ articles, labels }: { articles: Carous
                     loading="lazy"
                     className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <span className="absolute top-4 left-4 rounded-full bg-brand px-3 py-1 text-xs font-semibold">
+                  <span className="absolute top-4 left-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
                     {a.category}
                   </span>
                 </div>
-                <h3 className="mt-5 text-xl font-bold transition-colors group-hover:text-ink/70">{a.title}</h3>
+                <h3 className="mt-5 text-xl font-bold decoration-accent decoration-2 underline-offset-4 group-hover:underline">{a.title}</h3>
                 <p className="mt-2 text-sm text-ink/60">{a.date}</p>
                 <span className="link-arrow mt-4 text-sm">{labels.readMore}</span>
               </a>

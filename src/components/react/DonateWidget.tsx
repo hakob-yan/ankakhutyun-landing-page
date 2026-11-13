@@ -44,8 +44,8 @@ export default function DonateWidget({ labels: t, locale }: { labels: Labels; lo
         <span>{t.raised} {fmt(RAISED)}</span>
         <span className="text-ink/60">{t.goal} {fmt(GOAL)}</span>
       </div>
-      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-cream" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-        <div className="h-full rounded-full bg-brand transition-all" style={{ width: `${pct}%` }} />
+      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-brand-soft" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
+        <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${pct}%` }} />
       </div>
 
       <fieldset className="mt-6">
@@ -60,7 +60,7 @@ export default function DonateWidget({ labels: t, locale }: { labels: Labels; lo
                 setAmount(a);
                 setCustom('');
               }}
-              className="rounded-full border-2 border-ink/15 px-3 py-2.5 text-sm font-semibold transition-colors hover:border-ink aria-pressed:border-brand aria-pressed:bg-brand"
+              className="rounded-full border-2 border-ink/15 px-3 py-2.5 text-sm font-semibold transition-colors hover:border-ink aria-pressed:border-brand aria-pressed:bg-brand aria-pressed:text-white"
             >
               {fmt(a)}
             </button>

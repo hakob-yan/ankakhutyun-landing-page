@@ -13,14 +13,14 @@ const year = new Date().getFullYear();
 <footer id="contact" class="relative">
   <!-- "Make a difference" call to action band -->
   <section class="container-x relative z-10 -mb-24">
-    <div class="relative overflow-hidden rounded-card bg-brand px-6 py-14 sm:px-14">
+    <div class="relative overflow-hidden rounded-card bg-linear-to-br from-brand to-brand-dark px-6 py-14 text-white sm:px-14">
       <img src={images.shape} alt="" aria-hidden="true" class="pointer-events-none absolute -right-10 -bottom-10 w-72 opacity-60" />
       <div class="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div>
-          <p class="eyebrow">{t.footer.ctaEyebrow}</p>
-          <h2 class="section-title">{t.footer.ctaTitle}</h2>
+          <p class="eyebrow text-white/90! before:bg-accent!">{t.footer.ctaEyebrow}</p>
+          <h2 class="section-title text-white">{t.footer.ctaTitle}</h2>
         </div>
-        <a href={localizePath('/#support', lang)} class="btn-dark shrink-0">{t.common.donate}</a>
+        <a href={localizePath('/#support', lang)} class="btn-primary shrink-0">{t.common.donate}</a>
       </div>
     </div>
   </section>
@@ -30,11 +30,18 @@ const year = new Date().getFullYear();
       <div>
         <Logo lang={lang} dark />
         <p class="mt-5 text-white/70">{t.tagline}</p>
-        <ul class="mt-6 flex gap-3">
+        <ul class="mt-6 flex flex-wrap gap-3">
           {contact.social.map((s) => (
             <li>
-              <a href={s.href} target="_blank" rel="noopener" class="inline-flex h-10 items-center rounded-full border border-white/20 px-4 text-sm transition-colors hover:border-brand hover:bg-brand hover:text-ink">
-                {s.label}
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                title={s.label}
+                class="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <svg viewBox="0 0 24 24" class="size-[18px]" fill="currentColor" aria-hidden="true"><path d={s.icon} /></svg>
               </a>
             </li>
           ))}
@@ -44,14 +51,14 @@ const year = new Date().getFullYear();
       <div>
         <h3 class="mb-5 text-lg text-white">{t.footer.navigation}</h3>
         <ul class="space-y-3 text-white/70">
-          {nav.map((n) => <li><a href={n.href} class="hover:text-brand">{n.label}</a></li>)}
+          {nav.map((n) => <li><a href={n.href} class="transition-colors hover:text-accent">{n.label}</a></li>)}
         </ul>
       </div>
 
       <div>
         <h3 class="mb-5 text-lg text-white">{t.footer.articles}</h3>
         <ul class="space-y-3 text-white/70">
-          {categorySlugs.map((slug) => <li><a href={articlesPath(lang, slug)} class="hover:text-brand">{categoryLabel(slug, lang)}</a></li>)}
+          {categorySlugs.map((slug) => <li><a href={articlesPath(lang, slug)} class="transition-colors hover:text-accent">{categoryLabel(slug, lang)}</a></li>)}
         </ul>
       </div>
 
@@ -59,15 +66,15 @@ const year = new Date().getFullYear();
         <h3 class="mb-5 text-lg text-white">{t.footer.contact}</h3>
         <ul class="space-y-3 text-white/70">
           <li>{t.address}</li>
-          <li><a href={`mailto:${contact.email}`} class="hover:text-brand">{contact.email}</a></li>
-          <li><a href={`tel:${contact.phone.replace(/\s/g, '')}`} class="hover:text-brand">{contact.phone}</a></li>
+          <li><a href={`mailto:${contact.email}`} class="transition-colors hover:text-accent">{contact.email}</a></li>
+          <li><a href={`tel:${contact.phone.replace(/\s/g, '')}`} class="transition-colors hover:text-accent">{contact.phone}</a></li>
         </ul>
       </div>
     </div>
 
     <div class="container-x mt-14 flex flex-col justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row">
       <p>{fill(t.footer.copyright, { year, name: t.siteName })}</p>
-      <p><a href={localizePath('/#faq', lang)} class="hover:text-brand">{t.faq.title}</a></p>
+      <p><a href={localizePath('/#faq', lang)} class="transition-colors hover:text-accent">{t.faq.title}</a></p>
     </div>
   </div>
 </footer>

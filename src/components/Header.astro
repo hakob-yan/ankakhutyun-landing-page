@@ -11,7 +11,7 @@ const t = useTranslations(lang);
 const nav = getNav(lang);
 ---
 
-<header id="site-header" class="sticky top-0 z-40 bg-white/0 transition-all duration-300">
+<header id="site-header" class="sticky top-0 z-40 transition-[background-color,box-shadow] duration-300 data-scrolled:bg-white data-scrolled:shadow-md">
   <div class="container-x flex h-20 items-center justify-between gap-6 lg:h-24">
     <Logo lang={lang} />
     <nav class="hidden lg:block" aria-label={t.common.mainMenu}>
@@ -25,7 +25,7 @@ const nav = getNav(lang);
             lang={code}
             hreflang={code}
             aria-current={lang === code ? 'page' : undefined}
-            class:list={['rounded-full px-2 py-1 transition-colors', lang === code ? 'bg-brand text-ink' : 'text-ink/60 hover:text-ink']}
+            class:list={['rounded-full px-2 py-1 transition-colors', lang === code ? 'bg-brand text-white' : 'text-ink/60 hover:bg-white hover:text-ink']}
           >{languageLabels[code]}</a>
         ))}
       </nav>
@@ -44,13 +44,9 @@ const nav = getNav(lang);
 </header>
 
 <script>
-  // add a white background + shadow once the page scrolls
+  // white background + shadow once the page scrolls (styled via data-scrolled:* classes)
   const header = document.getElementById('site-header');
-  const onScroll = () => {
-    const scrolled = window.scrollY > 20;
-    header?.classList.toggle('bg-white', scrolled);
-    header?.classList.toggle('shadow-md', scrolled);
-  };
+  const onScroll = () => header?.toggleAttribute('data-scrolled', window.scrollY > 20);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 </script>

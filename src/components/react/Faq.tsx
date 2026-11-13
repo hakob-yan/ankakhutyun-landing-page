@@ -16,7 +16,7 @@ export default function Faq({ items }: Props) {
           <Accordion.Header>
             <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-lg font-semibold sm:px-8">
               {item.q}
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand transition-all duration-300 group-data-[state=open]:rotate-45 group-data-[state=open]:bg-ink group-data-[state=open]:text-white">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent text-ink transition-all duration-300 group-data-[state=open]:rotate-45 group-data-[state=open]:bg-brand group-data-[state=open]:text-white">
                 <Plus className="size-5" />
               </span>
             </Accordion.Trigger>

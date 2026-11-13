@@ -22,7 +22,7 @@ const tiles = [
         <a href={t.href} class="group relative block aspect-[4/5] overflow-hidden rounded-card">
           <img src={t.image} alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
-          <span class="btn-white absolute inset-x-6 bottom-6 group-hover:bg-ink group-hover:text-white">{t.label}</span>
+          <span class="btn-white absolute inset-x-6 bottom-6 group-hover:border-accent">{t.label}</span>
         </a>
       ))}
     </div>

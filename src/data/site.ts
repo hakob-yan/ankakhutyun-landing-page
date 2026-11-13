@@ -6,6 +6,7 @@
  * (caridad.vamtam.com). These are licensed theme/stock (iStock) assets.
  * Replace each URL with your own photo before the site goes public.
  */
+import { siFacebook, siInstagram, siYoutube } from 'simple-icons';
 import { localizePath, useTranslations, type Language } from '@/i18n';
 
 const REF = 'https://caridad.vamtam.com/wp-content/uploads';
@@ -44,9 +45,10 @@ export const contact = {
   email: 'info@example.am',
   phone: '+374 00 000 000',
   social: [
-    { label: 'Facebook', href: 'https://facebook.com/' },
-    { label: 'Instagram', href: 'https://instagram.com/' },
-    { label: 'YouTube', href: 'https://youtube.com/' },
+    // `icon` is an SVG path from Simple Icons (https://simpleicons.org), 24×24 viewBox
+    { label: 'Facebook', href: 'https://facebook.com/', icon: siFacebook.path },
+    { label: 'Instagram', href: 'https://instagram.com/', icon: siInstagram.path },
+    { label: 'YouTube', href: 'https://youtube.com/', icon: siYoutube.path },
   ],
 };
 
