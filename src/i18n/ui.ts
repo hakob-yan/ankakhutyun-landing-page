@@ -48,13 +48,21 @@ const hy = {
   },
 
   hero: {
-    eyebrow: 'Անկախության սերունդ',
-    titleStart: 'Մեր պատմությունը սկսվում է',
-    titleHighlight: 'այսօր',
-    text: 'Հոդվածներ, հուշեր և նախաձեռնություններ այն սերնդի մասին, որը ծնվել և մեծացել է անկախ Հայաստանում։',
+    /** one entry per line */
+    title: ['Անկախության', 'սերունդ'],
+    subtitle: 'Միասին կերտենք ուժեղ և անկախ Հայաստան',
     ctaArticles: 'Կարդալ հոդվածները',
     ctaAbout: 'Մեր մասին',
-    imageAlt: 'Երիտասարդներ',
+    slideLabel: 'Սլայդ {n}՝ {total}-ից',
+    pause: 'Դադարեցնել սլայդները',
+    play: 'Միացնել սլայդները',
+    slides: [
+      'Ծրագրի մասնակիցները հավաստագրերով այգում',
+      'Երիտասարդների խումբը հայկական դրոշով դիտակետում',
+      'Թիմի անդամները ձյունապատ լեռների ֆոնին',
+      'Խումբը հայկական դրոշով լեռան գագաթին',
+      'Աշակերտները հավաստագրերով դպրոցի մոտ',
+    ],
   },
 
   stats: [
@@ -247,13 +255,21 @@ const en: Dictionary = {
   },
 
   hero: {
-    eyebrow: 'Generation of Independence',
-    titleStart: 'Our story begins',
-    titleHighlight: 'today',
-    text: 'Articles, memories, and initiatives about the generation born and raised in independent Armenia.',
+    /** one entry per line */
+    title: ['Generation of', 'Independence'],
+    subtitle: 'Together, let’s build a strong and independent Armenia',
     ctaArticles: 'Read articles',
     ctaAbout: 'About us',
-    imageAlt: 'Young people',
+    slideLabel: 'Slide {n} of {total}',
+    pause: 'Pause slideshow',
+    play: 'Play slideshow',
+    slides: [
+      'Programme participants holding their certificates in a park',
+      'A group of young people with the Armenian flag at a viewpoint',
+      'Team members in front of snowy mountains',
+      'A group with the Armenian flag on a mountain top',
+      'Students with their certificates outside a school',
+    ],
   },
 
   stats: [
@@ -444,13 +460,21 @@ const ru: Dictionary = {
   },
 
   hero: {
-    eyebrow: 'Поколение независимости',
-    titleStart: 'Наша история начинается',
-    titleHighlight: 'сегодня',
-    text: 'Статьи, воспоминания и инициативы о поколении, которое родилось и выросло в независимой Армении.',
+    /** one entry per line */
+    title: ['Поколение', 'независимости'],
+    subtitle: 'Вместе построим сильную и независимую Армению',
     ctaArticles: 'Читать статьи',
     ctaAbout: 'О нас',
-    imageAlt: 'Молодёжь',
+    slideLabel: 'Слайд {n} из {total}',
+    pause: 'Остановить слайд-шоу',
+    play: 'Запустить слайд-шоу',
+    slides: [
+      'Участники программы с сертификатами в парке',
+      'Группа молодёжи с армянским флагом на смотровой площадке',
+      'Члены команды на фоне заснеженных гор',
+      'Группа с армянским флагом на вершине горы',
+      'Школьники с сертификатами у школы',
+    ],
   },
 
   stats: [

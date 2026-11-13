@@ -4,7 +4,7 @@ interface Props { eyebrow?: string; title: string; subtitle?: string }
 const { eyebrow, title, subtitle } = Astro.props;
 ---
 
-<section class="relative -mt-20 overflow-hidden bg-cream pt-36 pb-16 lg:-mt-24 lg:pt-44 lg:pb-24">
+<section class="relative -mt-16 overflow-hidden bg-cream pt-32 pb-16 lg:-mt-[4.5rem] lg:pt-[9.5rem] lg:pb-24">
   <img src={images.headerBg} alt="" aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 w-full opacity-70" />
   <img src={images.sun} alt="" aria-hidden="true" class="pointer-events-none absolute right-8 bottom-6 hidden w-28 animate-[spin_30s_linear_infinite] md:block" />
   <div class="container-x relative max-w-4xl text-center">

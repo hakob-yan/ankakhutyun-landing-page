@@ -1,0 +1,14 @@
+---
+import HeroDonate from '../react/HeroDonate';
+import { articlesPath } from '@/data/site';
+import { localizePath, useTranslations, type Language } from '@/i18n';
+interface Props { lang: Language; class?: string; onPhoto?: boolean }
+const { lang, class: className, onPhoto = false } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class:list={['flex flex-wrap gap-3', className]}>
+  <a href={articlesPath(lang)} class="btn-primary">{t.hero.ctaArticles}</a>
+  <a href="#about" class:list={['btn-outline', onPhoto && 'border-white text-white hover:border-accent hover:text-ink']}>{t.hero.ctaAbout}</a>
+  <HeroDonate client:load label={t.common.donate} href={localizePath('/#support', lang)} />
+</div>

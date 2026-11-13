@@ -12,24 +12,24 @@ const nav = getNav(lang);
 ---
 
 <header id="site-header" class="sticky top-0 z-40 border-b-2 border-transparent transition-[background-color,box-shadow,border-color] duration-300 data-scrolled:border-accent-soft data-scrolled:bg-cream/85 data-scrolled:shadow-md data-scrolled:shadow-accent/10 data-scrolled:backdrop-blur-md">
-  <div class="container-x flex h-20 items-center justify-between gap-6 lg:h-24">
+  <div class="container-x flex h-16 items-center justify-between gap-2 sm:gap-6 lg:h-[4.5rem]">
     <Logo lang={lang} />
     <nav class="hidden lg:block" aria-label={t.common.mainMenu}>
       <DesktopNav client:load items={nav} currentPath={localizePath(path, lang)} homePath={localizePath('/', lang)} />
     </nav>
-    <div class="flex items-center gap-3">
-      <nav aria-label={t.common.language} class="flex items-center gap-1 text-xs font-semibold">
+    <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+      <nav aria-label={t.common.language} class="flex items-center gap-0.5 text-xs font-semibold sm:gap-1">
         {languages.map((code) => (
           <a
             href={localizePath(path, code)}
             lang={code}
             hreflang={code}
             aria-current={lang === code ? 'page' : undefined}
-            class:list={['rounded-full px-2 py-1 transition-colors', lang === code ? 'bg-accent text-ink' : 'text-ink/60 hover:bg-white hover:text-ink']}
+            class:list={['rounded-full px-1.5 py-1 transition-colors sm:px-2', lang === code ? 'bg-accent text-ink' : 'text-ink/60 hover:bg-white hover:text-ink']}
           >{languageLabels[code]}</a>
         ))}
       </nav>
-      <a id="header-donate" href={localizePath('/#support', lang)} class="btn-primary hidden !py-3 sm:inline-flex">{t.common.donate}</a>
+      <a id="header-donate" href={localizePath('/#support', lang)} class="btn-primary hidden !py-2 sm:inline-flex">{t.common.donate}</a>
       <div class="lg:hidden">
         <MobileNav
           client:idle

@@ -7,13 +7,20 @@
  * Replace each URL with your own photo before the site goes public.
  */
 import { localizePath, useTranslations, type Language } from '@/i18n';
+import hero1 from '@/assets/hero/01-first-pic.jpg';
+import hero2 from '@/assets/hero/02-second-pic.jpg';
+import hero3 from '@/assets/hero/03-third-pic.jpg';
+import hero4 from '@/assets/hero/04-fourth-pic.jpg';
+import hero5 from '@/assets/hero/05-fifth-pic.jpg';
+
+/** Home hero slider photos (own photos, optimized at build time). Alt texts: ui.hero.slides (same order). */
+export const heroSlides = [hero1, hero2, hero3, hero4, hero5];
 
 const REF = 'https://caridad.vamtam.com/wp-content/uploads';
 
 export const images = {
   // decorative shapes / doodles
   headerBg: `${REF}/2021/04/Group-header-1-1.svg`,
-  kid: `${REF}/2021/04/kid.svg`,
   sun: `${REF}/2021/04/sun-1.svg`,
   shape: `${REF}/2021/03/shape-01.svg`,
   dots: `${REF}/2021/04/Group-35.svg`,
@@ -21,7 +28,6 @@ export const images = {
   appleCard: `${REF}/2021/04/apple-vs-02.svg`,
 
   // photos
-  hero: `${REF}/2021/04/iStock-501227330-2.jpg`,
   help: `${REF}/2021/04/iStock-924659944.jpg`,
   involved1: `${REF}/2021/04/iStock-626891352.jpg`,
   involved2: `${REF}/2021/04/iStock-1286721700.jpg`,

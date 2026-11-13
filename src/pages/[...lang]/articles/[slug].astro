@@ -35,7 +35,7 @@ const shareUrl = encodeURIComponent(new URL(localizePath(`/articles/${slug}`, la
 
 <BaseLayout lang={lang} path={`/articles/${slug}`} title={title} description={description} image={image}>
   <article>
-    <header class="relative -mt-20 overflow-hidden bg-cream pt-36 pb-48 lg:-mt-24 lg:pt-44">
+    <header class="relative -mt-16 overflow-hidden bg-cream pt-32 pb-48 lg:-mt-[4.5rem] lg:pt-[9.5rem]">
       <img src={images.headerBg} alt="" aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 w-full opacity-70" />
       <div class="container-x relative max-w-4xl text-center">
         <a href={articlesPath(lang, category)} class="inline-block rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-ink ring-accent transition-colors hover:bg-white hover:ring-2">

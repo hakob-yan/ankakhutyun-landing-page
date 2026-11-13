@@ -5,9 +5,9 @@ const { lang, dark = false } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<a href={localizePath('/', lang)} class="group inline-flex items-center gap-3" aria-label={t.siteName}>
-  <img src="/logo_yellow_bg.svg" alt="" width="44" height="44" class="size-11 shrink-0 transition-transform duration-300 group-hover:rotate-6" />
-  <span class:list={['text-[17px] leading-tight font-bold', dark ? 'text-white' : 'text-ink']}>
+<a href={localizePath('/', lang)} class="group inline-flex min-w-0 items-center gap-2 sm:gap-3" aria-label={t.siteName}>
+  <img src="/logo_yellow_bg.svg" alt="" width="44" height="44" class="size-10 shrink-0 sm:size-11 transition-transform duration-300 group-hover:rotate-6" />
+  <span class:list={['text-sm leading-tight font-bold sm:text-[17px]', dark ? 'text-white' : 'text-ink']}>
     {t.logoLines[0]}<br />{t.logoLines[1]}
   </span>
 </a>
