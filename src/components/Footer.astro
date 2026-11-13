@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
-import { getNav, contact, categorySlugs, categoryLabel, articlesPath, images } from '@/data/site';
+import { getNav, categorySlugs, categoryLabel, articlesPath, images } from '@/data/site';
+import { EMAIL, EMAIL_HREF, PHONE, PHONE_HREF, SOCIAL_LINKS } from '@/data/contacts';
 import { fill, localizePath, useTranslations, type Language } from '@/i18n';
 
 interface Props { lang: Language }
@@ -31,7 +32,7 @@ const year = new Date().getFullYear();
         <Logo lang={lang} dark />
         <p class="mt-5 text-white/70">{t.tagline}</p>
         <ul class="mt-6 flex flex-wrap gap-3">
-          {contact.social.map((s) => (
+          {SOCIAL_LINKS.map((s) => (
             <li>
               <a
                 href={s.href}
@@ -66,8 +67,8 @@ const year = new Date().getFullYear();
         <h3 class="mb-5 text-lg text-white">{t.footer.contact}</h3>
         <ul class="space-y-3 text-white/70">
           <li>{t.address}</li>
-          <li><a href={`mailto:${contact.email}`} class="transition-colors hover:text-accent">{contact.email}</a></li>
-          <li><a href={`tel:${contact.phone.replace(/\s/g, '')}`} class="transition-colors hover:text-accent">{contact.phone}</a></li>
+          <li><a href={EMAIL_HREF} class="transition-colors hover:text-accent">{EMAIL}</a></li>
+          <li><a href={PHONE_HREF} class="transition-colors hover:text-accent">{PHONE}</a></li>
         </ul>
       </div>
     </div>

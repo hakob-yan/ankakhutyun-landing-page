@@ -1,12 +1,11 @@
 /**
- * Site-wide data that is not language-specific (images, contact info, links).
+ * Site-wide data that is not language-specific (images, navigation, stats). Contacts live in src/data/contacts.ts.
  * Translated text lives in src/i18n/ui.ts.
  *
  * IMAGES: for now every image is loaded from the reference demo site
  * (caridad.vamtam.com). These are licensed theme/stock (iStock) assets.
  * Replace each URL with your own photo before the site goes public.
  */
-import { siFacebook, siInstagram, siYoutube } from 'simple-icons';
 import { localizePath, useTranslations, type Language } from '@/i18n';
 
 const REF = 'https://caridad.vamtam.com/wp-content/uploads';
@@ -40,17 +39,6 @@ export const images = {
     `${REF}/2021/04/Skole.svg`,
   ],
 } as const;
-
-export const contact = {
-  email: 'info@example.am',
-  phone: '+374 00 000 000',
-  social: [
-    // `icon` is an SVG path from Simple Icons (https://simpleicons.org), 24×24 viewBox
-    { label: 'Facebook', href: 'https://facebook.com/', icon: siFacebook.path },
-    { label: 'Instagram', href: 'https://instagram.com/', icon: siInstagram.path },
-    { label: 'YouTube', href: 'https://youtube.com/', icon: siYoutube.path },
-  ],
-};
 
 export const categorySlugs = ['history', 'education', 'culture', 'society'] as const;
 type CategorySlug = (typeof categorySlugs)[number];
