@@ -12,22 +12,25 @@
 @import '@fontsource/noto-sans-armenian/700.css';
 
 /*
- * Brand palette: deep steel navy (primary) + warm amber (orange-yellow highlight).
- * Contrast: white on brand 11.5:1, ink on accent 8:1, brand text on white 11.5:1 (all WCAG AA).
- * Rules of thumb: WHITE text on navy, INK text on amber; hovers go WHITE + colored border.
+ * Brand palette, built on #ffffff #ff6700 #ff9340 #ffb589 #000000 #fff0e8.
+ * No black surfaces: solid blocks use the lighter oranges/peaches, text is a soft warm charcoal
+ * (a lighter take on #000000) instead of pure black.
+ * Contrast: ink on #ff6700 5.4:1, ink on #ff9340 6.8:1, ink on #fff0e8 14:1 (all WCAG AA).
+ * Rule of thumb: always INK text on orange/peach surfaces. Never white text on orange (fails contrast).
  */
 @theme {
   --font-sans: 'Poppins', 'Noto Sans Armenian', ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand: #1e3a5f;       /* primary navy: section labels, active states, solid surfaces */
-  --color-brand-dark: #152b47;  /* deeper navy for gradients */
-  --color-brand-soft: #e9eef5;  /* light navy-grey backgrounds */
-  --color-accent: #f59e0b;      /* amber: main call-to-action buttons, badges, highlights */
-  --color-accent-dark: #d98a06; /* deeper amber: underline hover */
-  --color-accent-soft: #fef3d9; /* light amber backgrounds */
-  --color-cream: #fdf7ec;       /* warm section background */
-  --color-cream-light: #f6f8fb; /* cool section background */
-  --color-ink: #0f1f33;         /* text, dark buttons, footer */
+  --color-brand: #ff9340;       /* light orange: solid surfaces (cards, banner) */
+  --color-brand-dark: #ffb589;  /* peach: gradient end */
+  --color-brand-soft: #fff0e8;  /* light peach backgrounds */
+  --color-accent: #ff6700;      /* orange: main call-to-action buttons, badges, highlights */
+  --color-accent-dark: #ff9340; /* lighter orange: underline hover */
+  --color-accent-soft: #ffb589; /* peach: hover highlights in menus */
+  --color-cream: #fff0e8;       /* light peach section background */
+  --color-cream-light: #fff0e8; /* light peach section background */
+  --color-ink: #33261d;         /* soft warm charcoal: all text */
+  --color-sand: #ffe2d1;        /* between #fff0e8 and #ffb589: footer background */
 
   --radius-card: 20px;
 
@@ -60,7 +63,7 @@
 
 /* Small uppercase label above section titles ("who we are", "events" …) */
 @utility eyebrow {
-  @apply mb-3 inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-brand uppercase;
+  @apply mb-3 inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-ink/80 uppercase;
   &::before {
     content: '';
     @apply inline-block h-2.5 w-2.5 rounded-full bg-accent;
@@ -78,8 +81,8 @@
 @utility btn-primary {
   @apply btn border-accent bg-accent text-ink hover:bg-white;
 }
-@utility btn-dark {
-  @apply btn border-ink bg-ink text-white hover:bg-white hover:text-ink;
+@utility btn-soft {
+  @apply btn border-accent-soft bg-accent-soft text-ink hover:border-accent hover:bg-white;
 }
 @utility btn-outline {
   @apply btn border-ink bg-transparent text-ink hover:border-accent hover:bg-white;

@@ -37,7 +37,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
             aria-label={labels.open}
             whileHover={{ scale: 1.08, rotate: -6 }}
             whileTap={{ scale: 0.9 }}
-            className="inline-flex size-11 items-center justify-center rounded-full border-2 border-ink bg-ink text-white transition-colors hover:bg-white hover:text-ink"
+            className="inline-flex size-11 items-center justify-center rounded-full border-2 border-accent bg-accent text-ink transition-colors hover:bg-white"
           >
             <Menu className="size-5" />
           </motion.button>
@@ -48,7 +48,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
             <Dialog.Portal forceMount>
               <Dialog.Overlay asChild forceMount>
                 <motion.div
-                  className="fixed inset-0 z-50 bg-ink/50 backdrop-blur-sm"
+                  className="fixed inset-0 z-50 bg-ink/30 backdrop-blur-sm"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -110,7 +110,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                           href={item.href}
                           variants={row}
                           whileTap={{ scale: 0.97 }}
-                          className="block py-4 text-lg font-semibold transition-colors hover:text-brand"
+                          className="block py-4 text-lg font-semibold transition-colors hover:text-accent"
                         >
                           {item.label}
                         </motion.a>

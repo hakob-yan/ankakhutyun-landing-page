@@ -60,7 +60,7 @@ export default function DonateWidget({ labels: t, locale }: { labels: Labels; lo
                 setAmount(a);
                 setCustom('');
               }}
-              className="rounded-full border-2 border-ink/15 px-3 py-2.5 text-sm font-semibold transition-colors hover:border-ink aria-pressed:border-brand aria-pressed:bg-brand aria-pressed:text-white"
+              className="rounded-full border-2 border-ink/15 px-3 py-2.5 text-sm font-semibold transition-colors hover:border-ink aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-ink"
             >
               {fmt(a)}
             </button>
@@ -89,7 +89,7 @@ export default function DonateWidget({ labels: t, locale }: { labels: Labels; lo
         <p className="font-semibold">
           {t.total} <span className="text-xl">{fmt(total)}</span>
         </p>
-        <button type="submit" className="btn-dark" disabled={total <= 0}>
+        <button type="submit" className="btn-soft" disabled={total <= 0}>
           {t.submit}
         </button>
       </div>

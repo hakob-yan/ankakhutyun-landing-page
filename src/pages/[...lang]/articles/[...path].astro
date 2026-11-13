@@ -45,7 +45,7 @@ const featured = page === 1 && !category ? items[0] : undefined;
 const rest = featured ? items.slice(1) : items;
 
 const pill = (active: boolean) =>
-  `rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${active ? 'bg-ink text-white' : 'bg-white text-ink ring-accent hover:ring-2'}`;
+  `rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${active ? 'bg-accent text-ink' : 'bg-white text-ink ring-accent hover:ring-2'}`;
 ---
 
 <BaseLayout
@@ -83,7 +83,7 @@ const pill = (active: boolean) =>
           <a
             href={articlesPath(lang, category, n)}
             aria-current={n === page ? 'page' : undefined}
-            class:list={['flex size-12 items-center justify-center rounded-full font-semibold transition-colors', n === page ? 'bg-ink text-white' : 'bg-cream ring-accent hover:bg-white hover:ring-2']}
+            class:list={['flex size-12 items-center justify-center rounded-full font-semibold transition-colors', n === page ? 'bg-accent text-ink' : 'bg-cream ring-accent hover:bg-white hover:ring-2']}
           >{n}</a>
         ))}
       </nav>

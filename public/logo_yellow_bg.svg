@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="336" height="336" viewBox="0 0 336 336">
   <!-- Rounded Background -->
-  <rect width="336" height="336" rx="64" ry="64" fill="rgb(245, 158, 11)"/>
+  <rect width="336" height="336" rx="64" ry="64" fill="#ff6700"/>
 
   <!-- Scaled & Centered Logo Paths (75% scale) -->
   <g transform="translate(168, 168) scale(0.75) translate(-168, -168)">
