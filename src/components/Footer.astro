@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { getNav, categorySlugs, categoryLabel, articlesPath, images } from '@/data/site';
-import { EMAIL, EMAIL_HREF, PHONE, PHONE_HREF, SOCIAL_LINKS } from '@/data/contacts';
+import { ADDRESS, ADDRESS_MAP_URL, EMAIL, EMAIL_HREF, PHONE, PHONE_HREF, SOCIAL_LINKS } from '@/data/contacts';
 import { fill, localizePath, useTranslations, type Language } from '@/i18n';
 
 interface Props { lang: Language }
@@ -66,7 +66,7 @@ const year = new Date().getFullYear();
       <div>
         <h3 class="mb-5 text-lg">{t.footer.contact}</h3>
         <ul class="space-y-3 text-ink/75">
-          <li>{t.address}</li>
+          <li><a href={ADDRESS_MAP_URL} target="_blank" rel="noopener noreferrer" class="decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-ink hover:underline">{ADDRESS[lang]}</a></li>
           <li><a href={EMAIL_HREF} class="decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-ink hover:underline">{EMAIL}</a></li>
           <li><a href={PHONE_HREF} class="decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-ink hover:underline">{PHONE}</a></li>
         </ul>

@@ -2,6 +2,7 @@
  * Contact details and social profiles — the single place to change them.
  * Import from '@/data/contacts' wherever an email, phone or social link is shown.
  */
+import type { Language } from '@/i18n';
 import { siFacebook, siInstagram, siYoutube } from 'simple-icons';
 
 export const EMAIL = 'ankaxutyanserund20@gmail.com';
@@ -10,7 +11,15 @@ export const INSTAGRAM_HANDLE = 'ankakhutyan_serund';
 export const YOUTUBE_HANDLE = '@ankakhpodcast';
 export const FACEBOOK_HANDLE = 'ankakhutyanserundspi';
 
+/** Street address, per language (shown in the footer). */
+export const ADDRESS: Record<Language, string> = {
+  hy: 'Հակոբ Հակոբյան փ. 2, Երևան, Հայաստան',
+  en: '2 Hakob Hakobyan St, Yerevan, Armenia',
+  ru: 'ул. Акопа Акопяна 2, Ереван, Армения',
+};
+
 /** Ready-to-use hrefs */
+export const ADDRESS_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS.en)}`;
 export const EMAIL_HREF = `mailto:${EMAIL}`;
 export const PHONE_HREF = `tel:${PHONE.replace(/\s/g, '')}`;
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;

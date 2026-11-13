@@ -10,7 +10,6 @@ const hy = {
   tagline: 'Երիտասարդների ձայնը, պատմությունը և ապագան',
   description:
     'Անկախության սերունդ — հոդվածներ, պատմություններ և նախաձեռնություններ Հայաստանի անկախության տարիներին ծնված և մեծացած սերնդի մասին։',
-  address: 'Երևան, Հայաստան',
 
   common: {
     skipToContent: 'Անցնել բովանդակությանը',
@@ -210,7 +209,6 @@ const en: Dictionary = {
   tagline: 'The voice, history, and future of young people',
   description:
     'Generation of Independence: articles, stories, and initiatives about the generation born and raised during the years of Armenia’s independence.',
-  address: 'Yerevan, Armenia',
 
   common: {
     skipToContent: 'Skip to content',
@@ -408,7 +406,6 @@ const ru: Dictionary = {
   tagline: 'Голос, история и будущее молодёжи',
   description:
     'Поколение независимости: статьи, истории и инициативы о поколении, родившемся и выросшем в годы независимости Армении.',
-  address: 'Ереван, Армения',
 
   common: {
     skipToContent: 'Перейти к содержимому',
