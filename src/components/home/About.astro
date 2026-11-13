@@ -1,0 +1,26 @@
+---
+import { images } from '@/data/site';
+---
+
+<section id="about" class="relative overflow-hidden bg-cream py-20 lg:py-28">
+  <img src={images.dots} alt="" aria-hidden="true" class="pointer-events-none absolute top-10 right-0 w-56 opacity-60" />
+  <div class="container-x relative grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <div class="relative">
+      <div class="overflow-hidden rounded-[20px]">
+        <img src={images.about} alt="" loading="lazy" class="aspect-[4/3] w-full object-cover" />
+      </div>
+      <div class="absolute -right-4 -bottom-8 hidden rounded-[20px] bg-brand p-6 shadow-lg sm:block">
+        <p class="text-4xl font-bold">35</p>
+        <p class="text-sm font-medium">տարի անկախություն</p>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">ովքեր ենք մենք</p>
+      <h2 class="section-title">Միավորվենք՝ պատմելու մեր սերնդի պատմությունը</h2>
+      <p class="mt-6 text-lg text-ink/75">
+        «Անկախության սերունդ»-ը հասարակական նախաձեռնություն է, որի առաքելությունն է հավաքել, պահպանել և տարածել անկախության տարիներին ծնված սերնդի պատմությունները, ինչպես նաև աջակցել երիտասարդների կրթական և քաղաքացիական նախաձեռնություններին։
+      </p>
+      <a href="#programs" class="btn-outline mt-9">Ավելին մեր մասին</a>
+    </div>
+  </div>
+</section>

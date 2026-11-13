@@ -1,0 +1,21 @@
+---
+import DonateWidget from '../react/DonateWidget';
+import { images } from '@/data/site';
+---
+
+<section id="support" class="relative overflow-hidden bg-brand-soft py-20 lg:py-28">
+  <img src={images.shape} alt="" aria-hidden="true" class="pointer-events-none absolute -top-16 -left-16 w-64 opacity-50" />
+  <div class="container-x relative grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+    <div>
+      <p class="eyebrow">աջակցություն</p>
+      <h2 class="section-title">Ուզո՞ւմ եք օգնել</h2>
+      <p class="mt-5 max-w-lg text-lg text-ink/75">
+        Ձեր նվիրատվությունն օգնում է շարունակել կրթական ծրագրերը, հրատարակել նոր հոդվածներ և կազմակերպել միջոցառումներ երիտասարդների համար։
+      </p>
+      <div class="mt-8 hidden overflow-hidden rounded-[20px] lg:block">
+        <img src={images.help} alt="" loading="lazy" class="aspect-[16/9] w-full object-cover" />
+      </div>
+    </div>
+    <DonateWidget client:visible />
+  </div>
+</section>

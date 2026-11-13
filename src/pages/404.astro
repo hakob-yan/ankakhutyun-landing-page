@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+Astro.response.status = 404;
+---
+
+<BaseLayout title="Էջը չի գտնվել">
+  <PageHero eyebrow="404" title="Էջը չի գտնվել" subtitle="Հնարավոր է՝ էջը տեղափոխվել է կամ այլևս գոյություն չունի։">
+    <div class="mt-8 flex justify-center gap-3">
+      <a href="/" class="btn-primary">Գլխավոր էջ</a>
+      <a href="/articles" class="btn-outline">Հոդվածներ</a>
+    </div>
+  </PageHero>
+  <div class="pb-40"></div>
+</BaseLayout>

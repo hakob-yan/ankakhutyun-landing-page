@@ -1,0 +1,67 @@
+---
+import Logo from './Logo.astro';
+import { nav, site, categories, images } from '@/data/site';
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="relative">
+  <!-- "Make a difference" call to action band -->
+  <section class="container-x relative z-10 -mb-24">
+    <div class="relative overflow-hidden rounded-[20px] bg-brand px-6 py-14 sm:px-14">
+      <img src={images.shape} alt="" aria-hidden="true" class="pointer-events-none absolute -right-10 -bottom-10 w-72 opacity-60" />
+      <div class="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <div>
+          <p class="eyebrow">միացիր մեզ</p>
+          <h2 class="section-title">Ստեղծենք տարբերություն միասին</h2>
+        </div>
+        <a href="/#support" class="btn-dark shrink-0">Աջակցել</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-ink pt-40 pb-10 text-white">
+    <div class="container-x grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <Logo dark />
+        <p class="mt-5 text-white/70">{site.tagline}</p>
+        <ul class="mt-6 flex gap-3">
+          {site.social.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener" class="inline-flex h-10 items-center rounded-full border border-white/20 px-4 text-sm transition-colors hover:border-brand hover:bg-brand hover:text-ink">
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-5 text-lg text-white">Նավիգացիա</h3>
+        <ul class="space-y-3 text-white/70">
+          {nav.map((n) => <li><a href={n.href} class="hover:text-brand">{n.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-5 text-lg text-white">Հոդվածներ</h3>
+        <ul class="space-y-3 text-white/70">
+          {categories.map((c) => <li><a href={`/articles?category=${c.slug}`} class="hover:text-brand">{c.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-5 text-lg text-white">Կապ</h3>
+        <ul class="space-y-3 text-white/70">
+          <li>{site.address}</li>
+          <li><a href={`mailto:${site.email}`} class="hover:text-brand">{site.email}</a></li>
+          <li><a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-brand">{site.phone}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container-x mt-14 flex flex-col justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row">
+      <p>© {year} {site.name}։ Բոլոր իրավունքները պաշտպանված են։</p>
+      <p><a href="/#faq" class="hover:text-brand">Հաճախ տրվող հարցեր</a></p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/home/Hero.astro';
+import Support from '@/components/home/Support.astro';
+import GetInvolved from '@/components/home/GetInvolved.astro';
+import About from '@/components/home/About.astro';
+import Programs from '@/components/home/Programs.astro';
+import Events from '@/components/home/Events.astro';
+import LatestArticles from '@/components/home/LatestArticles.astro';
+import FaqSection from '@/components/home/FaqSection.astro';
+import Partners from '@/components/home/Partners.astro';
+import { getLanguage } from '@/data/site';
+const language = getLanguage(Astro.url.pathname);
+if (language === 'hy') return Astro.redirect('/');
+const titles = { en: 'Generation of Independence', ru: 'Поколение независимости' };
+---
+<BaseLayout title={titles[language]}>
+  <Hero /><Support /><GetInvolved /><About /><Programs /><Events /><LatestArticles /><FaqSection /><Partners />
+</BaseLayout>

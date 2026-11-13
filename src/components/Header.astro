@@ -1,0 +1,37 @@
+---
+import Logo from './Logo.astro';
+import DesktopNav from './react/DesktopNav';
+import MobileNav from './react/MobileNav';
+import { nav, site, languages, getLanguage, localizedPath } from '@/data/site';
+const language = Astro.locals.language ?? getLanguage(Astro.url.pathname);
+---
+
+<header id="site-header" class="sticky top-0 z-40 bg-white/0 transition-all duration-300">
+  <div class="container-x flex h-20 items-center justify-between gap-6 lg:h-24">
+    <Logo />
+    <nav class="hidden lg:block" aria-label="Գլխավոր մենյու">
+      <DesktopNav client:load items={nav} currentPath={Astro.url.pathname} />
+    </nav>
+    <div class="flex items-center gap-3">
+      <nav aria-label="Language" class="flex items-center gap-1 text-xs font-semibold">
+        {languages.map((item) => <a href={localizedPath(Astro.url.pathname, item.code)} lang={item.code} aria-current={language === item.code ? 'page' : undefined} class:list={['rounded-full px-2 py-1 transition-colors', language === item.code ? 'bg-brand text-ink' : 'text-ink/60 hover:text-ink']}>{item.label}</a>)}
+      </nav>
+      <a href="/#support" class="btn-primary hidden !py-3 sm:inline-flex">Աջակցել</a>
+      <div class="lg:hidden">
+        <MobileNav client:idle items={nav} siteName={site.name} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // add a white background + shadow once the page scrolls
+  const header = document.getElementById('site-header');
+  const onScroll = () => {
+    const scrolled = window.scrollY > 20;
+    header?.classList.toggle('bg-white', scrolled);
+    header?.classList.toggle('shadow-md', scrolled);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

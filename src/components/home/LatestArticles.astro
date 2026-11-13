@@ -1,0 +1,18 @@
+---
+import ArticleCarousel from '../react/ArticleCarousel';
+import { getArticles, toCard } from '@/lib/articles';
+const articles = (await getArticles()).slice(0, 6).map(toCard);
+---
+
+<section id="news" class="bg-cream-light py-20 lg:py-28">
+  <div class="container-x">
+    <div class="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+      <div>
+        <p class="eyebrow">հոդվածներ</p>
+        <h2 class="section-title">Վերջին հոդվածները</h2>
+      </div>
+      <a href="/articles" class="btn-outline shrink-0">Բոլոր հոդվածները</a>
+    </div>
+    <ArticleCarousel client:visible articles={articles} />
+  </div>
+</section>

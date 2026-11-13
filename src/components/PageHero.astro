@@ -1,0 +1,16 @@
+---
+import { images } from '@/data/site';
+interface Props { eyebrow?: string; title: string; subtitle?: string }
+const { eyebrow, title, subtitle } = Astro.props;
+---
+
+<section class="relative -mt-20 overflow-hidden bg-cream pt-36 pb-16 lg:-mt-24 lg:pt-44 lg:pb-24">
+  <img src={images.headerBg} alt="" aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 w-full opacity-70" />
+  <img src={images.sun} alt="" aria-hidden="true" class="pointer-events-none absolute right-8 bottom-6 hidden w-28 animate-[spin_30s_linear_infinite] md:block" />
+  <div class="container-x relative max-w-4xl text-center">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1 class="text-4xl sm:text-5xl lg:text-[60px] lg:leading-[1.1]">{title}</h1>
+    {subtitle && <p class="mx-auto mt-5 max-w-2xl text-lg text-ink/70">{subtitle}</p>}
+    <slot />
+  </div>
+</section>

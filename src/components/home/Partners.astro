@@ -1,0 +1,22 @@
+---
+import { images } from '@/data/site';
+---
+
+<section id="partners" class="pt-20 pb-40 lg:pt-28">
+  <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <div>
+      <p class="eyebrow">գործընկերներ</p>
+      <h2 class="section-title">Շնորհակալություն մեր գործընկերներին</h2>
+      <p class="mt-5 text-lg text-ink/75">
+        Մենք երախտապարտ ենք բոլոր անհատներին, կազմակերպություններին և ընկերներին, ովքեր մեզ հետ են։ Միասին մենք պահպանում ենք մի ամբողջ սերնդի հիշողությունը։
+      </p>
+    </div>
+    <div class="grid grid-cols-2 gap-5">
+      {images.partners.map((logo) => (
+        <div class="flex h-32 items-center justify-center rounded-[20px] bg-cream p-6 grayscale transition hover:grayscale-0">
+          <img src={logo} alt="Գործընկերոջ լոգո" loading="lazy" class="max-h-10 w-auto" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
