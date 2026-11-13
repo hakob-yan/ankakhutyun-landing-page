@@ -1,11 +1,12 @@
 ---
-import { images } from '@/data/site';
+import { images, externalLinkProps } from '@/data/site';
+import { VOLUNTEER_FORM_URL } from '@/data/contacts';
 import { useTranslations, type Language } from '@/i18n';
 interface Props { lang: Language }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const tiles = [
-  { label: t.involved.volunteer, href: '#faq', image: images.involved1 },
+  { label: t.involved.volunteer, href: VOLUNTEER_FORM_URL, image: images.involved1, external: true },
   { label: t.involved.write, href: '#contact', image: images.involved2 },
   { label: t.involved.attend, href: '#events', image: images.involved3 },
 ];
@@ -19,7 +20,7 @@ const tiles = [
     </div>
     <div class="mt-14 grid gap-6 md:grid-cols-3">
       {tiles.map((t) => (
-        <a href={t.href} class="group relative block aspect-[4/5] overflow-hidden rounded-card">
+        <a href={t.href} {...(t.external ? externalLinkProps : {})} class="group relative block aspect-[4/5] overflow-hidden rounded-card">
           <img src={t.image} alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
           <span class="btn-white absolute inset-x-6 bottom-6 group-hover:border-accent">{t.label}</span>

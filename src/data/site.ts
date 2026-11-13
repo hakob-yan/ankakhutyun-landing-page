@@ -7,6 +7,7 @@
  * Replace each URL with your own photo before the site goes public.
  */
 import { localizePath, useTranslations, type Language } from '@/i18n';
+import { VOLUNTEER_FORM_URL } from '@/data/contacts';
 import hero1 from '@/assets/hero/01-first-pic.jpg';
 import hero2 from '@/assets/hero/02-second-pic.jpg';
 import hero3 from '@/assets/hero/03-third-pic.jpg';
@@ -58,7 +59,11 @@ export function articlesPath(lang: Language, category?: string, page = 1) {
   return localizePath(parts.join('/'), lang);
 }
 
-export type NavItem = { label: string; href: string; children?: NavItem[] };
+/** `external`: opens in a new tab (links to other websites, e.g. the volunteer form). */
+export type NavItem = { label: string; href: string; external?: boolean; children?: NavItem[] };
+
+/** Extra <a> attributes for links that leave the site. */
+export const externalLinkProps = { target: '_blank', rel: 'noopener noreferrer' } as const;
 
 export function getNav(lang: Language): NavItem[] {
   const t = useTranslations(lang).nav;
@@ -88,7 +93,7 @@ export function getNav(lang: Language): NavItem[] {
       label: t.join,
       href: p('/#get-involved'),
       children: [
-        { label: t.volunteer, href: p('/#get-involved') },
+        { label: t.volunteer, href: VOLUNTEER_FORM_URL, external: true },
         { label: t.support, href: p('/#support') },
         { label: t.contact, href: p('/#contact') },
       ],

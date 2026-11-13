@@ -11,6 +11,9 @@ export const INSTAGRAM_HANDLE = 'ankakhutyan_serund';
 export const YOUTUBE_HANDLE = '@ankakhpodcast';
 export const FACEBOOK_HANDLE = 'ankakhutyanserundspi';
 
+/** Volunteer application form (Google Forms). Used by the navbar, hero button and "Join us" card. */
+export const VOLUNTEER_FORM_URL = 'https://docs.google.com/forms/d/1JVOUNdTDZHzHLgMoKD_UcUQumDbyizrSxR87DLWt5pc/viewform';
+
 /** Street address, per language (shown in the footer). */
 export const ADDRESS: Record<Language, string> = {
   hy: 'Հակոբ Հակոբյան փ. 2, Երևան, Հայաստան',

@@ -3,7 +3,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import * as Accordion from '@radix-ui/react-accordion';
 import { AnimatePresence, MotionConfig, motion, type Variants } from 'motion/react';
 import { ChevronDown, Menu, X } from 'lucide-react';
-import type { NavItem } from '@/data/site';
+import { externalLinkProps, type NavItem } from '@/data/site';
 
 type Props = {
   items: NavItem[];
@@ -94,6 +94,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                                   <motion.a
                                     key={c.href}
                                     href={c.href}
+                                    {...(c.external ? externalLinkProps : {})}
                                     whileTap={{ scale: 0.97 }}
                                     className="block rounded-lg px-3 py-2 text-ink/80 transition-[padding,background-color] duration-300 hover:bg-accent-soft hover:pl-5"
                                   >
@@ -108,6 +109,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                         <motion.a
                           key={item.label}
                           href={item.href}
+                          {...(item.external ? externalLinkProps : {})}
                           variants={row}
                           whileTap={{ scale: 0.97 }}
                           className="block py-4 text-lg font-semibold transition-colors hover:text-accent"
