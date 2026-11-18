@@ -13,7 +13,7 @@ export const getStaticPaths = (async () => {
   const PAGE_SIZE = 6; // must live inside getStaticPaths (it runs in isolation)
   const paths = [];
   for (const lang of languages) {
-    const all = await getArticles(lang);
+    const all = await getArticles(); // same (Armenian) articles on every language's list
     const totalPages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
     for (let page = 1; page <= totalPages; page++) {
       const path = stripLanguage(articlesPath(lang, page)).replace(/^\/articles\/?/, '') || undefined;
@@ -35,7 +35,7 @@ interface Props {
 const { lang, page, totalPages, items } = Astro.props;
 const t = useTranslations(lang);
 
-// the newest article is shown large on the first page
+// the newest published article is shown large at the top of the first page
 const featured = page === 1 ? items[0] : undefined;
 const rest = featured ? items.slice(1) : items;
 ---
@@ -58,8 +58,8 @@ const rest = featured ? items.slice(1) : items;
       </div>
     ) : (
       <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
-        {featured && <div class="md:col-span-2 lg:col-span-3"><ArticleCard article={featured} large /></div>}
-        {rest.map((a) => <ArticleCard article={a} />)}
+        {featured && <div class="md:col-span-2 lg:col-span-3"><ArticleCard article={featured} lang={lang} large /></div>}
+        {rest.map((a) => <ArticleCard article={a} lang={lang} />)}
       </div>
     )}
 

@@ -1,23 +1,22 @@
 import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { fetchAllArticles } from '@/lib/articles-api';
 
 /**
- * Articles live as Markdown files in src/content/articles/<lang>/<slug>.md (lang = hy | en | ru).
- * The file name becomes the URL: /articles/<slug>, /en/articles/<slug>, /ru/articles/<slug>.
- * Keep the same file name in every language folder so the language switcher links translations together.
+ * Articles come from the admin panel's Django API (published only), fetched once at build time.
+ * Every list and article page is pre-rendered (SSG), so publishing a new article needs a rebuild.
+ * Articles are written in Armenian; the id is the article's slug.
  */
 const articles = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+  loader: async () =>
+    (await fetchAllArticles()).map(({ slug, ...rest }) => ({ id: slug, ...rest })),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    date: z.coerce.date(),
-    category: z.enum(['history', 'education', 'culture', 'society']),
-    image: z.string(),
-    author: z.string(),
-    featured: z.boolean().default(false),
-    draft: z.boolean().default(false),
+    excerpt: z.string(),
+    content: z.string(), // sanitized HTML from the admin editor
+    coverImage: z.string(),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
   }),
 });
 

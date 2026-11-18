@@ -6,7 +6,6 @@ type CarouselArticle = {
   href: string;
   title: string;
   date: string;
-  category: string;
   image: string;
 };
 
@@ -47,9 +46,6 @@ export default function ArticleCarousel({ articles, labels }: { articles: Carous
                     loading="lazy"
                     className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <span className="absolute top-4 left-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
-                    {a.category}
-                  </span>
                 </div>
                 <h3 className="mt-5 text-xl font-bold decoration-accent decoration-2 underline-offset-4 group-hover:underline">{a.title}</h3>
                 <p className="mt-2 text-sm text-ink/60">{a.date}</p>

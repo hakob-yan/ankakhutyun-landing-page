@@ -11,10 +11,15 @@ import { languagePaths, useTranslations, type Language } from '@/i18n';
 export const getStaticPaths = languagePaths;
 const { lang } = Astro.props as { lang: Language };
 const t = useTranslations(lang);
-const articles = await getArticles(lang);
+const articles = await getArticles();
 ---
 
 <BaseLayout lang={lang} path="/articles/search" title={t.blog.searchTitle} description={t.blog.description}>
+  <!-- No query (e.g. /articles/search?q=): send to the paginated list. Runs before the article grid is drawn, so nothing flashes. -->
+  <script is:inline define:vars={{ listUrl: articlesPath(lang) }}>
+    if (!(new URLSearchParams(location.search).get('q') ?? '').trim()) location.replace(listUrl);
+  </script>
+  <meta slot="head" name="robots" content="noindex, follow" />
   <PageHero eyebrow={t.blog.eyebrow} title={t.blog.searchTitle} subtitle={t.blog.subtitle}>
     <SearchForm lang={lang} />
   </PageHero>
@@ -27,8 +32,8 @@ const articles = await getArticles(lang);
     </div>
     <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
       {articles.map((a) => (
-        <div data-search-item data-search-text={`${a.data.title} ${a.data.description}`}>
-          <ArticleCard article={a} />
+        <div data-search-item data-search-text={`${a.data.title} ${a.data.excerpt}`}>
+          <ArticleCard article={a} lang={lang} />
         </div>
       ))}
     </div>

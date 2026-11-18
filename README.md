@@ -18,8 +18,9 @@ The design follows the Caridad "Children Aid" demo layout.
 
 ```
 src/
-  content/articles/{hy,en,ru}/*.md ← articles per language; file name = URL slug (same name in every language)
-  content.config.ts        ← article schema (title, description, date, category, image, author…)
+  content.config.ts        ← articles collection, loaded from the Django API at build time
+  lib/articles-api.ts      ← build-time client for /api/public/articles (pagination, retries on 429)
+  lib/articles.ts          ← article helpers (getArticles, articleUrl, toCard, readingMinutes)
   i18n/ui.ts               ← ALL interface text in hy / en / ru (nav, sections, FAQ, events, buttons…)
   i18n/index.ts            ← language helpers (localizePath, useTranslations, …)
   data/site.ts             ← navigation structure, contact info, stats, and ALL image URLs
@@ -30,8 +31,8 @@ src/
   components/react/        ← interactive islands (see below)
   pages/
     [...lang]/index.astro               ← homepage (/, /en/, /ru/)
-    [...lang]/articles/[...path].astro  ← lists: /articles, /articles/page/2, /articles/category/history
-    [...lang]/articles/[slug].astro     ← single article page
+    [...lang]/articles/[...path].astro  ← lists: /articles, /articles/page/2 … (newest article large on page 1)
+    [...lang]/articles/[slug].astro     ← single article page, Armenian only: /articles/<slug>
     [...lang]/articles/search.astro     ← search (?q=…, filtered in the browser)
     404.astro
 ```
@@ -44,23 +45,31 @@ src/
 - `Counter`: animated numbers (react-countup)
 - `DonateWidget`: donation form UI. **Demo only.** No payment provider is connected.
 
-## Adding an article
-Create `src/content/articles/hy/my-article.md`, then add translated copies with the **same file name** in `en/` and `ru/`:
+## Articles (from the admin panel)
+Articles are written and published in the admin panel. At build time the site fetches every **published**
+article from the Django public API and pre-renders all pages (SSG):
 
-```md
----
-title: 'Վերնագիր'
-description: 'Կարճ նկարագրություն'
-date: 2026-11-13
-category: history        # history | education | culture | society
-image: 'https://…/photo.jpg'
-author: 'Անուն Ազգանուն'
----
+- `/articles`, `/articles/page/2` … — 6 per page; the newest published article is shown large at the top of page 1
+- `/articles/<slug>` — one page per article (Armenian), with Open Graph + JSON-LD `Article` data for SEO
+- `/en/articles`, `/ru/articles` — the same Armenian articles with translated page text; they link to `/articles/<slug>`
+- `/articles/search?q=…` — every article is in the page and filtered in the browser (works with no API at runtime)
 
-Article text in Markdown…
+Set the API address in `.env` (or the build environment). The default is `http://127.0.0.1:8000`:
+
 ```
+ARTICLES_API_URL=https://api.example.com
+```
+
+**Keeping the site in sync with the admin.** When a change is visible to the public (publish, unpublish, edit or delete
+of a published article), Django POSTs to every URL in its `LANDING_REFRESH_HOOK_URLS` setting:
+
+- **dev:** `http://localhost:4321/__refresh-articles` — `astro dev` reloads the articles and open tabs refresh
+  (`src/integrations/articles-refresh.mjs`). Optional shared secret: `ARTICLES_REFRESH_TOKEN` here = `LANDING_REFRESH_TOKEN` in Django.
+- **production:** your static host's build hook (Netlify / Vercel / Cloudflare Pages) → the site is rebuilt and redeployed.
+
+The build fails if the API is unreachable, so a broken API never ships an empty blog.
 
 ## ⚠️ Before going live
 All images are loaded from caridad.vamtam.com. They are licensed theme and iStock assets.
-Replace every URL in `src/data/site.ts` and in the article frontmatter with your own images.
+Replace every URL in `src/data/site.ts` with your own images.
 Also replace the placeholder contact details and social links in `site.ts`, and set `site` in `astro.config.mjs` to the real domain.

@@ -5,8 +5,13 @@ import MobileNav from './react/MobileNav';
 import { getNav } from '@/data/site';
 import { languages, languageLabels, localizePath, useTranslations, type Language } from '@/i18n';
 
-interface Props { lang: Language; path: string }
-const { lang, path } = Astro.props;
+interface Props {
+  lang: Language;
+  path: string;
+  /** Where the other languages' switcher links go when this page has no translation (e.g. an article → the article list). */
+  otherLanguagesPath?: string;
+}
+const { lang, path, otherLanguagesPath = path } = Astro.props;
 const t = useTranslations(lang);
 const nav = getNav(lang);
 ---
@@ -21,7 +26,7 @@ const nav = getNav(lang);
       <nav aria-label={t.common.language} class="flex items-center gap-0.5 text-xs font-semibold sm:gap-1">
         {languages.map((code) => (
           <a
-            href={localizePath(path, code)}
+            href={localizePath(code === lang ? path : otherLanguagesPath, code)}
             lang={code}
             hreflang={code}
             aria-current={lang === code ? 'page' : undefined}

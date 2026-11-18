@@ -6,7 +6,7 @@ import { useTranslations, type Language } from '@/i18n';
 interface Props { lang: Language }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const articles = (await getArticles(lang)).slice(0, 6).map(toCard);
+const articles = (await getArticles()).slice(0, 6).map((a) => toCard(a, lang));
 ---
 
 <section id="news" class="bg-cream-light py-20 lg:py-28">
