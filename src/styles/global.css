@@ -12,10 +12,10 @@
 @import '@fontsource/noto-sans-armenian/700.css';
 
 /*
- * Brand palette, built on #ffffff #ffa41c #ffc247 #ffd98a #000000 #fff6e0.
+ * Brand palette, built on #ffffff #ffa41c #ffc247 #ffd98a #000000, with #f4f3f1 (soft warm gray) for light sections.
  * No pure-black surfaces: solid blocks use the lighter ambers/yellows (the footer uses a deep warm espresso), text is a soft warm charcoal
  * (a lighter take on #000000) instead of pure black.
- * Contrast: ink on #ffa41c 7.4:1, ink on #ffc247 9.1:1, ink on #fff6e0 13.6:1 (all WCAG AA).
+ * Contrast: ink on #ffa41c 7.4:1, ink on #ffc247 9.1:1, ink on #f4f3f1 13.2:1 (all WCAG AA).
  * Rule of thumb: always INK text on amber/yellow surfaces. Never white text on amber (fails contrast).
  */
 @theme {
@@ -23,14 +23,14 @@
 
   --color-brand: #ffc247;       /* golden yellow: solid surfaces (cards, banner) */
   --color-brand-dark: #ffd98a;  /* butter */
-  --color-brand-soft: #fff6e0;  /* warm cream backgrounds */
+  --color-brand-soft: #f4f3f1;  /* soft warm gray backgrounds */
   --color-accent: #ffa41c;      /* amber: main call-to-action buttons, badges, highlights */
   --color-accent-dark: #ffc247; /* golden yellow: underline hover */
   --color-accent-soft: #ffd98a; /* butter: hover highlights in menus */
-  --color-cream: #fff6e0;       /* warm cream section background */
-  --color-cream-light: #fff6e0; /* warm cream section background */
+  --color-cream: #f4f3f1;       /* soft warm gray: light section backgrounds (and light text on dark sections) */
+  --color-cream-light: #f4f3f1; /* soft warm gray section background */
   --color-ink: #33261d;         /* soft warm charcoal: all text */
-  --color-sand: #ffecc7;        /* between #fff6e0 and #ffd98a: warm cream surface */
+  --color-sand: #ffecc7;        /* light butter surface */
   --color-night: #2a1e17;       /* deep warm espresso: footer background (cream text on it, 15:1) */
 
   --radius-card: 20px;

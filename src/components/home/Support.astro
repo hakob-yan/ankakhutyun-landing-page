@@ -8,16 +8,16 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section id="support" class="relative overflow-hidden bg-brand-soft py-20 lg:py-28">
-  <img src={images.shape} alt="" aria-hidden="true" class="pointer-events-none absolute -top-16 -left-16 w-64 opacity-50" />
+<!-- dark section (same espresso as the page banners and footer); the white donation form stands out on it -->
+<section id="support" class="relative overflow-hidden bg-night py-20 text-cream lg:py-28">
   <div class="container-x relative grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
     <div>
-      <p class="eyebrow">{t.support.eyebrow}</p>
-      <h2 class="section-title">{t.support.title}</h2>
-      <p class="mt-5 max-w-lg text-lg text-ink/75">
+      <p class="eyebrow text-cream/80!">{t.support.eyebrow}</p>
+      <h2 class="section-title text-white">{t.support.title}</h2>
+      <p class="mt-5 max-w-lg text-lg text-cream/70">
         {t.support.text}
       </p>
-      <div class="mt-8 hidden overflow-hidden rounded-card lg:block">
+      <div class="mt-8 hidden overflow-hidden rounded-card shadow-xl ring-1 ring-white/10 lg:block">
         <img src={images.help} alt="" loading="lazy" class="aspect-[16/9] w-full object-cover" />
       </div>
     </div>

@@ -4,7 +4,6 @@ import PageHero from '@/components/PageHero.astro';
 import StairsSpinner from '@/components/StairsSpinner.astro';
 import TeamGrid from '@/components/react/TeamGrid';
 import { getTeam } from '@/data/team';
-import { images } from '@/data/site';
 import { VOLUNTEER_FORM_URL } from '@/data/contacts';
 import { languagePaths, useTranslations, type Language } from '@/i18n';
 
@@ -28,7 +27,6 @@ const members = getTeam(lang);
   </PageHero>
 
   <div class="relative overflow-hidden">
-    <img src={images.dots} alt="" aria-hidden="true" class="pointer-events-none absolute top-24 -right-16 w-56 opacity-50" />
     <div class="container-x relative py-16 lg:py-24">
       <TeamGrid
         client:visible
@@ -40,7 +38,6 @@ const members = getTeam(lang);
 
   <section class="container-x pb-40 lg:pb-44">
     <div class="cta-card px-6 py-14 text-center sm:px-12 lg:py-20">
-      <img src={images.shape} alt="" aria-hidden="true" class="pointer-events-none absolute -top-10 -left-10 w-48 opacity-20" />
       <StairsSpinner class="absolute right-4 bottom-4 w-28 opacity-80" />
       <div class="relative mx-auto max-w-2xl">
         <h2 class="section-title">{t.joinTitle}</h2>

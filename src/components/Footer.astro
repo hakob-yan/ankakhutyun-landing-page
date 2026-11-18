@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
-import { getNav, categorySlugs, categoryLabel, articlesPath, images } from '@/data/site';
+import { getNav, articlesPath } from '@/data/site';
+import { articleUrl, getArticles } from '@/lib/articles';
 import { ADDRESS, ADDRESS_MAP_URL, EMAIL, EMAIL_HREF, PHONE, PHONE_HREF, SOCIAL_LINKS } from '@/data/contacts';
 import { fill, localizePath, useTranslations, type Language } from '@/i18n';
 
@@ -8,6 +9,7 @@ interface Props { lang: Language }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const nav = getNav(lang);
+const latest = (await getArticles(lang)).slice(0, 3);
 const year = new Date().getFullYear();
 ---
 
@@ -15,7 +17,6 @@ const year = new Date().getFullYear();
   <!-- "Make a difference" call to action band -->
   <section class="container-x relative z-10 -mb-24">
     <div class="cta-card px-6 py-14 sm:px-14">
-      <img src={images.shape} alt="" aria-hidden="true" class="pointer-events-none absolute -right-10 -bottom-10 w-72 opacity-25" />
       <div class="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div>
           <p class="eyebrow">{t.footer.ctaEyebrow}</p>
@@ -59,7 +60,8 @@ const year = new Date().getFullYear();
       <div>
         <h3 class="mb-5 text-lg text-white">{t.footer.articles}</h3>
         <ul class="space-y-3 text-cream/65">
-          {categorySlugs.map((slug) => <li><a href={articlesPath(lang, slug)} class="decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-white hover:underline">{categoryLabel(slug, lang)}</a></li>)}
+          {latest.map((a) => <li><a href={articleUrl(a)} class="line-clamp-2 decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-white hover:underline">{a.data.title}</a></li>)}
+          <li><a href={articlesPath(lang)} class="font-semibold text-accent decoration-2 underline-offset-4 hover:underline">{t.blog.seeAll} →</a></li>
         </ul>
       </div>
 

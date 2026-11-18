@@ -24,7 +24,7 @@ export default function DonateWidget({ labels: t, locale }: { labels: Labels; lo
 
   if (sent) {
     return (
-      <div className="rounded-card bg-white p-8 text-center shadow-xl">
+      <div className="rounded-card bg-white p-8 text-center text-ink shadow-xl">
         <p className="text-2xl font-bold">{t.thanks}</p>
         <p className="mt-3 text-ink/70">{t.demoNote}</p>
         <button className="btn-outline mt-6" onClick={() => setSent(false)}>{t.back}</button>
@@ -34,7 +34,7 @@ export default function DonateWidget({ labels: t, locale }: { labels: Labels; lo
 
   return (
     <form
-      className="min-w-0 rounded-card bg-white p-6 shadow-xl sm:p-8"
+      className="min-w-0 rounded-card bg-white p-6 text-ink shadow-xl sm:p-8"
       onSubmit={(e) => {
         e.preventDefault();
         setSent(true);

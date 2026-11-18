@@ -123,9 +123,9 @@ const hy = {
   },
 
   events: {
+    all: 'Բոլոր միջոցառումները →',
     eyebrow: 'միջոցառումներ',
     title: 'Առաջիկա միջոցառումներ',
-    all: 'Բոլոր միջոցառումները →',
     items: [
       { day: '21', month: 'Սեպ', title: 'Անկախության օրվա երիտասարդական հավաք', place: 'Երևան' },
       { day: '16', month: 'Նոյ', title: 'Բանավոր պատմության աշխատարան ուսանողների համար', place: 'Գյումրի' },
@@ -134,9 +134,9 @@ const hy = {
   },
 
   latest: {
+    all: 'Բոլոր հոդվածները',
     eyebrow: 'հոդվածներ',
     title: 'Վերջին հոդվածները',
-    all: 'Բոլոր հոդվածները',
   },
 
   faq: {
@@ -222,8 +222,6 @@ const hy = {
     searchPlaceholder: 'Որոնել հոդվածներ…',
     searchButton: 'Որոնել',
     results: '«{q}» որոնման արդյունքներ՝ {n}',
-    all: 'Բոլորը',
-    categoriesLabel: 'Կատեգորիաներ',
     pagination: 'Էջավորում',
     notFound: 'Հոդվածներ չեն գտնվել',
     seeAll: 'Տեսնել բոլորը',
@@ -366,9 +364,9 @@ const en: Dictionary = {
   },
 
   events: {
+    all: 'All events →',
     eyebrow: 'events',
     title: 'Upcoming events',
-    all: 'All events →',
     items: [
       { day: '21', month: 'Sep', title: 'Independence Day youth gathering', place: 'Yerevan' },
       { day: '16', month: 'Nov', title: 'Oral history workshop for students', place: 'Gyumri' },
@@ -377,9 +375,9 @@ const en: Dictionary = {
   },
 
   latest: {
+    all: 'All articles',
     eyebrow: 'articles',
     title: 'Latest articles',
-    all: 'All articles',
   },
 
   faq: {
@@ -465,8 +463,6 @@ const en: Dictionary = {
     searchPlaceholder: 'Search articles…',
     searchButton: 'Search',
     results: 'Results for “{q}”: {n}',
-    all: 'All',
-    categoriesLabel: 'Categories',
     pagination: 'Pagination',
     notFound: 'No articles found',
     seeAll: 'See all',
@@ -607,9 +603,9 @@ const ru: Dictionary = {
   },
 
   events: {
+    all: 'Все мероприятия →',
     eyebrow: 'мероприятия',
     title: 'Предстоящие мероприятия',
-    all: 'Все мероприятия →',
     items: [
       { day: '21', month: 'сен', title: 'Молодёжная встреча ко Дню независимости', place: 'Ереван' },
       { day: '16', month: 'ноя', title: 'Мастерская устной истории для студентов', place: 'Гюмри' },
@@ -618,9 +614,9 @@ const ru: Dictionary = {
   },
 
   latest: {
+    all: 'Все статьи',
     eyebrow: 'статьи',
     title: 'Последние статьи',
-    all: 'Все статьи',
   },
 
   faq: {
@@ -706,8 +702,6 @@ const ru: Dictionary = {
     searchPlaceholder: 'Искать статьи…',
     searchButton: 'Найти',
     results: 'Результаты поиска «{q}»: {n}',
-    all: 'Все',
-    categoriesLabel: 'Категории',
     pagination: 'Страницы',
     notFound: 'Статьи не найдены',
     seeAll: 'Показать все',

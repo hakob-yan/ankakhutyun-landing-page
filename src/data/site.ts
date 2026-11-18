@@ -21,9 +21,6 @@ const REF = 'https://caridad.vamtam.com/wp-content/uploads';
 
 export const images = {
   // decorative shapes / doodles
-  headerBg: `${REF}/2021/04/Group-header-1-1.svg`,
-  shape: `${REF}/2021/03/shape-01.svg`,
-  dots: `${REF}/2021/04/Group-35.svg`,
   sunCard: `${REF}/2021/04/sun-vs.svg`,
   appleCard: `${REF}/2021/04/apple-vs-02.svg`,
 
@@ -52,9 +49,9 @@ type CategorySlug = (typeof categorySlugs)[number];
 export const categoryLabel = (slug: string, lang: Language) =>
   useTranslations(lang).categories[slug as CategorySlug] ?? slug;
 
-/** /articles, /articles/category/history, /articles/page/2 … (localized) */
-export function articlesPath(lang: Language, category?: string, page = 1) {
-  const parts = ['/articles', category && `category/${category}`, page > 1 && `page/${page}`].filter(Boolean);
+/** /articles, /articles/page/2 … (localized). There is one list of all articles, no category filters. */
+export function articlesPath(lang: Language, page = 1) {
+  const parts = ['/articles', page > 1 && `page/${page}`].filter(Boolean);
   return localizePath(parts.join('/'), lang);
 }
 
@@ -115,7 +112,7 @@ export const stats = [
   { value: 12000, suffix: '+' },
 ];
 
-/** Card visuals for the "How we help" section; text comes from ui.programs.items (same order). */
+/** Card visuals for the "How we help" section; text comes from ui.programs.items (same order). All cards link to the articles list. */
 export const programCards = [
   { category: 'history', image: images.card1, variant: 'photo' as const },
   { category: 'education', image: images.sunCard, variant: 'doodle' as const },

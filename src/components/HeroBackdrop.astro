@@ -1,0 +1,17 @@
+---
+/**
+ * Dark animated background for page headers: the turning globe with blinking places
+ * (HeroGlobe) plus two logo-stair spinners on the sides.
+ * Put it first inside a `relative overflow-hidden bg-night` element; the content after it
+ * should be `relative` so it sits on top.
+ */
+import HeroGlobe from './HeroGlobe.astro';
+import StairsSpinner from './StairsSpinner.astro';
+---
+
+<!-- turning globe rising from the bottom, with blinking places around the world -->
+<HeroGlobe class="absolute top-[52%] left-1/2 w-[760px] max-w-none -translate-x-1/2 text-cream sm:top-[40%] sm:w-[1000px] lg:top-[26%] lg:w-[1200px]" />
+
+<!-- logo stairs floating on the sides -->
+<StairsSpinner class="absolute top-14 left-[6%] hidden w-20 opacity-80 md:block lg:top-20 lg:w-24" pause={4} />
+<StairsSpinner class="absolute right-[7%] bottom-10 hidden w-16 opacity-60 md:block lg:w-20" spin={1.4} pause={5} />
