@@ -1,29 +1,20 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HeroBackdrop from '@/components/HeroBackdrop.astro';
 import ShareButtons from '@/components/ShareButtons.astro';
-import { ARTICLE_LANG, articleUrl, formatDate, readingMinutes, type Article } from '@/lib/articles';
+import { ARTICLE_LANG, articleUrl, formatDate, getArticle, readingMinutes } from '@/lib/articles';
 import { articlesPath } from '@/data/site';
-import { fill, langParam, useTranslations } from '@/i18n';
+import { fill, useTranslations } from '@/i18n';
 
-// One static page per published article, in Armenian only: /articles/<slug>.
-// (/en/articles and /ru/articles list the same articles and link here.)
-export const getStaticPaths = (async () => {
-  const articles = await getCollection('articles');
-  return articles.map((article) => ({
-    params: { lang: langParam('hy'), slug: article.id },
-    props: { article },
-  }));
-}) satisfies GetStaticPaths;
+// Armenian only: /articles/<slug>. (/en/articles and /ru/articles list the same articles and link here.)
+const article = Astro.params.lang === undefined && Astro.params.slug ? await getArticle(Astro.params.slug) : null;
+if (!article) return new Response(null, { status: 404, statusText: 'Not found' });
 
-const { article } = Astro.props as { article: Article };
 const lang = ARTICLE_LANG;
 const t = useTranslations(lang);
-const { title, excerpt, content, coverImage, publishedAt, updatedAt } = article.data;
+const { title, excerpt, content = '', coverImage, publishedAt, updatedAt } = article;
 
-const path = `/articles/${article.id}`;
+const path = `/articles/${article.slug}`;
 const url = new URL(articleUrl(article), Astro.site).href;
 
 // Structured data so search engines show it as an article (headline, image, dates).

@@ -4,11 +4,12 @@ import PageHero from '@/components/PageHero.astro';
 import StairsSpinner from '@/components/StairsSpinner.astro';
 import BoardGrid from '@/components/react/BoardGrid';
 import { getBoard } from '@/data/board';
-import { languagePaths, useTranslations, type Language } from '@/i18n';
+import { useTranslations } from '@/i18n';
+import { routeLanguage } from '@/lib/articles';
 
-// Builds /board, /en/board and /ru/board
-export const getStaticPaths = languagePaths;
-const { lang } = Astro.props as { lang: Language };
+// /board, /en/board and /ru/board
+const lang = routeLanguage(Astro.params.lang);
+if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
 const dict = useTranslations(lang);
 const t = dict.board;
 const all = getBoard(lang);

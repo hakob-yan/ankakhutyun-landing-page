@@ -5,11 +5,12 @@ import StairsSpinner from '@/components/StairsSpinner.astro';
 import TeamGrid from '@/components/react/TeamGrid';
 import { getTeam } from '@/data/team';
 import { VOLUNTEER_FORM_URL } from '@/data/contacts';
-import { languagePaths, useTranslations, type Language } from '@/i18n';
+import { useTranslations } from '@/i18n';
+import { routeLanguage } from '@/lib/articles';
 
-// Builds /team, /en/team and /ru/team
-export const getStaticPaths = languagePaths;
-const { lang } = Astro.props as { lang: Language };
+// /team, /en/team and /ru/team
+const lang = routeLanguage(Astro.params.lang);
+if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
 const dict = useTranslations(lang);
 const t = dict.team;
 const members = getTeam(lang);

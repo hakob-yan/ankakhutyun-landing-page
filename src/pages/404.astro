@@ -4,7 +4,7 @@ import PageHero from '@/components/PageHero.astro';
 import { articlesPath } from '@/data/site';
 import { languages, localizePath, useTranslations } from '@/i18n';
 
-// Static hosts serve this single file for every missing URL.
+// Shown for every missing URL (unknown routes and pages that return a 404).
 // It is rendered in Armenian; the script below switches the text to EN/RU when the URL starts with /en or /ru.
 const t = useTranslations('hy');
 const variants = Object.fromEntries(

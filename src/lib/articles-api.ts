@@ -1,14 +1,14 @@
 /**
- * Build-time client for the Django public articles API (/api/public/articles).
- * Used only by the content collection loader (src/content.config.ts), so the API is called
- * once per build and every article page is pre-rendered to static HTML (SSG).
+ * Server-side client for the Django public articles API (/api/public/articles).
+ * Called on every request (all pages are server-rendered), so publishing or unpublishing in the
+ * admin shows up on the next page load. Only published articles are returned; drafts are 404.
  */
 
-// Django base URL, from .env / the environment at build time (server-only, never sent to the browser).
-const API_URL = (import.meta.env.ARTICLES_API_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '');
+import { ARTICLES_API_URL } from 'astro:env/server';
 
-const PAGE_SIZE = 100; // the API's max `limit`
-const CONCURRENCY = 6;
+const API_URL = ARTICLES_API_URL.replace(/\/+$/, '');
+
+const MAX_LIMIT = 100; // the API's max `limit`
 
 export type ApiArticle = {
   slug: string;
@@ -17,13 +17,13 @@ export type ApiArticle = {
   coverImage: string;
   publishedAt: string;
   updatedAt: string;
-  content: string;
+  content?: string; // detail endpoint only
 };
 
-type ApiListItem = Omit<ApiArticle, 'content'>;
-type ApiPage = { count: number; page: number; limit: number; totalPages: number; results: ApiListItem[] };
+export type ApiPage = { count: number; page: number; limit: number; totalPages: number; results: ApiArticle[] };
 
-async function getJson<T>(path: string, attempt = 1): Promise<T> {
+/** GET a JSON path; returns null for 404, throws for any other failure. */
+async function getJson<T>(path: string): Promise<T | null> {
   const url = `${API_URL}${path}`;
   let res: Response;
   try {
@@ -31,33 +31,26 @@ async function getJson<T>(path: string, attempt = 1): Promise<T> {
   } catch (err) {
     throw new Error(`Articles API unreachable at ${API_URL} (set ARTICLES_API_URL). ${(err as Error).message}`);
   }
-  // The public API is rate-limited per IP; wait as long as it asks and try again.
-  if (res.status === 429 && attempt <= 5) {
-    const wait = Number(res.headers.get('Retry-After')) || 5;
-    console.warn(`[articles] rate-limited, retrying in ${wait}s…`);
-    await new Promise((r) => setTimeout(r, wait * 1000));
-    return getJson<T>(path, attempt + 1);
-  }
+  if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Articles API ${res.status} for ${url}`);
   return res.json() as Promise<T>;
 }
 
-/** Every published article, with content. Fails the build if the API is down (better than publishing an empty blog). */
+/** One page of published articles (no content), newest first. null if the page is past the end. */
+export const fetchArticlePage = (page: number, limit: number) =>
+  getJson<ApiPage>(`/api/public/articles?page=${page}&limit=${Math.min(limit, MAX_LIMIT)}`);
+
+/** Every published article (no content), newest first. */
 export async function fetchAllArticles(): Promise<ApiArticle[]> {
-  const items: ApiListItem[] = [];
+  const items: ApiArticle[] = [];
   for (let page = 1, totalPages = 1; page <= totalPages; page++) {
-    const data = await getJson<ApiPage>(`/api/public/articles?page=${page}&limit=${PAGE_SIZE}`);
+    const data = await fetchArticlePage(page, MAX_LIMIT);
+    if (!data) break;
     items.push(...data.results);
     totalPages = data.totalPages;
   }
-
-  const articles: ApiArticle[] = [];
-  for (let i = 0; i < items.length; i += CONCURRENCY) {
-    const batch = items.slice(i, i + CONCURRENCY);
-    articles.push(
-      ...(await Promise.all(batch.map((a) => getJson<ApiArticle>(`/api/public/articles/${encodeURIComponent(a.slug)}`)))),
-    );
-  }
-  console.info(`[articles] loaded ${articles.length} published articles from ${API_URL}`);
-  return articles;
+  return items;
 }
+
+/** One published article with content, or null if it doesn't exist or is a draft. */
+export const fetchArticle = (slug: string) => getJson<ApiArticle>(`/api/public/articles/${encodeURIComponent(slug)}`);

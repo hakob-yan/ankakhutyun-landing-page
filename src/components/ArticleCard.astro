@@ -4,7 +4,7 @@ import { useTranslations, type Language } from '@/i18n';
 /** `lang` is the page's language (labels and date format); the article itself is Armenian. */
 interface Props { article: Article; lang: Language; large?: boolean }
 const { article, lang, large = false } = Astro.props;
-const { title, excerpt, publishedAt, coverImage } = article.data;
+const { title, excerpt, publishedAt, coverImage } = article;
 const t = useTranslations(lang);
 const href = articleUrl(article);
 ---

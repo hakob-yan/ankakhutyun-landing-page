@@ -15,11 +15,7 @@ export const useTranslations = (lang: Language): Dictionary => ui[lang];
 export const fill = (text: string, vars: Record<string, string | number>) =>
   text.replace(/\{(\w+)\}/g, (_, key) => String(vars[key] ?? `{${key}}`));
 
-/** URL param for the `[...lang]` route segment: Armenian lives at the root. */
-export const langParam = (lang: Language) => (lang === defaultLanguage ? undefined : lang);
 
-/** `getStaticPaths` helper: one page per language. */
-export const languagePaths = () => languages.map((lang) => ({ params: { lang: langParam(lang) }, props: { lang } }));
 
 /**
  * Prefix an unprefixed site path with the language.

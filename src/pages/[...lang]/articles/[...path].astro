@@ -1,38 +1,21 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SearchForm from '@/components/SearchForm.astro';
 import ArticleCard from '@/components/ArticleCard.astro';
-import { getArticles, type Article } from '@/lib/articles';
+import { getArticlePage, routeLanguage } from '@/lib/articles';
 import { articlesPath } from '@/data/site';
-import { languages, langParam, stripLanguage, useTranslations, type Language } from '@/i18n';
+import { stripLanguage, useTranslations } from '@/i18n';
 
-// Pre-builds every list page for every language: /articles, /articles/page/2 …
-export const getStaticPaths = (async () => {
-  const PAGE_SIZE = 6; // must live inside getStaticPaths (it runs in isolation)
-  const paths = [];
-  for (const lang of languages) {
-    const all = await getArticles(); // same (Armenian) articles on every language's list
-    const totalPages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
-    for (let page = 1; page <= totalPages; page++) {
-      const path = stripLanguage(articlesPath(lang, page)).replace(/^\/articles\/?/, '') || undefined;
-      paths.push({
-        params: { lang: langParam(lang), path },
-        props: { lang, page, totalPages, items: all.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE) },
-      });
-    }
-  }
-  return paths;
-}) satisfies GetStaticPaths;
-
-interface Props {
-  lang: Language;
-  page: number;
-  totalPages: number;
-  items: Article[];
-}
-const { lang, page, totalPages, items } = Astro.props;
+// /articles, /articles/page/2 … (and /en/…, /ru/…)
+const PAGE_SIZE = 6;
+const lang = routeLanguage(Astro.params.lang);
+// no path = page 1; otherwise "page/N" with N >= 2 (/articles/page/1 is not a URL)
+const pageMatch = Astro.params.path === undefined ? ['', '1'] : Astro.params.path.match(/^page\/([2-9]|[1-9]\d+)$/);
+const page = pageMatch ? Number(pageMatch[1]) : 0;
+const data = lang && page ? await getArticlePage(page, PAGE_SIZE) : null; // null past the last page
+if (!lang || !data) return new Response(null, { status: 404, statusText: 'Not found' });
+const { items, totalPages } = data;
 const t = useTranslations(lang);
 
 // the newest published article is shown large at the top of the first page

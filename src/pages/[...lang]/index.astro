@@ -9,11 +9,11 @@ import Events from '@/components/home/Events.astro';
 import LatestArticles from '@/components/home/LatestArticles.astro';
 import FaqSection from '@/components/home/FaqSection.astro';
 import Partners from '@/components/home/Partners.astro';
-import { languagePaths, type Language } from '@/i18n';
+import { routeLanguage } from '@/lib/articles';
 
-// Builds /, /en/ and /ru/
-export const getStaticPaths = languagePaths;
-const { lang } = Astro.props as { lang: Language };
+// /, /en/ and /ru/
+const lang = routeLanguage(Astro.params.lang);
+if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
 ---
 
 <BaseLayout lang={lang} path="/">
