@@ -2,10 +2,10 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ArticleCarousel from '@/components/react/ArticleCarousel';
-import { articleLang, articleSlug, formatDate, getArticles, readingMinutes, toCard, type Article } from '@/lib/articles';
+import { articleLang, articleSlug, formatDate, readingMinutes, type Article } from '@/lib/articles';
 import { articlesPath, categoryLabel } from '@/data/site';
 import HeroBackdrop from '@/components/HeroBackdrop.astro';
+import ShareButtons from '@/components/ShareButtons.astro';
 import { fill, langParam, localizePath, useTranslations } from '@/i18n';
 
 // One page per article per language: /articles/<slug>, /en/articles/<slug>, /ru/articles/<slug>
@@ -25,13 +25,7 @@ const t = useTranslations(lang);
 const { Content } = await render(article);
 const { title, description, date, category, image, author } = article.data;
 
-const related = (await getArticles(lang))
-  .filter((a) => a.id !== article.id)
-  .sort((a, b) => Number(b.data.category === category) - Number(a.data.category === category))
-  .slice(0, 6)
-  .map(toCard);
-
-const shareUrl = encodeURIComponent(new URL(localizePath(`/articles/${slug}`, lang), Astro.site).href);
+const shareUrl = new URL(localizePath(`/articles/${slug}`, lang), Astro.site).href;
 ---
 
 <BaseLayout lang={lang} path={`/articles/${slug}`} title={title} description={description} image={image}>
@@ -56,29 +50,16 @@ const shareUrl = encodeURIComponent(new URL(localizePath(`/articles/${slug}`, la
       <img src={image} alt="" class="aspect-[16/9] w-full rounded-card object-cover shadow-2xl" />
     </div>
 
-    <div class="container-x grid max-w-5xl gap-10 py-16 lg:grid-cols-[1fr_200px]">
+    <div class="container-x max-w-3xl py-16 pb-40 lg:pb-44">
       <div class="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-ink prose-a:decoration-accent prose-a:decoration-2 prose-blockquote:rounded-r-card prose-blockquote:border-l-accent prose-blockquote:bg-accent-soft prose-blockquote:py-2 prose-blockquote:not-italic prose-li:marker:text-accent">
         <p class="lead">{description}</p>
         <Content />
       </div>
-      <aside class="lg:sticky lg:top-28 lg:self-start">
-        <p class="mb-3 text-sm font-semibold tracking-wider uppercase">{t.article.share}</p>
-        <div class="flex gap-2 lg:flex-col">
-          <a class="btn-outline !px-4 !py-2 text-sm" target="_blank" rel="noopener" href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}>Facebook</a>
-          <a class="btn-outline !px-4 !py-2 text-sm" target="_blank" rel="noopener" href={`https://t.me/share/url?url=${shareUrl}`}>Telegram</a>
-        </div>
-        <a href={articlesPath(lang)} class="link-arrow mt-8 text-sm">{t.article.allArticles}</a>
-      </aside>
+
+      <footer class="mt-14 flex flex-col-reverse gap-6 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <a href={articlesPath(lang)} class="link-arrow self-start text-sm sm:self-auto">{t.article.allArticles}</a>
+        <ShareButtons url={shareUrl} title={title} lang={lang} />
+      </footer>
     </div>
   </article>
-
-  {related.length > 0 && (
-    <section class="bg-cream-light py-20 pb-44">
-      <div class="container-x">
-        <p class="eyebrow">{t.article.readAlso}</p>
-        <h2 class="section-title mb-12">{t.article.related}</h2>
-        <ArticleCarousel client:visible articles={related} labels={t.common} />
-      </div>
-    </section>
-  )}
 </BaseLayout>

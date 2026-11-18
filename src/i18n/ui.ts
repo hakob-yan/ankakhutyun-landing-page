@@ -229,8 +229,8 @@ const hy = {
 
   article: {
     share: 'Կիսվել',
-    readAlso: 'կարդացեք նաև',
-    related: 'Նմանատիպ հոդվածներ',
+    copyLink: 'Պատճենել հղումը',
+    linkCopied: 'Հղումը պատճենվեց',
     minRead: '{n} րոպե ընթերցանություն',
     allArticles: '← Բոլոր հոդվածները',
   },
@@ -470,8 +470,8 @@ const en: Dictionary = {
 
   article: {
     share: 'Share',
-    readAlso: 'read also',
-    related: 'Related articles',
+    copyLink: 'Copy link',
+    linkCopied: 'Link copied',
     minRead: '{n} min read',
     allArticles: '← All articles',
   },
@@ -709,8 +709,8 @@ const ru: Dictionary = {
 
   article: {
     share: 'Поделиться',
-    readAlso: 'читайте также',
-    related: 'Похожие статьи',
+    copyLink: 'Копировать ссылку',
+    linkCopied: 'Ссылка скопирована',
     minRead: '{n} мин. чтения',
     allArticles: '← Все статьи',
   },
