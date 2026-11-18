@@ -1,0 +1,160 @@
+---
+/**
+ * Decorative "we reach the whole world" background for page heroes:
+ * a wireframe globe that slowly turns, blinking location dots around it, and dashed arcs
+ * flowing out from a home dot (Armenia) to the others.
+ *
+ * Pure SVG + CSS. Everything stands still for visitors who prefer reduced motion.
+ * Place it inside a `relative overflow-hidden` parent; it positions itself.
+ */
+interface Props { class?: string }
+const { class: className } = Astro.props;
+
+const C = 500; // globe center (viewBox 0 0 1000 1000)
+const R = 470; // globe radius
+
+/** Meridians: circles squashed horizontally; animating scaleX between 1 and -1 makes the globe turn. */
+const meridians = 9;
+const turn = 28; // seconds for a meridian to travel half way round
+
+/** Latitudes: straight chords (front-on view). */
+const latitudes = [-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75].map((f) => {
+  const y = C + f * R;
+  const half = Math.sqrt(R * R - (f * R) ** 2);
+  return { y, x1: C - half, x2: C + half };
+});
+
+/** Home (Armenia) and the places our community reaches. Coordinates in the viewBox. */
+const home = { x: 540, y: 330 };
+// kept to the sides and below the text column, so dots never sit behind the heading
+const places = [
+  { x: 70, y: 430 },
+  { x: 120, y: 300 },
+  { x: 175, y: 200 },
+  { x: 230, y: 380 },
+  { x: 360, y: 345 },
+  { x: 720, y: 350 },
+  { x: 800, y: 400 },
+  { x: 840, y: 210 },
+  { x: 900, y: 320 },
+  { x: 945, y: 450 },
+];
+
+/** Raised curve from home to a place, so links look like flight paths. */
+const arc = (p: { x: number; y: number }) => {
+  const mx = (home.x + p.x) / 2;
+  const my = Math.min(home.y, p.y) - Math.abs(home.x - p.x) * 0.35 - 30;
+  return `M${home.x} ${home.y} Q${mx} ${my} ${p.x} ${p.y}`;
+};
+---
+
+<svg viewBox="0 0 1000 1000" aria-hidden="true" class:list={['hero-globe pointer-events-none', className]}>
+  <defs>
+    <radialGradient id="globe-glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <circle cx={C} cy={C} r={R + 60} fill="url(#globe-glow)" />
+
+  <!-- wireframe -->
+  <g class="globe-lines">
+    <circle cx={C} cy={C} r={R} />
+    {latitudes.map((l) => <line x1={l.x1} y1={l.y} x2={l.x2} y2={l.y} />)}
+    {Array.from({ length: meridians }, (_, i) => (
+      <ellipse class="meridian" cx={C} cy={C} rx={R} ry={R} style={`animation-delay:${(-i * (turn * 2)) / meridians}s;--turn:${turn * 2}s`} />
+    ))}
+  </g>
+
+  <!-- connections flowing out from home -->
+  <g class="globe-arcs">
+    {places.map((p, i) => <path d={arc(p)} style={`animation-delay:${-i * 0.7}s`} />)}
+  </g>
+
+  <!-- blinking places -->
+  {places.map((p, i) => (
+    <g class="globe-dot" style={`--d:${(i * 0.53) % 3.2}s`}>
+      <circle class="pulse" cx={p.x} cy={p.y} r="9" />
+      <circle class="core" cx={p.x} cy={p.y} r="6" />
+    </g>
+  ))}
+
+  <!-- home -->
+  <g class="globe-dot globe-home" style="--d:0s">
+    <circle class="pulse" cx={home.x} cy={home.y} r="14" />
+    <circle class="pulse" cx={home.x} cy={home.y} r="14" style="animation-delay:1.1s" />
+    <circle class="core" cx={home.x} cy={home.y} r="10" />
+  </g>
+</svg>
+
+<style>
+  .hero-globe {
+    overflow: visible;
+  }
+  .globe-lines {
+    fill: none;
+    stroke: currentColor; /* set by the parent's text color */
+    stroke-opacity: 0.14;
+    stroke-width: 1.5;
+  }
+  .meridian {
+    transform-box: view-box;
+    transform-origin: 500px 500px;
+    /* easeInOutSine from 1 to -1 matches cos(angle) for half a turn, so the spin looks real */
+    animation: meridian var(--turn) cubic-bezier(0.37, 0, 0.63, 1) infinite alternate;
+  }
+  @keyframes meridian {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(-1); }
+  }
+
+  .globe-arcs {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-opacity: 0.6;
+    stroke-dasharray: 2 12;
+    stroke-linecap: round;
+  }
+  .globe-arcs path {
+    animation: arc-flow 2.4s linear infinite;
+  }
+  @keyframes arc-flow {
+    to { stroke-dashoffset: -28; }
+  }
+
+  .globe-dot .core {
+    fill: var(--color-accent);
+    animation: blink 3.2s ease-in-out var(--d) infinite;
+  }
+  .globe-dot .pulse {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulse 3.2s ease-out var(--d) infinite;
+  }
+  .globe-home .core {
+    fill: var(--color-accent);
+    stroke: var(--color-night);
+    stroke-width: 4;
+    animation: none;
+  }
+  .globe-home .pulse {
+    animation-duration: 2.2s;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @keyframes pulse {
+    0% { transform: scale(0.6); opacity: 0.9; }
+    80%, 100% { transform: scale(3.4); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .meridian, .globe-arcs path, .globe-dot .core, .globe-dot .pulse { animation: none; }
+  }
+</style>

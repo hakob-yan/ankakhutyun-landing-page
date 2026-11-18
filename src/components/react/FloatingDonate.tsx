@@ -24,8 +24,8 @@ let hasFlown = false;
 
 
 /**
- * Floating "Donate" button. On the first scroll (when the navbar turns white), a copy of the navbar's
- * donate button is carried by a butterfly down to the bottom-right corner. Later it just pops in/out.
+ * Floating "Donate" button. On the first scroll (when the navbar turns white), the navbar's donate
+ * button flies down to the bottom-right corner. Later it just pops in/out.
  * Built with Motion.
  */
 export default function FloatingDonate({ label, href }: Props) {
@@ -128,55 +128,7 @@ function FlyingButton({ label, href }: Props) {
           </motion.span>
           {label}
         </motion.a>
-
-        {!reduceMotion && <Butterfly carrying={flying} />}
       </motion.div>
     </div>
-  );
-}
-
-/**
- * Small butterfly. While `carrying`, it holds on to the top of the button and flaps hard;
- * afterwards it flies loops around the button and lands on it for a moment.
- * Coordinates are relative to the button's top-left corner.
- */
-function Butterfly({ carrying }: { carrying: boolean }) {
-  const loop = {
-    x: [10, -30, -70, -50, 0, 40, 70, 40, 10, 10],
-    y: [-14, -60, -40, -95, -120, -85, -40, -30, -14, -14],
-    rotate: [0, -25, -10, 15, 5, 25, 10, -10, 0, 0],
-  };
-  const flap = { duration: carrying ? 0.14 : 0.28, repeat: Infinity, ease: 'easeInOut' } as const;
-
-  return (
-    <motion.div
-      aria-hidden
-      className="pointer-events-none absolute top-0 left-1/2 -ml-5 size-10"
-      initial={false}
-      animate={carrying ? { x: 0, y: -30, rotate: 0 } : loop}
-      transition={
-        carrying
-          ? { type: 'spring', stiffness: 300, damping: 20 }
-          : { duration: 7, ease: 'easeInOut', repeat: Infinity, times: [0, 0.1, 0.2, 0.32, 0.44, 0.56, 0.68, 0.8, 0.9, 1] }
-      }
-    >
-      <svg viewBox="0 0 32 32" className="size-full drop-shadow-sm">
-        {/* left wings */}
-        <motion.g style={{ originX: '16px', originY: '16px' }} animate={{ scaleX: [1, 0.25, 1] }} transition={flap}>
-          <path d="M16 15 C 10 3, 1 4, 3 12 C 4 16, 10 17, 16 15 Z" fill="#ffa41c" />
-          <path d="M16 17 C 9 18, 4 24, 8 28 C 12 30, 15 24, 16 17 Z" fill="#ffc247" />
-          <circle cx="8" cy="10" r="1.6" fill="#fff6e0" />
-        </motion.g>
-        {/* right wings */}
-        <motion.g style={{ originX: '16px', originY: '16px' }} animate={{ scaleX: [1, 0.25, 1] }} transition={flap}>
-          <path d="M16 15 C 22 3, 31 4, 29 12 C 28 16, 22 17, 16 15 Z" fill="#ffa41c" />
-          <path d="M16 17 C 23 18, 28 24, 24 28 C 20 30, 17 24, 16 17 Z" fill="#ffc247" />
-          <circle cx="24" cy="10" r="1.6" fill="#fff6e0" />
-        </motion.g>
-        {/* body + antennae */}
-        <rect x="15" y="9" width="2" height="15" rx="1" fill="#33261d" />
-        <path d="M16 10 C 15 6, 13 4, 11.5 3 M16 10 C 17 6, 19 4, 20.5 3" stroke="#33261d" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-      </svg>
-    </motion.div>
   );
 }

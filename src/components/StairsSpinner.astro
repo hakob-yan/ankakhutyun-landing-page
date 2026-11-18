@@ -1,0 +1,76 @@
+---
+/**
+ * Animation built from the logo: the three stairs of public/logo_yellow_bg.svg spin a full
+ * circle around the logo's center one after another (the middle one the other way), fanning
+ * out over each other and snapping back into the logo. Then it rests and repeats forever.
+ *
+ * The paths are read from the logo file at build time, so changing the logo updates this too.
+ * Pure SVG + CSS (no JavaScript). Stops moving for visitors who prefer reduced motion.
+ *
+ * Usage:
+ *   <StairsSpinner class="absolute right-8 bottom-6 w-28" />
+ *   <StairsSpinner background="var(--color-accent)" color="#fff" class="size-11" />   (site logo)
+ */
+import { stairs, stairsGroupTransform as group } from '@/lib/logoStairs';
+
+interface Props {
+  class?: string;
+  /** Stair color (any CSS color). Defaults to the brand amber. */
+  color?: string;
+  /** Draws the logo's rounded square behind the stairs in this color. */
+  background?: string;
+  /** How long one stair takes to spin, in seconds. */
+  spin?: number;
+  /** Rest between rounds (last stair settles → first stair starts again), in seconds. */
+  pause?: number;
+}
+const { class: className, color = 'var(--color-accent)', background, spin = 1.1, pause = 3 } = Astro.props;
+
+// One round = every stair's spin (staggered) + the pause. Each stair spins at the start of its own
+// round, so the spin occupies the first `end`% of the keyframes and the rest is standing still.
+const stagger = 0.14;
+const round = spin + stagger * (stairs.length - 1) + pause;
+const end = +((spin / round) * 100).toFixed(2);
+const name = `stairs-${Math.round(spin * 1000)}-${Math.round(pause * 1000)}`;
+const keyframes = (id: string, dir: 1 | -1) => `@keyframes ${id} {
+  0% { transform: rotate(0deg) scale(1); opacity: 1; }
+  ${end / 2}% { transform: rotate(${180 * dir}deg) scale(0.82); opacity: 0.75; }
+  ${end}%, 100% { transform: rotate(${360 * dir}deg) scale(1); opacity: 1; }
+}`;
+const css = keyframes(name, 1) + keyframes(`${name}-r`, -1);
+---
+
+<style is:inline set:html={css}></style>
+<svg
+  viewBox="0 0 336 336"
+  aria-hidden="true"
+  class:list={['stairs-spinner pointer-events-none', className]}
+  style={`--stairs-color:${color}`}
+>
+  {background && <rect width="336" height="336" rx="64" ry="64" fill={background} />}
+  <g transform={group}>
+    {stairs.map((s, i) => (
+      <g
+        class="stair"
+        style={`animation:${i === 1 ? `${name}-r` : name} ${round}s cubic-bezier(0.65,0,0.35,1) ${0.3 + i * stagger}s infinite both`}
+      >
+        <path d={s.d} transform={s.transform} />
+      </g>
+    ))}
+  </g>
+</svg>
+
+<style>
+  .stairs-spinner {
+    overflow: visible;
+    fill: var(--stairs-color);
+  }
+  .stair {
+    /* rotate around the logo's center (168,168), so the stairs swing over each other */
+    transform-box: view-box;
+    transform-origin: 168px 168px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stair { animation: none !important; }
+  }
+</style>
