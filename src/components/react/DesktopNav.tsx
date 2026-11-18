@@ -86,7 +86,7 @@ export default function DesktopNav({ items, currentPath, homePath }: Props) {
                     className="min-w-60 rounded-card bg-white p-3 shadow-xl ring-1 ring-black/5"
                   >
                     {item.children.map((child) => (
-                      <motion.li key={child.href} variants={dropdownItem}>
+                      <motion.li key={child.label} variants={dropdownItem}>
                         <NavigationMenu.Link asChild>
                           <motion.a
                             href={child.href}

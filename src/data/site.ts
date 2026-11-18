@@ -7,7 +7,7 @@
  * Replace each URL with your own photo before the site goes public.
  */
 import { localizePath, useTranslations, type Language } from '@/i18n';
-import { VOLUNTEER_FORM_URL } from '@/data/contacts';
+import { VOLUNTEER_FORM_URL, YOUTUBE_URL } from '@/data/contacts';
 import hero1 from '@/assets/hero/01-first-pic.jpg';
 import hero2 from '@/assets/hero/02-second-pic.jpg';
 import hero3 from '@/assets/hero/03-third-pic.jpg';
@@ -22,7 +22,6 @@ const REF = 'https://caridad.vamtam.com/wp-content/uploads';
 export const images = {
   // decorative shapes / doodles
   headerBg: `${REF}/2021/04/Group-header-1-1.svg`,
-  sun: `${REF}/2021/04/sun-1.svg`,
   shape: `${REF}/2021/03/shape-01.svg`,
   dots: `${REF}/2021/04/Group-35.svg`,
   sunCard: `${REF}/2021/04/sun-vs.svg`,
@@ -68,33 +67,42 @@ export const externalLinkProps = { target: '_blank', rel: 'noopener noreferrer' 
 export function getNav(lang: Language): NavItem[] {
   const t = useTranslations(lang).nav;
   const p = (path: string) => localizePath(path, lang);
+  // TODO: board, history, programs and annual reports have no pages yet — anchors are placeholders.
   return [
-    { label: t.home, href: p('/') },
     {
       label: t.about,
       href: p('/#about'),
       children: [
+        { label: t.team, href: p('/team') },
+        { label: t.board, href: p('/#about') },
         { label: t.mission, href: p('/#about') },
-        { label: t.whatWeDo, href: p('/#programs') },
-        { label: t.faq, href: p('/#faq') },
-        { label: t.partners, href: p('/#partners') },
+        { label: t.history, href: p('/#about') },
       ],
     },
     {
-      label: t.articles,
-      href: articlesPath(lang),
+      label: t.programs,
+      href: p('/#programs'),
       children: [
-        { label: t.allArticles, href: articlesPath(lang) },
-        ...categorySlugs.map((slug) => ({ label: categoryLabel(slug, lang), href: articlesPath(lang, slug) })),
+        { label: t.citizen, href: p('/#programs') },
+        { label: t.power, href: p('/#programs') },
+        { label: t.podcast, href: YOUTUBE_URL, external: true },
       ],
     },
-    { label: t.events, href: p('/#events') },
+    {
+      label: t.resources,
+      href: articlesPath(lang),
+      children: [
+        { label: t.articles, href: articlesPath(lang) },
+        { label: t.annualReports, href: p('/#about') },
+        { label: t.faq, href: p('/#faq') },
+      ],
+    },
     {
       label: t.join,
       href: p('/#get-involved'),
       children: [
+        { label: t.donate, href: p('/#support') },
         { label: t.volunteer, href: VOLUNTEER_FORM_URL, external: true },
-        { label: t.support, href: p('/#support') },
         { label: t.contact, href: p('/#contact') },
       ],
     },

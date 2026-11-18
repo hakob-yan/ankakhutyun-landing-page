@@ -34,7 +34,7 @@ export default function HeroDonate({ label, href }: Props) {
           aria-hidden
           className="absolute inset-0 -z-10 overflow-hidden rounded-full"
           style={{
-            backgroundImage: 'linear-gradient(110deg, #ff6700, #ff9340, #ffb589, #ff9340, #ff6700)',
+            backgroundImage: 'linear-gradient(110deg, #ffa41c, #ffc247, #ffd98a, #ffc247, #ffa41c)',
             backgroundSize: '250% 100%',
           }}
           animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}

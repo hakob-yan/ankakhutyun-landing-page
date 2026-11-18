@@ -16,7 +16,7 @@ const programs = programCards.map((card, i) => ({ ...card, ...t.programs.items[i
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {programs.map((p) =>
         p.variant === 'photo' ? (
-          <a href={p.href} class="group flex flex-col overflow-hidden rounded-card bg-brand text-ink ring-accent transition-shadow duration-300 hover:shadow-xl hover:ring-2">
+          <a href={p.href} class="group flex flex-col overflow-hidden rounded-card bg-white text-ink ring-accent transition-shadow duration-300 hover:shadow-xl hover:ring-2">
             <div class="aspect-[4/3] overflow-hidden">
               <img src={p.image} alt="" loading="lazy" class="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>

@@ -92,7 +92,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                               <div className="pb-3">
                                 {item.children.map((c) => (
                                   <motion.a
-                                    key={c.href}
+                                    key={c.label}
                                     href={c.href}
                                     {...(c.external ? externalLinkProps : {})}
                                     whileTap={{ scale: 0.97 }}

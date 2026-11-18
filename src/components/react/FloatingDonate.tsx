@@ -163,15 +163,15 @@ function Butterfly({ carrying }: { carrying: boolean }) {
       <svg viewBox="0 0 32 32" className="size-full drop-shadow-sm">
         {/* left wings */}
         <motion.g style={{ originX: '16px', originY: '16px' }} animate={{ scaleX: [1, 0.25, 1] }} transition={flap}>
-          <path d="M16 15 C 10 3, 1 4, 3 12 C 4 16, 10 17, 16 15 Z" fill="#ff6700" />
-          <path d="M16 17 C 9 18, 4 24, 8 28 C 12 30, 15 24, 16 17 Z" fill="#ff9340" />
-          <circle cx="8" cy="10" r="1.6" fill="#fff0e8" />
+          <path d="M16 15 C 10 3, 1 4, 3 12 C 4 16, 10 17, 16 15 Z" fill="#ffa41c" />
+          <path d="M16 17 C 9 18, 4 24, 8 28 C 12 30, 15 24, 16 17 Z" fill="#ffc247" />
+          <circle cx="8" cy="10" r="1.6" fill="#fff6e0" />
         </motion.g>
         {/* right wings */}
         <motion.g style={{ originX: '16px', originY: '16px' }} animate={{ scaleX: [1, 0.25, 1] }} transition={flap}>
-          <path d="M16 15 C 22 3, 31 4, 29 12 C 28 16, 22 17, 16 15 Z" fill="#ff6700" />
-          <path d="M16 17 C 23 18, 28 24, 24 28 C 20 30, 17 24, 16 17 Z" fill="#ff9340" />
-          <circle cx="24" cy="10" r="1.6" fill="#fff0e8" />
+          <path d="M16 15 C 22 3, 31 4, 29 12 C 28 16, 22 17, 16 15 Z" fill="#ffa41c" />
+          <path d="M16 17 C 23 18, 28 24, 24 28 C 20 30, 17 24, 16 17 Z" fill="#ffc247" />
+          <circle cx="24" cy="10" r="1.6" fill="#fff6e0" />
         </motion.g>
         {/* body + antennae */}
         <rect x="15" y="9" width="2" height="15" rx="1" fill="#33261d" />
