@@ -194,6 +194,24 @@ const hy = {
     joinButton: 'Դառնալ կամավոր',
   },
 
+  board: {
+    eyebrow: 'խորհրդի կազմ',
+    title: 'Նրանք, ովքեր ուղղություն են տալիս',
+    subtitle: 'Խորհուրդը սահմանում է կազմակերպության ռազմավարությունը, հետևում է ֆինանսների թափանցիկությանը և օգնում է թիմին հավատարիմ մնալ մեր առաքելությանը։',
+    description: 'Ծանոթացեք «Անկախության սերունդ» նախաձեռնության խորհրդի կազմին։',
+    membersTitle: 'Խորհրդի անդամներ',
+    since: 'Խորհրդում՝ {year}-ից',
+    more: 'Ավելին',
+    less: 'Թաքցնել',
+    howTitle: 'Ինչպես է աշխատում խորհուրդը',
+    facts: [
+      { value: '7', label: 'անդամ՝ տարբեր մասնագիտություններից' },
+      { value: '4', label: 'նիստ տարեկան, որոնց որոշումները հրապարակվում են' },
+      { value: '3', label: 'տարի՝ անդամակցության ժամկետը' },
+      { value: '0', label: 'վարձատրություն. անդամները կամավոր են' },
+    ],
+  },
+
   blog: {
     eyebrow: 'բլոգ',
     title: 'Հոդվածներ',
@@ -419,6 +437,24 @@ const en: Dictionary = {
     joinButton: 'Become a volunteer',
   },
 
+  board: {
+    eyebrow: 'board',
+    title: 'The people who set the direction',
+    subtitle: 'The board sets the organization’s strategy, keeps its finances transparent and helps the team stay true to our mission.',
+    description: 'Meet the board of Ankakhutyan Serund.',
+    membersTitle: 'Board members',
+    since: 'On the board since {year}',
+    more: 'More',
+    less: 'Less',
+    howTitle: 'How the board works',
+    facts: [
+      { value: '7', label: 'members from different professions' },
+      { value: '4', label: 'meetings a year, with published decisions' },
+      { value: '3', label: 'year term for each member' },
+      { value: '0', label: 'pay: board members are volunteers' },
+    ],
+  },
+
   blog: {
     eyebrow: 'blog',
     title: 'Articles',
@@ -640,6 +676,24 @@ const ru: Dictionary = {
     joinTitle: 'Хотите присоединиться к команде?',
     joinText: 'Мы всегда ищем людей, готовых посвятить своё время и идеи общему делу.',
     joinButton: 'Стать волонтёром',
+  },
+
+  board: {
+    eyebrow: 'правление',
+    title: 'Люди, которые задают направление',
+    subtitle: 'Правление определяет стратегию организации, следит за прозрачностью финансов и помогает команде оставаться верной нашей миссии.',
+    description: 'Познакомьтесь с составом правления «Поколения независимости».',
+    membersTitle: 'Члены правления',
+    since: 'В правлении с {year} года',
+    more: 'Подробнее',
+    less: 'Скрыть',
+    howTitle: 'Как работает правление',
+    facts: [
+      { value: '7', label: 'членов разных профессий' },
+      { value: '4', label: 'заседания в год с публикацией решений' },
+      { value: '3', label: 'года — срок полномочий' },
+      { value: '0', label: 'оплаты: члены правления — волонтёры' },
+    ],
   },
 
   blog: {

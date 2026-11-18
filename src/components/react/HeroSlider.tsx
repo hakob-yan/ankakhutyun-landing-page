@@ -90,9 +90,8 @@ export default function HeroSlider({ slides, labels }: Props) {
           </div>
         </div>
 
-        {/* dark fades at the top and bottom of the photos */}
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/60 to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
+        {/* even dark tint over the photos so the white text stays readable */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-black/40" />
 
         {/* controls: prev · dots (timer) · next · pause */}
         <div className="absolute top-4 right-4 z-10 flex items-center gap-1 rounded-full bg-cream/85 p-1 shadow-lg backdrop-blur-md sm:top-6 sm:right-6">

@@ -1,14 +1,10 @@
-import { useState, type PointerEvent } from 'react';
+import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import {
   AnimatePresence,
   LayoutGroup,
   MotionConfig,
   motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-  useTransform,
   type Variants,
 } from 'motion/react';
 import { ArrowUpRight, Mail, X } from 'lucide-react';
@@ -22,62 +18,28 @@ const spring = { type: 'spring', stiffness: 260, damping: 26 } as const;
 
 const grid: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
 const card: Variants = {
-  hidden: { opacity: 0, y: 48, rotate: -2, scale: 0.96 },
-  show: { opacity: 1, y: 0, rotate: 0, scale: 1, transition: spring },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
-/** 3D tilt that follows the pointer, plus a soft light spot. */
-function useTilt(max = 8) {
-  const px = useMotionValue(0.5);
-  const py = useMotionValue(0.5);
-  const rotateX = useSpring(useTransform(py, [0, 1], [max, -max]), spring);
-  const rotateY = useSpring(useTransform(px, [0, 1], [-max, max]), spring);
-  const lx = useTransform(px, (v) => `${v * 100}%`);
-  const ly = useTransform(py, (v) => `${v * 100}%`);
-  const glare = useMotionTemplate`radial-gradient(circle at ${lx} ${ly}, rgba(255,255,255,0.45), transparent 55%)`;
-
-  const onPointerMove = (e: PointerEvent<HTMLElement>) => {
-    if (e.pointerType !== 'mouse') return;
-    const r = e.currentTarget.getBoundingClientRect();
-    px.set((e.clientX - r.left) / r.width);
-    py.set((e.clientY - r.top) / r.height);
-  };
-  const onPointerLeave = () => {
-    px.set(0.5);
-    py.set(0.5);
-  };
-  return { style: { rotateX, rotateY, transformPerspective: 900 }, glare, onPointerMove, onPointerLeave };
-}
-
 function MemberCard({ m, lead, more, onOpen }: { m: TeamCard; lead?: boolean; more: string; onOpen: () => void }) {
-  const tilt = useTilt(lead ? 5 : 8);
   return (
     <motion.li variants={card} className={lead ? '' : 'h-full'}>
-      <motion.button
+      <button
         type="button"
         onClick={onOpen}
-        onPointerMove={tilt.onPointerMove}
-        onPointerLeave={tilt.onPointerLeave}
-        style={tilt.style}
-        whileTap={{ scale: 0.98 }}
-        className={`group relative flex h-full w-full cursor-pointer overflow-hidden rounded-card bg-white text-left shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
+        className={`group relative flex h-full w-full cursor-pointer overflow-hidden rounded-card bg-white text-left ring-1 ring-ink/8 shadow-[0_1px_2px_rgb(51_38_29/0.06),0_12px_32px_-12px_rgb(51_38_29/0.2)] transition-[box-shadow,translate] duration-300 hover:-translate-y-1 hover:shadow-[0_2px_4px_rgb(51_38_29/0.08),0_24px_48px_-16px_rgb(51_38_29/0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
           lead ? 'flex-col sm:flex-row' : 'flex-col'
         }`}
       >
         <div className={`relative overflow-hidden bg-cream ${lead ? 'aspect-square sm:aspect-auto sm:w-1/2' : 'aspect-[4/5]'}`}>
-          {/* orange blob that grows behind the photo on hover */}
-          <span
-            aria-hidden
-            className="absolute -right-10 -bottom-10 size-40 rounded-full bg-accent/80 transition-transform duration-500 ease-out group-hover:scale-[3.5]"
-          />
           <motion.img
             layoutId={`photo-${m.id}`}
             src={m.photo}
             alt={m.name}
             loading="lazy"
-            className="relative size-full object-cover mix-blend-normal transition-transform duration-700 ease-out group-hover:scale-105"
+            className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
-          <motion.span aria-hidden className="pointer-events-none absolute inset-0" style={{ background: tilt.glare }} />
         </div>
 
         <div className={`flex flex-1 flex-col p-6 ${lead ? 'justify-center sm:p-10' : ''}`}>
@@ -91,7 +53,7 @@ function MemberCard({ m, lead, more, onOpen }: { m: TeamCard; lead?: boolean; mo
             <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </div>
-      </motion.button>
+      </button>
     </motion.li>
   );
 }

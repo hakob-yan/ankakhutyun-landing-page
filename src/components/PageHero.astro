@@ -9,8 +9,6 @@ const { eyebrow, title, subtitle } = Astro.props;
 <section class="relative overflow-hidden bg-night pt-16 pb-16 text-cream lg:pt-20 lg:pb-24">
   <!-- turning globe rising from the bottom, with blinking places around the world -->
   <HeroGlobe class="absolute top-[52%] left-1/2 w-[760px] max-w-none -translate-x-1/2 text-cream sm:top-[40%] sm:w-[1000px] lg:top-[26%] lg:w-[1200px]" />
-  <!-- soft fade so the text stays readable over the globe -->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-2/3 bg-linear-to-b from-night via-night/80 to-transparent"></div>
 
   <!-- logo stairs floating on the sides -->
   <StairsSpinner class="absolute top-14 left-[6%] hidden w-20 opacity-80 md:block lg:top-20 lg:w-24" pause={4} />

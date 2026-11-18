@@ -22,7 +22,7 @@
   --font-sans: 'Poppins', 'Noto Sans Armenian', ui-sans-serif, system-ui, sans-serif;
 
   --color-brand: #ffc247;       /* golden yellow: solid surfaces (cards, banner) */
-  --color-brand-dark: #ffd98a;  /* butter: gradient end */
+  --color-brand-dark: #ffd98a;  /* butter */
   --color-brand-soft: #fff6e0;  /* warm cream backgrounds */
   --color-accent: #ffa41c;      /* amber: main call-to-action buttons, badges, highlights */
   --color-accent-dark: #ffc247; /* golden yellow: underline hover */
@@ -93,14 +93,11 @@
 }
 
 /*
- * Call-to-action card (footer band, team "join" block): white surface with a soft orange glow
- * in the corners instead of a flat orange fill, so the strong orange stays reserved for buttons.
+ * Card for calls to action and highlights: flat white with a hairline outline and a soft,
+ * layered shadow (no gradients), so the strong amber stays reserved for buttons.
  */
 @utility cta-card {
-  @apply relative overflow-hidden rounded-card bg-white text-ink ring-1 ring-accent/15 shadow-[0_30px_70px_-35px_rgb(255_164_28/0.45)];
-  background-image:
-    radial-gradient(circle at 100% 100%, rgb(255 164 28 / 0.16), transparent 42%),
-    radial-gradient(circle at 0% 0%, var(--color-cream), transparent 55%);
+  @apply relative overflow-hidden rounded-card bg-white text-ink ring-1 ring-ink/8 shadow-[0_1px_2px_rgb(51_38_29/0.06),0_12px_32px_-12px_rgb(51_38_29/0.18)];
 }
 
 /* Underlined text link */

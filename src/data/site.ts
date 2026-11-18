@@ -67,14 +67,14 @@ export const externalLinkProps = { target: '_blank', rel: 'noopener noreferrer' 
 export function getNav(lang: Language): NavItem[] {
   const t = useTranslations(lang).nav;
   const p = (path: string) => localizePath(path, lang);
-  // TODO: board, history, programs and annual reports have no pages yet — anchors are placeholders.
+  // TODO: history, programs and annual reports have no pages yet — anchors are placeholders.
   return [
     {
       label: t.about,
       href: p('/#about'),
       children: [
         { label: t.team, href: p('/team') },
-        { label: t.board, href: p('/#about') },
+        { label: t.board, href: p('/board') },
         { label: t.mission, href: p('/#about') },
         { label: t.history, href: p('/#about') },
       ],
