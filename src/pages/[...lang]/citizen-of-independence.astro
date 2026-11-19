@@ -17,7 +17,7 @@ const mapVillages = Object.fromEntries(
     id,
     villages[id].map((v) => {
       const [x, y] = project(v.lon, v.lat);
-      return { name: v.name[lang], x, y };
+      return { name: v.name[lang], x, y, label: v.label ?? 'right' };
     }),
   ]),
 ) as Record<MarzId, MapVillage[]>;
@@ -76,8 +76,9 @@ const mapVillages = Object.fromEntries(
     outline: 2px solid var(--color-ink);
     outline-offset: 2px;
   }
-  .cmap-item-dot {
-    display: none;
+  .cmap-item-dot,
+  .cmap-panel {
+    display: none; /* phones: no timeline dots, and the villages go under the chips instead of an accordion */
   }
   .cmap-count {
     margin-left: auto;
@@ -139,6 +140,23 @@ const mapVillages = Object.fromEntries(
       background: var(--color-brand-dark);
       box-shadow: none;
     }
+    /* accordion: the active row opens (grid rows 0fr → 1fr animates the height) */
+    .cmap-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .cmap-panel.is-open {
+      grid-template-rows: 1fr;
+    }
+    .cmap-panel > div {
+      min-height: 0;
+      overflow: hidden;
+      padding-left: calc(0.75rem + 12px + 0.625rem); /* under the name, past the timeline dot */
+    }
+    .cmap-panel.is-open > div {
+      padding-block: 0.375rem 0.625rem;
+    }
     .cmap-item.is-active .cmap-item-dot {
       background: var(--color-accent);
       box-shadow: 0 0 0 4px rgb(255 164 28 / 0.3);
@@ -168,7 +186,7 @@ const mapVillages = Object.fromEntries(
     .cmap-map { max-width: calc(100svh - 6.5rem); padding: 1.5rem; }
   }
   .cmap-zoom {
-    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); /* keep PASS_MS in CitizenMap.tsx ≥ this */
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); /* = ZOOM_MS in CitizenMap.tsx; keep PASS_MS ≥ this */
   }
   .cmap-mask-full {
     transition: opacity 0.35s ease; /* quick, so the whole country is visible during the zoom-out between marzes */
@@ -185,13 +203,30 @@ const mapVillages = Object.fromEntries(
   .cmap-dots {
     animation: cmap-in 0.3s ease-out 0.4s both;
   }
+  /* villages: grey on the whole map, blue (blinking) inside an open marz */
+  .cmap-dots {
+    --village: #2f6fdf;
+  }
   .cmap-dot {
-    fill: var(--color-ink);
+    fill: #a8a29e;
     stroke: white;
+    stroke-width: 2;
+  }
+  .cmap-dots.is-zoomed .cmap-dot {
+    fill: var(--village);
     stroke-width: 3;
   }
+  .cmap-chip-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: #2f6fdf;
+  }
+  /* the blink: a blue ring expanding out of the dot (an outline, so it stays blue on the amber marz) */
   .cmap-pulse {
-    fill: var(--color-ink);
+    fill: none;
+    stroke: var(--village);
+    stroke-width: 2.5;
     transform-box: fill-box;
     transform-origin: center;
     animation: cmap-pulse 1.8s ease-out infinite;
@@ -210,14 +245,14 @@ const mapVillages = Object.fromEntries(
     from { opacity: 0; }
   }
   @keyframes cmap-pulse {
-    from { transform: scale(1); opacity: 0.55; }
-    to { transform: scale(3.2); opacity: 0; }
+    from { transform: scale(1); opacity: 0.9; }
+    to { transform: scale(2.8); opacity: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .cmap-zoom, .cmap-shape, .cmap-mask-full { transition: none; }
     .cmap-dots, .cmap-hint { animation: none; }
-    .cmap-item, .cmap-item-dot { transition: none; }
+    .cmap-item, .cmap-item-dot, .cmap-panel { transition: none; }
     .cmap-pulse { display: none; }
   }
 </style>
