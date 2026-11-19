@@ -1,9 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/home/Hero.astro';
-import GetInvolved from '@/components/home/GetInvolved.astro';
-import About from '@/components/home/About.astro';
-import Programs from '@/components/home/Programs.astro';
 import LatestArticles from '@/components/home/LatestArticles.astro';
 import FaqSection from '@/components/home/FaqSection.astro';
 import { routeLanguage } from '@/lib/articles';
@@ -15,9 +12,6 @@ if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
 
 <BaseLayout lang={lang} path="/">
   <Hero lang={lang} />
-  <GetInvolved lang={lang} />
-  <About lang={lang} />
-  <Programs lang={lang} />
   <LatestArticles lang={lang} />
   <FaqSection lang={lang} />
 </BaseLayout>

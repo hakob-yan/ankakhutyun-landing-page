@@ -28,9 +28,7 @@ const hy = {
     about: 'Մեր մասին',
     team: 'Մեր թիմը',
     board: 'Խորհրդի կազմ',
-    history: 'Մեր պատմությունը',
     programs: 'Ծրագրեր',
-    citizen: 'Անկախության Քաղաքացի',
     power: 'Անկախության ուժը',
     resources: 'Ռեսուրսներ',
     blog: 'Բլոգ',
@@ -68,27 +66,17 @@ const hy = {
     ],
   },
 
-  stats: [
-    'թվականից սկսվում է մեր սերնդի պատմությունը',
-    'հրապարակված հոդված և հարցազրույց',
-    'երիտասարդ ընթերցող ամեն ամիս',
-  ],
-
   support: {
     eyebrow: 'նվիրատվություն',
     title: 'Ուզո՞ւմ եք օգնել',
-    text: 'Ձեր նվիրատվությունն օգնում է շարունակել կրթական ծրագրերը, հրատարակել նոր հոդվածներ և կազմակերպել միջոցառումներ երիտասարդների համար։',
-    description: 'Աջակցեք «Անկախության սերունդ»-ին․ ձեր նվիրատվությունն օգնում է կրթական ծրագրերին, նոր հոդվածներին և երիտասարդական միջոցառումներին։',
+    text: 'Ձեր նվիրատվությունն օգնում է շարունակել կրթական ծրագրերը և կազմակերպել միջոցառումներ երիտասարդների համար։',
+    description: 'Աջակցեք «Անկախության սերունդ»-ին․ ձեր նվիրատվությունն օգնում է կրթական ծրագրերին և երիտասարդական միջոցառումներին։',
     impactEyebrow: 'ձեր աջակցությունը',
     impactTitle: 'Ինչի՞ն է ուղղվում ձեր նվիրատվությունը',
     impact: [
       { title: 'Կրթական ծրագրեր', text: 'Դասընթացներ, քննարկումներ և աշխատաժողովներ դպրոցականների ու ուսանողների համար։' },
-      { title: 'Նոր հոդվածներ', text: 'Անկախության սերնդի պատմությունների, հարցազրույցների և հետազոտությունների հրապարակում։' },
       { title: 'Միջոցառումներ', text: 'Հանդիպումներ, ցուցահանդեսներ և երիտասարդական միջոցառումներ ամբողջ Հայաստանում։' },
     ],
-    transparency: 'Մենք թափանցիկ ենք․ նվիրատվությունների մասին տարեկան հաշվետվությունը հրապարակվում է կայքում։',
-    otherTitle: 'Աջակցելու այլ ուղիներ',
-    otherText: 'Կարող եք օգնել ոչ միայն գումարով․ միացեք մեզ որպես կամավոր կամ գրեք մեզ ձեր գաղափարների մասին։',
   },
 
   donate: {
@@ -154,34 +142,6 @@ const hy = {
     questionsText: 'Եթե ունեք հարցեր մեր ֆինանսների կամ ծրագրերի մասին, գրեք մեզ, և մենք սիրով կպատասխանենք։',
     write: 'Գրել մեզ',
   },
-
-  involved: {
-    eyebrow: 'միացիր մեզ',
-    title: 'Յուրաքանչյուր պատմություն կարևոր է․ օգնիր մեզ պահպանել դրանք',
-    volunteer: 'Կամավորություն',
-    write: 'Գրիր մեզ համար',
-    attend: 'Մասնակցիր միջոցառման',
-  },
-
-  about: {
-    years: 'տարի անկախություն',
-    eyebrow: 'ովքեր ենք մենք',
-    title: 'Միավորվենք՝ պատմելու մեր սերնդի պատմությունը',
-    text: '«Անկախության սերունդ»-ը հասարակական նախաձեռնություն է, որի առաքելությունն է հավաքել, պահպանել և տարածել անկախության տարիներին ծնված սերնդի պատմությունները, ինչպես նաև աջակցել երիտասարդների կրթական և քաղաքացիական նախաձեռնություններին։',
-    more: 'Ավելին մեր մասին',
-  },
-
-  programs: {
-    eyebrow: 'ինչ ենք անում',
-    title: 'Ինչով ենք օգնում',
-    items: [
-      { title: 'Պատմության էջեր', text: 'Վերհիշում ենք անկախության առաջին տարիները՝ մարդկանց պատմությունների միջոցով։' },
-      { title: 'Կրթական ծրագրեր', text: 'Դասախոսություններ և դասընթացներ դպրոցականների ու ուսանողների համար։' },
-      { title: 'Մշակութային կյանք', text: 'Գրականություն, երաժշտություն և արվեստ՝ նոր սերնդի աչքերով։' },
-      { title: 'Քաղաքացիական ակտիվություն', text: 'Աջակցում ենք երիտասարդական նախաձեռնություններին ամբողջ Հայաստանում։' },
-    ],
-  },
-
 
   latest: {
     all: 'Բոլոր հրապարակումները',
@@ -325,9 +285,7 @@ const en: Dictionary = {
     about: 'About us',
     team: 'Our team',
     board: 'Board',
-    history: 'Our story',
     programs: 'Programs',
-    citizen: 'Citizen of Independence',
     power: 'The Power of Independence',
     resources: 'Resources',
     blog: 'Blog',
@@ -365,27 +323,17 @@ const en: Dictionary = {
     ],
   },
 
-  stats: [
-    'the year our generation’s story begins',
-    'published articles and interviews',
-    'young readers every month',
-  ],
-
   support: {
     eyebrow: 'support',
     title: 'Would you like to help?',
-    text: 'Your donation helps us continue our educational programs, publish new articles, and organize events for young people.',
-    description: 'Support Generation of Independence: your donation funds educational programs, new articles and events for young people.',
+    text: 'Your donation helps us continue our educational programs and organize events for young people.',
+    description: 'Support Generation of Independence: your donation funds educational programs and events for young people.',
     impactEyebrow: 'your support',
     impactTitle: 'Where your donation goes',
     impact: [
       { title: 'Educational programs', text: 'Courses, discussions and workshops for school and university students.' },
-      { title: 'New articles', text: 'Publishing stories, interviews and research about the independence generation.' },
       { title: 'Events', text: 'Meetups, exhibitions and youth events across Armenia.' },
     ],
-    transparency: 'We are transparent: an annual report on all donations is published on the site.',
-    otherTitle: 'Other ways to help',
-    otherText: 'Money is not the only way to help: join us as a volunteer or write to us with your ideas.',
   },
 
   donate: {
@@ -451,34 +399,6 @@ const en: Dictionary = {
     questionsText: 'If you have questions about our finances or programs, write to us and we will be happy to answer.',
     write: 'Write to us',
   },
-
-  involved: {
-    eyebrow: 'join us',
-    title: 'Every story matters. Help us preserve them',
-    volunteer: 'Volunteer',
-    write: 'Write for us',
-    attend: 'Attend an event',
-  },
-
-  about: {
-    years: 'years of independence',
-    eyebrow: 'who we are',
-    title: 'Let’s come together to tell our generation’s story',
-    text: 'Generation of Independence is a civic initiative whose mission is to collect, preserve, and share the stories of the generation born during the years of independence, and to support young people’s educational and civic initiatives.',
-    more: 'More about us',
-  },
-
-  programs: {
-    eyebrow: 'what we do',
-    title: 'How we help',
-    items: [
-      { title: 'Pages of history', text: 'We revisit the first years of independence through people’s stories.' },
-      { title: 'Education programs', text: 'Lectures and courses for school and university students.' },
-      { title: 'Cultural life', text: 'Literature, music, and art through the eyes of a new generation.' },
-      { title: 'Civic engagement', text: 'We support youth initiatives all across Armenia.' },
-    ],
-  },
-
 
   latest: {
     all: 'All posts',
@@ -619,9 +539,7 @@ const ru: Dictionary = {
     about: 'О нас',
     team: 'Наша команда',
     board: 'Состав правления',
-    history: 'Наша история',
     programs: 'Программы',
-    citizen: 'Гражданин независимости',
     power: 'Сила независимости',
     resources: 'Ресурсы',
     blog: 'Блог',
@@ -659,27 +577,17 @@ const ru: Dictionary = {
     ],
   },
 
-  stats: [
-    'год, с которого начинается история нашего поколения',
-    'опубликованных статей и интервью',
-    'молодых читателей ежемесячно',
-  ],
-
   support: {
     eyebrow: 'поддержка',
     title: 'Хотите помочь?',
-    text: 'Ваше пожертвование помогает продолжать образовательные программы, публиковать новые статьи и проводить мероприятия для молодёжи.',
-    description: 'Поддержите «Поколение независимости»: ваше пожертвование помогает образовательным программам, новым статьям и мероприятиям для молодёжи.',
+    text: 'Ваше пожертвование помогает продолжать образовательные программы и проводить мероприятия для молодёжи.',
+    description: 'Поддержите «Поколение независимости»: ваше пожертвование помогает образовательным программам и мероприятиям для молодёжи.',
     impactEyebrow: 'ваша поддержка',
     impactTitle: 'На что идут пожертвования',
     impact: [
       { title: 'Образовательные программы', text: 'Курсы, дискуссии и мастер-классы для школьников и студентов.' },
-      { title: 'Новые статьи', text: 'Публикация историй, интервью и исследований о поколении независимости.' },
       { title: 'Мероприятия', text: 'Встречи, выставки и молодёжные мероприятия по всей Армении.' },
     ],
-    transparency: 'Мы открыты: годовой отчёт обо всех пожертвованиях публикуется на сайте.',
-    otherTitle: 'Другие способы помочь',
-    otherText: 'Помочь можно не только деньгами: присоединяйтесь к нам как волонтёр или напишите нам о своих идеях.',
   },
 
   donate: {
@@ -745,34 +653,6 @@ const ru: Dictionary = {
     questionsText: 'Если у вас есть вопросы о наших финансах или программах, напишите нам — мы с радостью ответим.',
     write: 'Написать нам',
   },
-
-  involved: {
-    eyebrow: 'присоединяйтесь',
-    title: 'Каждая история важна. Помогите нам сохранить их',
-    volunteer: 'Волонтёрство',
-    write: 'Пишите для нас',
-    attend: 'Придите на мероприятие',
-  },
-
-  about: {
-    years: 'лет независимости',
-    eyebrow: 'кто мы',
-    title: 'Объединимся, чтобы рассказать историю нашего поколения',
-    text: '«Поколение независимости» — общественная инициатива, миссия которой — собирать, сохранять и распространять истории поколения, родившегося в годы независимости, а также поддерживать образовательные и гражданские инициативы молодёжи.',
-    more: 'Подробнее о нас',
-  },
-
-  programs: {
-    eyebrow: 'что мы делаем',
-    title: 'Чем мы помогаем',
-    items: [
-      { title: 'Страницы истории', text: 'Вспоминаем первые годы независимости через истории людей.' },
-      { title: 'Образовательные программы', text: 'Лекции и курсы для школьников и студентов.' },
-      { title: 'Культурная жизнь', text: 'Литература, музыка и искусство глазами нового поколения.' },
-      { title: 'Гражданская активность', text: 'Поддерживаем молодёжные инициативы по всей Армении.' },
-    ],
-  },
-
 
   latest: {
     all: 'Все публикации',

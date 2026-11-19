@@ -1,5 +1,5 @@
 /**
- * Site-wide data that is not language-specific (images, navigation, stats). Contacts live in src/data/contacts.ts.
+ * Site-wide data that is not language-specific (images, navigation). Contacts live in src/data/contacts.ts.
  * Translated text lives in src/i18n/ui.ts.
  *
  * IMAGES: for now every image is loaded from the reference demo site
@@ -13,26 +13,17 @@ import hero2 from '@/assets/hero/02-second-pic.jpg';
 import hero3 from '@/assets/hero/03-third-pic.jpg';
 import hero4 from '@/assets/hero/04-fourth-pic.jpg';
 import hero5 from '@/assets/hero/05-fifth-pic.jpg';
+import donate from '@/assets/donate/Donate.webp';
 
 /** Home hero slider photos (own photos, optimized at build time). Alt texts: ui.hero.slides (same order). */
 export const heroSlides = [hero1, hero2, hero3, hero4, hero5];
 
+/** /donation page photo (own photo, optimized at build time). */
+export const donateImage = donate;
+
 const REF = 'https://caridad.vamtam.com/wp-content/uploads';
 
 export const images = {
-  // decorative shapes / doodles
-  sunCard: `${REF}/2021/04/sun-vs.svg`,
-  appleCard: `${REF}/2021/04/apple-vs-02.svg`,
-
-  // photos
-  help: `${REF}/2021/04/iStock-924659944.jpg`,
-  involved1: `${REF}/2021/04/iStock-626891352.jpg`,
-  involved2: `${REF}/2021/04/iStock-1286721700.jpg`,
-  involved3: `${REF}/2021/04/iStock-499888635.jpg`,
-  about: `${REF}/2021/04/iStock-175188027.jpg`,
-  card1: `${REF}/2021/04/iStock-463374569.jpg`,
-  card4: `${REF}/2021/04/iStock-493698580.jpg`,
-
   // partner logos
   partners: [
     `${REF}/2021/04/scuola-1.svg`,
@@ -63,22 +54,19 @@ export const externalLinkProps = { target: '_blank', rel: 'noopener noreferrer' 
 export function getNav(lang: Language): NavItem[] {
   const t = useTranslations(lang).nav;
   const p = (path: string) => localizePath(path, lang);
-  // TODO: history and programs have no pages yet — anchors are placeholders.
   return [
     {
       label: t.about,
-      href: p('/#about'),
+      href: p('/team'),
       children: [
         { label: t.team, href: p('/team') },
         { label: t.board, href: p('/board') },
-        { label: t.history, href: p('/#about') },
       ],
     },
     {
       label: t.programs,
-      href: p('/#programs'),
+      href: p('/power-of-independence'),
       children: [
-        { label: t.citizen, href: p('/#programs') },
         { label: t.power, href: p('/power-of-independence') },
         { label: t.podcast, href: p('/podcast') },
       ],
@@ -94,7 +82,7 @@ export function getNav(lang: Language): NavItem[] {
     },
     {
       label: t.join,
-      href: p('/#get-involved'),
+      href: p('/donation'),
       children: [
         { label: t.donate, href: p('/donation') },
         { label: t.volunteer, href: VOLUNTEER_FORM_URL, external: true },
@@ -104,16 +92,3 @@ export function getNav(lang: Language): NavItem[] {
   ];
 }
 
-export const stats = [
-  { value: 1991, suffix: '' },
-  { value: 350, suffix: '+' },
-  { value: 12000, suffix: '+' },
-];
-
-/** Card visuals for the "How we help" section; text comes from ui.programs.items (same order). All cards link to the blog. */
-export const programCards = [
-  { category: 'history', image: images.card1, variant: 'photo' as const },
-  { category: 'education', image: images.sunCard, variant: 'doodle' as const },
-  { category: 'culture', image: images.appleCard, variant: 'doodle' as const },
-  { category: 'society', image: images.card4, variant: 'photo' as const },
-];
