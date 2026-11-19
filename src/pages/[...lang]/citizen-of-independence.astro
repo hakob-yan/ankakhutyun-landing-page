@@ -1,9 +1,8 @@
 ---
-import { siInstagram } from 'simple-icons';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import StairsSpinner from '@/components/StairsSpinner.astro';
-import { externalLinkProps } from '@/data/site';
-import { EMAIL_HREF, INSTAGRAM_URL } from '@/data/contacts';
+import CitizenMap, { type MapVillage } from '@/components/react/CitizenMap';
+import { marzIds, project, type MarzId } from '@/data/armenia-map';
+import { villages } from '@/data/citizen';
 import { useTranslations } from '@/i18n';
 import { routeLanguage } from '@/lib/articles';
 
@@ -11,33 +10,214 @@ import { routeLanguage } from '@/lib/articles';
 const lang = routeLanguage(Astro.params.lang);
 if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
 const t = useTranslations(lang).citizen;
+
+// villages in map coordinates, with names in the page language
+const mapVillages = Object.fromEntries(
+  marzIds.map((id) => [
+    id,
+    villages[id].map((v) => {
+      const [x, y] = project(v.lon, v.lat);
+      return { name: v.name[lang], x, y };
+    }),
+  ]),
+) as Record<MarzId, MapVillage[]>;
 ---
 
 <BaseLayout lang={lang} path="/citizen-of-independence" title={t.title} description={t.description}>
-  <!-- intro -->
-  <section class="bg-cream pt-12 pb-14 lg:pt-16 lg:pb-16">
-    <div class="container-x max-w-3xl">
-      <p class="eyebrow">{t.eyebrow}</p>
-      <h1 class="section-title">{t.title}</h1>
-      <p class="mt-5 text-lg text-ink/70">{t.intro}</p>
-    </div>
-  </section>
-
-  <!-- details coming soon -->
-  <section class="container-x pt-20 pb-40 lg:pt-28 lg:pb-44">
-    <div class="cta-card px-6 py-14 text-center sm:px-12 lg:py-20">
-      <StairsSpinner class="absolute right-4 bottom-4 hidden w-28 opacity-80 sm:block" />
-      <div class="relative mx-auto max-w-2xl">
-        <h2 class="section-title">{t.soonTitle}</h2>
-        <p class="mt-5 text-lg text-ink/70">{t.soonText}</p>
-        <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a href={INSTAGRAM_URL} {...externalLinkProps} class="btn-primary">
-            <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d={siInstagram.path} /></svg>
-            {t.follow}
-          </a>
-          <a href={EMAIL_HREF} class="btn-outline">{t.write}</a>
-        </div>
-      </div>
-    </div>
+  <section class="container-x pt-6 pb-32 lg:pt-2 lg:pb-40">
+    <!-- no visible title; the page heading is kept for screen readers and search engines -->
+    <h1 class="sr-only">{t.title}</h1>
+    <CitizenMap
+      client:load
+      villages={mapVillages}
+      labels={{
+        mapLabel: t.mapLabel,
+        marzesLabel: t.marzesLabel,
+        allArmenia: t.allArmenia,
+        scrollHint: t.scrollHint,
+        villagesSoon: t.villagesSoon,
+        marzes: t.marzes,
+      }}
+    />
+    <p class="mt-6 text-xs text-ink/50">
+      <a href="https://www.geoboundaries.org" target="_blank" rel="noopener noreferrer" class="hover:underline">{t.mapCredit}</a>
+    </p>
   </section>
 </BaseLayout>
+
+<style is:global>
+  /* marz list: compact chips on phones, a vertical timeline on desktop; the highlight follows the scroll */
+  .cmap-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .cmap-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: 9999px;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: left;
+    background: var(--color-cream);
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+  }
+  @media (hover: hover) {
+    .cmap-item:hover { background: var(--color-accent-soft); }
+  }
+  .cmap-item.is-active {
+    background: var(--color-accent);
+    font-weight: 600;
+  }
+  .cmap-item:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+  .cmap-item-dot {
+    display: none;
+  }
+  .cmap-count {
+    margin-left: auto;
+    min-width: 1.5rem;
+    border-radius: 9999px;
+    background: white;
+    padding: 0 0.4rem;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  @media (min-width: 1024px) {
+    .cmap-list {
+      position: relative;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0.125rem;
+    }
+    /* the timeline line through the dots */
+    .cmap-list::before {
+      content: '';
+      position: absolute;
+      top: 1.25rem;
+      bottom: 1.25rem;
+      left: calc(0.75rem + 5px);
+      width: 2px;
+      background: rgb(51 38 29 / 0.1);
+    }
+    .cmap-item {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      color: rgb(51 38 29 / 0.6);
+      background: transparent;
+      border-radius: 0.875rem;
+    }
+    .cmap-item:hover {
+      color: var(--color-ink);
+      background: var(--color-cream);
+    }
+    .cmap-item.is-active:hover {
+      background: var(--color-sand);
+    }
+    .cmap-item.is-active {
+      color: var(--color-ink);
+      background: var(--color-sand);
+    }
+    .cmap-item-dot {
+      position: relative; /* above the timeline line */
+      display: block;
+      flex-shrink: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 9999px;
+      background: white;
+      box-shadow: inset 0 0 0 2px rgb(51 38 29 / 0.2);
+      transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .cmap-item.is-done .cmap-item-dot {
+      background: var(--color-brand-dark);
+      box-shadow: none;
+    }
+    .cmap-item.is-active .cmap-item-dot {
+      background: var(--color-accent);
+      box-shadow: 0 0 0 4px rgb(255 164 28 / 0.3);
+      transform: scale(1.15);
+    }
+  }
+  .cmap-hint {
+    animation: cmap-hint 1.6s ease-in-out infinite;
+  }
+  @keyframes cmap-hint {
+    50% { transform: translateY(4px); }
+  }
+
+  /* map: no background; the shadow is an SVG filter inside the map (CitizenMap.tsx) */
+  .cmap-map {
+    padding: 0.75rem; /* room for the shadow inside the clipped box */
+    overflow: visible;
+  }
+  /* desktop: the map (about square) fits the screen below the sticky header (4.5rem) with a little room under it */
+  /* phones: the map shares the pinned screen with the marz chips */
+  .cmap-map {
+    max-width: 44svh;
+    margin-inline: auto;
+  }
+  /* desktop: the map (about square) fits the sticky column under the header (4.5rem) */
+  @media (min-width: 1024px) {
+    .cmap-map { max-width: calc(100svh - 6.5rem); padding: 1.5rem; }
+  }
+  .cmap-zoom {
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); /* keep PASS_MS in CitizenMap.tsx ≥ this */
+  }
+  .cmap-mask-full {
+    transition: opacity 0.35s ease; /* quick, so the whole country is visible during the zoom-out between marzes */
+  }
+  .cmap-shape {
+    stroke: white;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    transition: fill 0.25s, opacity 0.4s;
+  }
+
+  /* village dots: fade in once the zoom has settled, then a ring keeps pulsing out of each dot */
+  .cmap-dots {
+    animation: cmap-in 0.3s ease-out 0.4s both;
+  }
+  .cmap-dot {
+    fill: var(--color-ink);
+    stroke: white;
+    stroke-width: 3;
+  }
+  .cmap-pulse {
+    fill: var(--color-ink);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cmap-pulse 1.8s ease-out infinite;
+    animation-delay: calc(var(--i) * 0.2s);
+  }
+  .cmap-label {
+    font-size: 24px;
+    font-weight: 600;
+    fill: var(--color-ink);
+    stroke: white;
+    stroke-width: 6px;
+    stroke-linejoin: round;
+    paint-order: stroke;
+  }
+  @keyframes cmap-in {
+    from { opacity: 0; }
+  }
+  @keyframes cmap-pulse {
+    from { transform: scale(1); opacity: 0.55; }
+    to { transform: scale(3.2); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cmap-zoom, .cmap-shape, .cmap-mask-full { transition: none; }
+    .cmap-dots, .cmap-hint { animation: none; }
+    .cmap-item, .cmap-item-dot { transition: none; }
+    .cmap-pulse { display: none; }
+  }
+</style>
