@@ -203,6 +203,15 @@ const mapVillages = Object.fromEntries(
   .cmap-dots {
     animation: cmap-in 0.3s ease-out 0.4s both;
   }
+  .cmap-lake {
+    fill: #a9d1f2;
+    stroke: white;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+
   /* villages: grey on the whole map, blue (blinking) inside an open marz */
   .cmap-dots {
     --village: #2f6fdf;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
-import { MAP_HEIGHT as H, MAP_WIDTH as W, marzIds, marzShapes, type MarzId } from '@/data/armenia-map';
+import { lakeSevan, MAP_HEIGHT as H, MAP_WIDTH as W, marzIds, marzShapes, type MarzId } from '@/data/armenia-map';
 
 /** A village already projected to map coordinates, with its name in the page language. */
 export type MapVillage = { name: string; x: number; y: number; label: 'left' | 'right' };
@@ -348,6 +348,8 @@ export default function CitizenMap({ villages, labels }: Props) {
                       <title>{labels.marzes[id]}</title>
                     </path>
                   ))}
+                  {/* Lake Sevan, over Gegharkunik (clicks pass through to it) */}
+                  <path d={lakeSevan} className="cmap-lake" opacity={focus && focus !== 'GR' ? SIBLING_OPACITY : 1} />
                 </g>
               </g>
             </g>
@@ -365,6 +367,7 @@ export default function CitizenMap({ villages, labels }: Props) {
                     <title>{labels.marzes[focus]}</title>
                   </path>
                 )}
+                {focus === 'GR' && <path d={lakeSevan} className="cmap-lake" />}
               </g>
             </g>
 

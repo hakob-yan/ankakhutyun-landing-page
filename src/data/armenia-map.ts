@@ -1,6 +1,7 @@
 /**
  * Armenia's marzes (and Yerevan) as SVG paths. GENERATED: do not edit by hand.
  * Source: geoBoundaries ARM ADM1 (simplified), https://www.geoboundaries.org, licence CC BY 2.5 (credit shown on the page).
+ * Lake Sevan: Natural Earth 1:10m lakes, https://www.naturalearthdata.com (public domain).
  * Projection: equirectangular, longitude scaled by cos(40.1°); use `project()` for village coordinates.
  */
 export const MAP_WIDTH = 1000;
@@ -30,3 +31,6 @@ export const marzShapes: Record<MarzId | 'ER', MapShape> = {
 export function project(lon: number, lat: number): [number, number] {
   return [(lon * 0.7649214009184319 - 33.246272953148264) * 403.6666727747322 + 10, (41.29823477951152 - lat) * 403.6666727747322 + 10];
 }
+
+/** Lake Sevan (drawn over Gegharkunik, whose shape includes the lake). */
+export const lakeSevan = 'M496.3 333.7L490.1 333.8L482.4 332.7L475.7 329.4L472.2 324.3L474.1 317.3L479.1 313.8L484.8 311.8L488.3 308.7L485.9 302.2L483.1 299.7L480 298L477.4 295.7L476.4 291L476.6 285.7L477.6 282.2L480.2 280.8L484.8 281.6L508.4 291L512.4 291L515.3 295.8L552.9 318.7L560.7 328.1L569.7 336.4L573.5 339L574.9 339.5L576.1 340.6L575.5 345.9L575.9 347.8L578 349.4L580.2 350.2L586.4 350.8L588.1 351.4L591.3 353.4L592.7 353.3L593.8 352.2L595.1 350.3L595.4 348.7L594 347.8L592.6 345.3L593 340.5L594.9 336.8L598.2 338.2L600.9 340.6L609.8 345.1L620.1 355.8L636 378.4L647.8 386.7L660.4 391.2L664.6 394.6L684.9 423L688.6 432.1L690.1 443.4L688.7 452.9L684.7 460.4L679 465.1L672.1 466.8L658.2 464.7L656.2 465.6L641.4 475.1L636 471.5L629 468.1L621.5 467L615.1 470.8L609.2 475.7L601.9 477.8L586.4 477.8L572.7 474.5L562.9 466.3L556.4 453.5L552.5 436.5L554.8 403.3L554.3 383.9L548.3 372.7L545.6 372.9L539 377.2L535.6 378.1L533.2 377.2L527.8 373.5L524.1 372.7L523 370.6L522.8 366.1L523 357.4L521.9 352.6L519.3 351.4L515.8 351.6L512.4 350.8L509.5 348.4L501.9 339.5Z';
