@@ -68,6 +68,7 @@ export function getNav(lang: Language): NavItem[] {
       href: p('/power-of-independence'),
       children: [
         { label: t.power, href: p('/power-of-independence') },
+        { label: t.citizen, href: p('/citizen-of-independence') },
         { label: t.podcast, href: p('/podcast') },
       ],
     },
