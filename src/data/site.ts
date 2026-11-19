@@ -32,7 +32,6 @@ export const images = {
   about: `${REF}/2021/04/iStock-175188027.jpg`,
   card1: `${REF}/2021/04/iStock-463374569.jpg`,
   card4: `${REF}/2021/04/iStock-493698580.jpg`,
-  events: `${REF}/2021/04/iStock-1172438359.jpg`,
 
   // partner logos
   partners: [

@@ -122,16 +122,6 @@ const hy = {
     ],
   },
 
-  events: {
-    all: 'Բոլոր միջոցառումները →',
-    eyebrow: 'միջոցառումներ',
-    title: 'Առաջիկա միջոցառումներ',
-    items: [
-      { day: '21', month: 'Սեպ', title: 'Անկախության օրվա երիտասարդական հավաք', place: 'Երևան' },
-      { day: '16', month: 'Նոյ', title: 'Բանավոր պատմության աշխատարան ուսանողների համար', place: 'Գյումրի' },
-      { day: '05', month: 'Դեկ', title: '«Իմ սերնդի պատմությունը» շարադրությունների մրցույթ', place: 'Առցանց' },
-    ],
-  },
 
   latest: {
     all: 'Բոլոր հոդվածները',
@@ -364,16 +354,6 @@ const en: Dictionary = {
     ],
   },
 
-  events: {
-    all: 'All events →',
-    eyebrow: 'events',
-    title: 'Upcoming events',
-    items: [
-      { day: '21', month: 'Sep', title: 'Independence Day youth gathering', place: 'Yerevan' },
-      { day: '16', month: 'Nov', title: 'Oral history workshop for students', place: 'Gyumri' },
-      { day: '05', month: 'Dec', title: '“My Generation’s Story” essay contest', place: 'Online' },
-    ],
-  },
 
   latest: {
     all: 'All articles',
@@ -604,16 +584,6 @@ const ru: Dictionary = {
     ],
   },
 
-  events: {
-    all: 'Все мероприятия →',
-    eyebrow: 'мероприятия',
-    title: 'Предстоящие мероприятия',
-    items: [
-      { day: '21', month: 'сен', title: 'Молодёжная встреча ко Дню независимости', place: 'Ереван' },
-      { day: '16', month: 'ноя', title: 'Мастерская устной истории для студентов', place: 'Гюмри' },
-      { day: '05', month: 'дек', title: 'Конкурс сочинений «История моего поколения»', place: 'Онлайн' },
-    ],
-  },
 
   latest: {
     all: 'Все статьи',

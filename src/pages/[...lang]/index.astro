@@ -5,7 +5,6 @@ import Support from '@/components/home/Support.astro';
 import GetInvolved from '@/components/home/GetInvolved.astro';
 import About from '@/components/home/About.astro';
 import Programs from '@/components/home/Programs.astro';
-import Events from '@/components/home/Events.astro';
 import LatestArticles from '@/components/home/LatestArticles.astro';
 import FaqSection from '@/components/home/FaqSection.astro';
 import { routeLanguage } from '@/lib/articles';
@@ -21,7 +20,6 @@ if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
   <GetInvolved lang={lang} />
   <About lang={lang} />
   <Programs lang={lang} />
-  <Events lang={lang} />
   <LatestArticles lang={lang} />
   <FaqSection lang={lang} />
 </BaseLayout>
