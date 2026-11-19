@@ -1,7 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/PageHero.astro';
 import StairsSpinner from '@/components/StairsSpinner.astro';
 import TeamGrid from '@/components/react/TeamGrid';
 import { getTeam } from '@/data/team';
@@ -18,20 +17,13 @@ const members = await getTeam(lang, async (src) => (await getImage({ src, width:
 ---
 
 <BaseLayout lang={lang} path="/team" title={dict.nav.team} description={t.description}>
-  <PageHero eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle}>
-    <ul class="mt-10 flex justify-center -space-x-3" aria-hidden="true">
-      {members.map((m, i) => (
-        <li class="relative animate-fade-up" style={`animation-delay:${200 + i * 70}ms`}>
-          <img src={m.photo} alt="" class="size-12 rounded-full object-cover ring-4 ring-night sm:size-14" />
-        </li>
-      ))}
-    </ul>
-  </PageHero>
+  <!-- no banner: the team is the first thing on the page; the title is kept for screen readers and search engines -->
+  <h1 class="sr-only">{t.title}</h1>
 
   <div class="relative overflow-hidden">
-    <div class="container-x relative py-16 lg:py-24">
+    <div class="container-x relative pt-10 pb-16 lg:pt-14 lg:pb-24">
       <TeamGrid
-        client:visible
+        client:load
         members={members}
         labels={{ leadership: t.leadership, members: t.members, more: t.more, close: t.close }}
       />

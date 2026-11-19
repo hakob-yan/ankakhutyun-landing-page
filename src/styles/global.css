@@ -118,10 +118,10 @@
 .accordion-content[data-state='closed'] { animation: accordion-up 0.3s ease-out; }
 
 /* Hero content (buttons, donate) waits for the intro logo (SplashLogo.astro), then fades in
-   as the logo leaves. html.splash-seen = the logo is skipped on this load (internal page click).
+   as the logo leaves (only on pages that have the logo). html.splash-seen = the logo is skipped on this load (internal page click).
    React parts wait via splashDelay() in src/lib/splash.ts, which uses the same 1.8s. */
 @media (prefers-reduced-motion: no-preference) {
-  html:not(.splash-seen) .splash-reveal {
+  html:not(.splash-seen):has(.splash) .splash-reveal {
     animation: splash-reveal 0.7s ease-out 1.8s both;
   }
 }

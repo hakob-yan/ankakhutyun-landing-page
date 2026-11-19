@@ -1,7 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/PageHero.astro';
 import StairsSpinner from '@/components/StairsSpinner.astro';
 import BoardGrid from '@/components/react/BoardGrid';
 import { getBoard } from '@/data/board';
@@ -19,11 +18,12 @@ const members = all.filter((m) => !m.chair);
 ---
 
 <BaseLayout lang={lang} path="/board" title={dict.nav.board} description={t.description}>
-  <PageHero eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle} />
+  <!-- no banner: the board is the first thing on the page; the title is kept for screen readers and search engines -->
+  <h1 class="sr-only">{t.title}</h1>
 
   <!-- chair spotlight -->
   {chair && (
-    <section class="container-x py-16 lg:py-24">
+    <section class="container-x pt-10 pb-16 lg:pt-14 lg:pb-24">
       <div class="grid items-center gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
         <div class="relative mx-auto w-full max-w-sm animate-fade-up">
           <!-- slowly turning dashed ring around the photo -->
