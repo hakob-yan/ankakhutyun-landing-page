@@ -31,9 +31,9 @@ src/
   components/react/        ← interactive islands (see below)
   pages/
     [...lang]/index.astro               ← homepage (/, /en/, /ru/)
-    [...lang]/articles/[...path].astro  ← lists: /articles, /articles/page/2 … (newest article large on page 1)
-    [...lang]/articles/[slug].astro     ← single article page, Armenian only: /articles/<slug>
-    [...lang]/articles/search.astro     ← search (?q=…, title/excerpt match, filtered on the server)
+    [...lang]/blog/[...path].astro  ← lists: /blog, /blog/page/2 … (newest article large on page 1)
+    [...lang]/blog/[slug].astro     ← single post page, Armenian only: /blog/<slug>
+    [...lang]/blog/search.astro     ← search (?q=…, title/excerpt match, filtered on the server)
     404.astro
 ```
 
@@ -49,10 +49,11 @@ src/
 Articles are written and published in the admin panel. Every page is rendered on request, and the article data
 comes straight from the Django public API (published articles only):
 
-- `/articles`, `/articles/page/2` … — 6 per page; the newest published article is shown large at the top of page 1
-- `/articles/<slug>` — one page per article (Armenian), with Open Graph + JSON-LD `Article` data for SEO
-- `/en/articles`, `/ru/articles` — the same Armenian articles with translated page text; they link to `/articles/<slug>`
-- `/articles/search?q=…` — published articles whose title or excerpt contain the query
+- `/blog`, `/blog/page/2` … — 6 per page; the newest published article is shown large at the top of page 1
+- `/blog/<slug>` — one page per article (Armenian), with Open Graph + JSON-LD `Article` data for SEO
+- `/en/blog`, `/ru/blog` — the same Armenian articles with translated page text; they link to `/blog/<slug>`
+- `/blog/search?q=…` — published articles whose title or excerpt contain the query
+- `/articles/…` (old URLs, any language) — permanent (301) redirect to the same page under `/blog`
 
 There is no build step or hook to keep in sync: publish/unpublish in the admin, and the change shows up the next
 time someone loads (or refreshes) a page. An unpublished article's URL returns 404 right away.

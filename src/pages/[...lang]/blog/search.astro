@@ -4,22 +4,22 @@ import PageHero from '@/components/PageHero.astro';
 import SearchForm from '@/components/SearchForm.astro';
 import ArticleCard from '@/components/ArticleCard.astro';
 import { getArticles, routeLanguage } from '@/lib/articles';
-import { articlesPath } from '@/data/site';
+import { blogPath } from '@/data/site';
 import { fill, useTranslations } from '@/i18n';
 
 const lang = routeLanguage(Astro.params.lang);
 if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
 
-// No query (e.g. /articles/search?q=): send to the paginated list.
+// No query (e.g. /blog/search?q=): send to the paginated list.
 const q = (Astro.url.searchParams.get('q') ?? '').trim();
-if (!q) return Astro.redirect(articlesPath(lang));
+if (!q) return Astro.redirect(blogPath(lang));
 
 const t = useTranslations(lang);
 const needle = q.toLocaleLowerCase(lang);
 const results = (await getArticles()).filter((a) => `${a.title} ${a.excerpt}`.toLocaleLowerCase(lang).includes(needle));
 ---
 
-<BaseLayout lang={lang} path="/articles/search" title={t.blog.searchTitle} description={t.blog.description}>
+<BaseLayout lang={lang} path="/blog/search" title={t.blog.searchTitle} description={t.blog.description}>
   <meta slot="head" name="robots" content="noindex, follow" />
   <PageHero eyebrow={t.blog.eyebrow} title={t.blog.searchTitle} subtitle={t.blog.subtitle}>
     <SearchForm lang={lang} q={q} />
@@ -30,7 +30,7 @@ const results = (await getArticles()).filter((a) => `${a.title} ${a.excerpt}`.to
     {results.length === 0 ? (
       <div class="rounded-card bg-cream p-12 text-center">
         <p class="text-xl font-semibold">{t.blog.notFound}</p>
-        <a href={articlesPath(lang)} class="btn-primary mt-6">{t.blog.seeAll}</a>
+        <a href={blogPath(lang)} class="btn-primary mt-6">{t.blog.seeAll}</a>
       </div>
     ) : (
       <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">

@@ -1,5 +1,5 @@
 ---
-import { articlesPath } from '@/data/site';
+import { blogPath } from '@/data/site';
 import { localizePath, useTranslations, type Language } from '@/i18n';
 /** `q`: the current query, shown in the box on the results page. */
 interface Props { lang: Language; q?: string }
@@ -8,10 +8,10 @@ const t = useTranslations(lang).blog;
 ---
 
 <form
-  action={localizePath('/articles/search', lang)}
+  action={localizePath('/blog/search', lang)}
   method="get"
   data-search-form
-  data-all-articles={articlesPath(lang)}
+  data-all-posts={blogPath(lang)}
   class="mx-auto mt-8 flex max-w-xl gap-2 rounded-full bg-white p-2 text-ink shadow-lg"
 >
   <label for="q" class="sr-only">{t.searchLabel}</label>
@@ -20,13 +20,13 @@ const t = useTranslations(lang).blog;
 </form>
 
 <script>
-  // An empty search means "show everything": go to the paginated article list, not /articles/search?q=
+  // An empty search means "show everything": go to the paginated article list, not /blog/search?q=
   document.querySelectorAll<HTMLFormElement>('[data-search-form]').forEach((form) => {
     form.addEventListener('submit', (e) => {
       const input = form.querySelector<HTMLInputElement>('input[name="q"]');
       if (input && !input.value.trim()) {
         e.preventDefault();
-        location.href = form.dataset.allArticles!;
+        location.href = form.dataset.allPosts!;
       }
     });
   });

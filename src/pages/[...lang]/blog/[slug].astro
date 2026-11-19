@@ -3,10 +3,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import HeroBackdrop from '@/components/HeroBackdrop.astro';
 import ShareButtons from '@/components/ShareButtons.astro';
 import { ARTICLE_LANG, articleUrl, formatDate, getArticle, readingMinutes } from '@/lib/articles';
-import { articlesPath } from '@/data/site';
+import { blogPath } from '@/data/site';
 import { fill, useTranslations } from '@/i18n';
 
-// Armenian only: /articles/<slug>. (/en/articles and /ru/articles list the same articles and link here.)
+// Armenian only: /blog/<slug>. (/en/blog and /ru/blog list the same posts and link here.)
 const article = Astro.params.lang === undefined && Astro.params.slug ? await getArticle(Astro.params.slug) : null;
 if (!article) return new Response(null, { status: 404, statusText: 'Not found' });
 
@@ -14,7 +14,7 @@ const lang = ARTICLE_LANG;
 const t = useTranslations(lang);
 const { title, excerpt, content = '', coverImage, publishedAt, updatedAt } = article;
 
-const path = `/articles/${article.slug}`;
+const path = `/blog/${article.slug}`;
 const url = new URL(articleUrl(article), Astro.site).href;
 
 // Structured data so search engines show it as an article (headline, image, dates).
@@ -39,7 +39,7 @@ const jsonLd = {
   description={excerpt}
   image={coverImage}
   alternates={false}
-  otherLanguagesPath="/articles"
+  otherLanguagesPath="/blog"
   ogType="article"
   publishedAt={publishedAt}
   modifiedAt={updatedAt}
@@ -72,7 +72,7 @@ const jsonLd = {
       />
 
       <footer class="mt-14 flex flex-col-reverse gap-6 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <a href={articlesPath(lang)} class="link-arrow self-start text-sm sm:self-auto">{t.article.allArticles}</a>
+        <a href={blogPath(lang)} class="link-arrow self-start text-sm sm:self-auto">{t.article.allPosts}</a>
         <ShareButtons url={url} title={title} lang={lang} />
       </footer>
     </div>

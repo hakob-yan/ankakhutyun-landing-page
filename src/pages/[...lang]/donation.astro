@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DonationSection from '@/components/DonationSection.astro';
+import { useTranslations } from '@/i18n';
+import { routeLanguage } from '@/lib/articles';
+
+// /donation, /en/donation and /ru/donation
+const lang = routeLanguage(Astro.params.lang);
+if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} path="/donation" title={t.common.donate} description={t.support.description}>
+  <DonationSection lang={lang} />
+</BaseLayout>

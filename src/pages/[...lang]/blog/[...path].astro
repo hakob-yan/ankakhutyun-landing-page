@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SearchForm from '@/components/SearchForm.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import { getArticlePage, routeLanguage } from '@/lib/articles';
+import { blogPath } from '@/data/site';
+import { stripLanguage, useTranslations } from '@/i18n';
+
+// /blog, /blog/page/2 … (and /en/…, /ru/…)
+const PAGE_SIZE = 6;
+const lang = routeLanguage(Astro.params.lang);
+// no path = page 1; otherwise "page/N" with N >= 2 (/blog/page/1 is not a URL)
+const pageMatch = Astro.params.path === undefined ? ['', '1'] : Astro.params.path.match(/^page\/([2-9]|[1-9]\d+)$/);
+const page = pageMatch ? Number(pageMatch[1]) : 0;
+const data = lang && page ? await getArticlePage(page, PAGE_SIZE) : null; // null past the last page
+if (!lang || !data) return new Response(null, { status: 404, statusText: 'Not found' });
+const { items, totalPages } = data;
+const t = useTranslations(lang);
+
+// the newest published article is shown large at the top of the first page
+const featured = page === 1 ? items[0] : undefined;
+const rest = featured ? items.slice(1) : items;
+---
+
+<BaseLayout
+  lang={lang}
+  path={stripLanguage(blogPath(lang, page))}
+  title={t.blog.title}
+  description={t.blog.description}
+>
+  <PageHero eyebrow={t.blog.eyebrow} title={t.blog.title} subtitle={t.blog.subtitle}>
+    <SearchForm lang={lang} />
+  </PageHero>
+
+  <section class="container-x py-16 pb-40 lg:py-24 lg:pb-44">
+    {items.length === 0 ? (
+      <div class="rounded-card bg-cream p-12 text-center">
+        <p class="text-xl font-semibold">{t.blog.notFound}</p>
+        <a href={blogPath(lang)} class="btn-primary mt-6">{t.blog.seeAll}</a>
+      </div>
+    ) : (
+      <div class="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+        {featured && <div class="md:col-span-2 lg:col-span-3"><ArticleCard article={featured} lang={lang} large /></div>}
+        {rest.map((a) => <ArticleCard article={a} lang={lang} />)}
+      </div>
+    )}
+
+    {totalPages > 1 && (
+      <nav class="mt-16 flex justify-center gap-2" aria-label={t.blog.pagination}>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+          <a
+            href={blogPath(lang, n)}
+            aria-current={n === page ? 'page' : undefined}
+            class:list={['flex size-12 items-center justify-center rounded-full font-semibold transition-colors', n === page ? 'bg-accent text-ink' : 'bg-cream ring-accent hover:bg-white hover:ring-2']}
+          >{n}</a>
+        ))}
+      </nav>
+    )}
+  </section>
+</BaseLayout>

@@ -1,9 +1,17 @@
 ---
 import Faq from '../react/Faq';
+import { EMAIL_HREF, VOLUNTEER_FORM_URL } from '@/data/contacts';
 import { useTranslations, type Language } from '@/i18n';
 interface Props { lang: Language }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+// an item with `linkLabel` + `linkTo` gets a link under its answer
+const linkTargets: Record<string, string> = { volunteer: VOLUNTEER_FORM_URL, email: EMAIL_HREF };
+const items = t.faq.items.map((item) => ({
+  q: item.q,
+  a: item.a,
+  link: 'linkLabel' in item && item.linkLabel && item.linkTo ? { label: item.linkLabel, href: linkTargets[item.linkTo] } : undefined,
+}));
 ---
 
 <section id="faq" class="bg-cream py-20 lg:py-28">
@@ -14,6 +22,6 @@ const t = useTranslations(lang);
       <p class="mt-5 text-lg text-ink/75">{t.faq.text}</p>
       <a href="#contact" class="btn-primary mt-8">{t.faq.contact}</a>
     </div>
-    <Faq client:visible items={t.faq.items} />
+    <Faq client:visible items={items} />
   </div>
 </section>

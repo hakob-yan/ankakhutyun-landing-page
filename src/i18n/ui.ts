@@ -28,13 +28,12 @@ const hy = {
     about: 'Մեր մասին',
     team: 'Մեր թիմը',
     board: 'Խորհրդի կազմ',
-    mission: 'Առաքելություն',
     history: 'Մեր պատմությունը',
     programs: 'Ծրագրեր',
     citizen: 'Անկախության Քաղաքացի',
     power: 'Անկախության ուժը',
     resources: 'Ռեսուրսներ',
-    articles: 'Հոդվածներ',
+    blog: 'Բլոգ',
     annualReports: 'Տարեկան հաշվետվություններ',
     faq: 'Հաճախ տրվող հարցեր',
     podcast: 'Անկախ փոդքաստ',
@@ -55,7 +54,7 @@ const hy = {
     /** one entry per line */
     title: ['Անկախության', 'սերունդ'],
     subtitle: 'Միասին կերտենք ուժեղ և անկախ Հայաստան',
-    ctaArticles: 'Կարդալ հոդվածները',
+    ctaBlog: 'Կարդալ բլոգը',
     ctaVolunteer: 'Դառնալ կամավոր',
     slideLabel: 'Սլայդ {n}՝ {total}-ից',
     pause: 'Դադարեցնել սլայդները',
@@ -79,6 +78,17 @@ const hy = {
     eyebrow: 'նվիրատվություն',
     title: 'Ուզո՞ւմ եք օգնել',
     text: 'Ձեր նվիրատվությունն օգնում է շարունակել կրթական ծրագրերը, հրատարակել նոր հոդվածներ և կազմակերպել միջոցառումներ երիտասարդների համար։',
+    description: 'Աջակցեք «Անկախության սերունդ»-ին․ ձեր նվիրատվությունն օգնում է կրթական ծրագրերին, նոր հոդվածներին և երիտասարդական միջոցառումներին։',
+    impactEyebrow: 'ձեր աջակցությունը',
+    impactTitle: 'Ինչի՞ն է ուղղվում ձեր նվիրատվությունը',
+    impact: [
+      { title: 'Կրթական ծրագրեր', text: 'Դասընթացներ, քննարկումներ և աշխատաժողովներ դպրոցականների ու ուսանողների համար։' },
+      { title: 'Նոր հոդվածներ', text: 'Անկախության սերնդի պատմությունների, հարցազրույցների և հետազոտությունների հրապարակում։' },
+      { title: 'Միջոցառումներ', text: 'Հանդիպումներ, ցուցահանդեսներ և երիտասարդական միջոցառումներ ամբողջ Հայաստանում։' },
+    ],
+    transparency: 'Մենք թափանցիկ ենք․ նվիրատվությունների մասին տարեկան հաշվետվությունը հրապարակվում է կայքում։',
+    otherTitle: 'Աջակցելու այլ ուղիներ',
+    otherText: 'Կարող եք օգնել ոչ միայն գումարով․ միացեք մեզ որպես կամավոր կամ գրեք մեզ ձեր գաղափարների մասին։',
   },
 
   donate: {
@@ -93,6 +103,34 @@ const hy = {
     thanks: 'Շնորհակալություն 💛',
     demoNote: 'Սա ցուցադրական ձև է․ վճարային համակարգը դեռ միացված չէ։',
     back: 'Վերադառնալ',
+  },
+
+  podcast: {
+    eyebrow: 'փոդքաստ',
+    title: 'Անկախ փոդքաստ',
+    intro: '«Անկախ փոդքաստ»-ը «Անկախության սերունդ»-ի զրույցների շարքն է։ Ամեն թողարկման ընթացքում հյուրի հետ անկեղծ խոսում ենք կրթության, մշակույթի, հասարակության և տեխնոլոգիաների մասին՝ այն հարցերի, որոնք հուզում են մեր սերնդին։',
+    description: '«Անկախ փոդքաստ»՝ զրույցներ կրթության, մշակույթի և հասարակության մասին «Անկախության սերունդ»-ից։',
+    watchChannel: 'Դիտել YouTube-ում',
+    latest: 'Վերջին թողարկումները',
+    episode: 'Թողարկում',
+    watch: 'Դիտել',
+    subscribeTitle: 'Բաժանորդագրվեք մեր ալիքին',
+    subscribeText: 'Բաժանորդագրվեք «Անկախ փոդքաստ»-ի YouTube ալիքին, որպեսզի առաջինը տեսնեք նոր թողարկումները։',
+    subscribe: 'Բաժանորդագրվել',
+    allEpisodes: 'Բոլոր թողարկումները',
+  },
+
+  reports: {
+    eyebrow: 'թափանցիկություն',
+    title: 'Տարեկան հաշվետվություններ',
+    intro: 'Մենք հրապարակում ենք մեր տարեկան հաշվետվությունները, որպեսզի յուրաքանչյուր նվիրատու տեսնի, թե ինչպես են օգտագործվում իր միջոցները։',
+    description: '«Անկախության սերունդ»-ի տարեկան հաշվետվությունները՝ մեր ծրագրերի և ֆինանսների մասին։',
+    reportFor: 'Տարեկան հաշվետվություն',
+    download: 'Ներբեռնել PDF',
+    empty: 'Առաջին տարեկան հաշվետվությունը շուտով կհրապարակվի այստեղ։',
+    questionsTitle: 'Հարցեր ունե՞ք',
+    questionsText: 'Եթե ունեք հարցեր մեր ֆինանսների կամ ծրագրերի մասին, գրեք մեզ, և մենք սիրով կպատասխանենք։',
+    write: 'Գրել մեզ',
   },
 
   involved: {
@@ -124,9 +162,9 @@ const hy = {
 
 
   latest: {
-    all: 'Բոլոր հոդվածները',
-    eyebrow: 'հոդվածներ',
-    title: 'Վերջին հոդվածները',
+    all: 'Բոլոր հրապարակումները',
+    eyebrow: 'բլոգ',
+    title: 'Վերջին հրապարակումները',
   },
 
   faq: {
@@ -136,16 +174,21 @@ const hy = {
     contact: 'Կապվել մեզ հետ',
     items: [
       {
-        q: 'Ի՞նչ է «Անկախության սերունդ» նախաձեռնությունը',
-        a: 'Դա հարթակ է, որտեղ հավաքում և հրապարակում ենք Հայաստանի անկախության տարիներին ծնված ու մեծացած սերնդի պատմությունները, մտքերը և նախաձեռնությունները։',
+        q: 'Արդյո՞ք «Անկախության սերունդ»-ի ծրագրերն անվճար են',
+        a: 'Այո, մեր բոլոր նախաձեռնություններին մասնակցությունն անվճար է։',
       },
       {
-        q: 'Կարո՞ղ եմ ես էլ հոդված գրել',
-        a: 'Այո։ Ուղարկեք ձեր հոդվածը կամ գաղափարը մեր էլ. հասցեին, և խմբագրական թիմը կկապվի ձեզ հետ մեկ շաբաթվա ընթացքում։',
+        q: 'Կարո՞ղ եմ կամավոր լինել «Անկախության սերունդ»-ում',
+        a: 'Այո։ Ուրախ ենք, որ ցանկանում եք որպես կամավոր միանալ մեր թիմին և դրական ազդեցություն ունենալ Հայաստանի գյուղերի վրա։ Խնդրում ենք լրացնել կամավորի հայտադիմումը։',
+        // optional link under the answer: linkTo 'volunteer' = volunteer form, 'email' = our email (see FaqSection.astro)
+        linkLabel: 'Լրացնել հայտադիմումը',
+        linkTo: 'volunteer',
       },
       {
-        q: 'Ինչպե՞ս դառնալ կամավոր',
-        a: 'Լրացրեք կամավորի հայտը «Միացիր մեզ» բաժնում։ Մենք ներգրավում ենք կամավորների միջոցառումների, թարգմանությունների և լուսանկարչության մեջ։',
+        q: 'Կարո՞ղ են անհատները կամ կազմակերպությունները համագործակցել «Անկախության սերունդ»-ի հետ',
+        a: 'Այո, մենք բաց ենք համագործակցության համար։ Եթե ունեք գաղափար կամ առաջարկ, գրեք մեզ, և մենք սիրով կքննարկենք այն։',
+        linkLabel: 'Գրել մեզ',
+        linkTo: 'email',
       },
       {
         q: 'Ինչպե՞ս են օգտագործվում նվիրատվությունները',
@@ -165,7 +208,7 @@ const hy = {
     ctaEyebrow: 'միացիր մեզ',
     ctaTitle: 'Ստեղծենք տարբերություն միասին',
     navigation: 'Նավիգացիա',
-    articles: 'Հոդվածներ',
+    blog: 'Բլոգ',
     contact: 'Կապ',
     copyright: '© {year} {name}։ Բոլոր իրավունքները պաշտպանված են։',
     faq: 'ՀՏՀ',
@@ -205,16 +248,16 @@ const hy = {
 
   blog: {
     eyebrow: 'բլոգ',
-    title: 'Հոդվածներ',
+    title: 'Բլոգ',
     subtitle: 'Պատմություններ, հարցազրույցներ և մտքեր անկախության սերնդի մասին',
     description: 'Հոդվածներ, հուշեր և հարցազրույցներ անկախության սերնդի մասին։',
     searchTitle: 'Որոնում',
     searchLabel: 'Որոնում',
-    searchPlaceholder: 'Որոնել հոդվածներ…',
+    searchPlaceholder: 'Որոնել բլոգում…',
     searchButton: 'Որոնել',
     results: '«{q}» որոնման արդյունքներ՝ {n}',
     pagination: 'Էջավորում',
-    notFound: 'Հոդվածներ չեն գտնվել',
+    notFound: 'Հրապարակումներ չեն գտնվել',
     seeAll: 'Տեսնել բոլորը',
   },
 
@@ -223,14 +266,14 @@ const hy = {
     copyLink: 'Պատճենել հղումը',
     linkCopied: 'Հղումը պատճենվեց',
     minRead: '{n} րոպե ընթերցանություն',
-    allArticles: '← Բոլոր հոդվածները',
+    allPosts: '← Բոլոր հրապարակումները',
   },
 
   notFound: {
     title: 'Էջը չի գտնվել',
     text: 'Հնարավոր է՝ էջը տեղափոխվել է կամ այլևս գոյություն չունի։',
     home: 'Գլխավոր էջ',
-    articles: 'Հոդվածներ',
+    blog: 'Բլոգ',
   },
 };
 
@@ -260,13 +303,12 @@ const en: Dictionary = {
     about: 'About us',
     team: 'Our team',
     board: 'Board',
-    mission: 'Mission',
     history: 'Our story',
     programs: 'Programs',
     citizen: 'Citizen of Independence',
     power: 'The Power of Independence',
     resources: 'Resources',
-    articles: 'Articles',
+    blog: 'Blog',
     annualReports: 'Annual reports',
     faq: 'FAQ',
     podcast: 'Ankakh podcast',
@@ -287,7 +329,7 @@ const en: Dictionary = {
     /** one entry per line */
     title: ['Generation of', 'Independence'],
     subtitle: 'Together, let’s build a strong and independent Armenia',
-    ctaArticles: 'Read articles',
+    ctaBlog: 'Read the blog',
     ctaVolunteer: 'Become a volunteer',
     slideLabel: 'Slide {n} of {total}',
     pause: 'Pause slideshow',
@@ -311,6 +353,17 @@ const en: Dictionary = {
     eyebrow: 'support',
     title: 'Would you like to help?',
     text: 'Your donation helps us continue our educational programs, publish new articles, and organize events for young people.',
+    description: 'Support Generation of Independence: your donation funds educational programs, new articles and events for young people.',
+    impactEyebrow: 'your support',
+    impactTitle: 'Where your donation goes',
+    impact: [
+      { title: 'Educational programs', text: 'Courses, discussions and workshops for school and university students.' },
+      { title: 'New articles', text: 'Publishing stories, interviews and research about the independence generation.' },
+      { title: 'Events', text: 'Meetups, exhibitions and youth events across Armenia.' },
+    ],
+    transparency: 'We are transparent: an annual report on all donations is published on the site.',
+    otherTitle: 'Other ways to help',
+    otherText: 'Money is not the only way to help: join us as a volunteer or write to us with your ideas.',
   },
 
   donate: {
@@ -325,6 +378,34 @@ const en: Dictionary = {
     thanks: 'Thank you 💛',
     demoNote: 'This is a demo form. No payment system is connected yet.',
     back: 'Go back',
+  },
+
+  podcast: {
+    eyebrow: 'podcast',
+    title: 'Ankakh podcast',
+    intro: 'Ankakh podcast is a series of conversations from Generation of Independence. In every episode we talk openly with a guest about education, culture, society and technology: the questions that matter to our generation.',
+    description: 'Ankakh podcast: conversations about education, culture and society from Generation of Independence.',
+    watchChannel: 'Watch on YouTube',
+    latest: 'Latest episodes',
+    episode: 'Episode',
+    watch: 'Watch',
+    subscribeTitle: 'Subscribe to our channel',
+    subscribeText: 'Subscribe to the Ankakh podcast YouTube channel to be the first to see new episodes.',
+    subscribe: 'Subscribe',
+    allEpisodes: 'All episodes',
+  },
+
+  reports: {
+    eyebrow: 'transparency',
+    title: 'Annual reports',
+    intro: 'We publish our annual reports so that every donor can see how their support is used.',
+    description: 'Annual reports of Generation of Independence: our programs and finances.',
+    reportFor: 'Annual report',
+    download: 'Download PDF',
+    empty: 'Our first annual report will be published here soon.',
+    questionsTitle: 'Have questions?',
+    questionsText: 'If you have questions about our finances or programs, write to us and we will be happy to answer.',
+    write: 'Write to us',
   },
 
   involved: {
@@ -356,9 +437,9 @@ const en: Dictionary = {
 
 
   latest: {
-    all: 'All articles',
-    eyebrow: 'articles',
-    title: 'Latest articles',
+    all: 'All posts',
+    eyebrow: 'blog',
+    title: 'Latest posts',
   },
 
   faq: {
@@ -368,16 +449,20 @@ const en: Dictionary = {
     contact: 'Contact us',
     items: [
       {
-        q: 'What is the Generation of Independence initiative?',
-        a: 'It is a platform where we collect and publish the stories, thoughts, and initiatives of the generation born and raised during the years of Armenia’s independence.',
+        q: 'Are the Generation of Independence programs free?',
+        a: 'Yes, taking part in all of our initiatives is free of charge.',
       },
       {
-        q: 'Can I write an article too?',
-        a: 'Yes. Send your article or idea to our email address, and the editorial team will get back to you within a week.',
+        q: 'Can I volunteer with Generation of Independence?',
+        a: 'Yes! We are glad you want to join our team as a volunteer and make a positive impact on the villages of Armenia. Please fill out the volunteer application form.',
+        linkLabel: 'Fill out the application',
+        linkTo: 'volunteer',
       },
       {
-        q: 'How do I become a volunteer?',
-        a: 'Fill out the volunteer application in the “Join us” section. Our volunteers help with events, translations, and photography.',
+        q: 'Can individuals or organizations partner with Generation of Independence?',
+        a: 'Yes, we are open to partnerships. If you have an idea or a proposal, write to us and we will be happy to discuss it.',
+        linkLabel: 'Write to us',
+        linkTo: 'email',
       },
       {
         q: 'How are donations used?',
@@ -397,7 +482,7 @@ const en: Dictionary = {
     ctaEyebrow: 'join us',
     ctaTitle: 'Let’s make a difference together',
     navigation: 'Navigation',
-    articles: 'Articles',
+    blog: 'Blog',
     contact: 'Contact',
     copyright: '© {year} {name}. All rights reserved.',
     faq: 'FAQ',
@@ -437,16 +522,16 @@ const en: Dictionary = {
 
   blog: {
     eyebrow: 'blog',
-    title: 'Articles',
+    title: 'Blog',
     subtitle: 'Stories, interviews, and reflections about the generation of independence',
     description: 'Articles, memories, and interviews about the generation of independence.',
     searchTitle: 'Search',
     searchLabel: 'Search',
-    searchPlaceholder: 'Search articles…',
+    searchPlaceholder: 'Search the blog…',
     searchButton: 'Search',
     results: 'Results for “{q}”: {n}',
     pagination: 'Pagination',
-    notFound: 'No articles found',
+    notFound: 'No posts found',
     seeAll: 'See all',
   },
 
@@ -455,14 +540,14 @@ const en: Dictionary = {
     copyLink: 'Copy link',
     linkCopied: 'Link copied',
     minRead: '{n} min read',
-    allArticles: '← All articles',
+    allPosts: '← All posts',
   },
 
   notFound: {
     title: 'Page not found',
     text: 'The page may have been moved or no longer exists.',
     home: 'Home page',
-    articles: 'Articles',
+    blog: 'Blog',
   },
 };
 
@@ -490,13 +575,12 @@ const ru: Dictionary = {
     about: 'О нас',
     team: 'Наша команда',
     board: 'Состав правления',
-    mission: 'Миссия',
     history: 'Наша история',
     programs: 'Программы',
     citizen: 'Гражданин независимости',
     power: 'Сила независимости',
     resources: 'Ресурсы',
-    articles: 'Статьи',
+    blog: 'Блог',
     annualReports: 'Годовые отчёты',
     faq: 'Частые вопросы',
     podcast: 'Подкаст «Анках»',
@@ -517,7 +601,7 @@ const ru: Dictionary = {
     /** one entry per line */
     title: ['Поколение', 'независимости'],
     subtitle: 'Вместе построим сильную и независимую Армению',
-    ctaArticles: 'Читать статьи',
+    ctaBlog: 'Читать блог',
     ctaVolunteer: 'Стать волонтёром',
     slideLabel: 'Слайд {n} из {total}',
     pause: 'Остановить слайд-шоу',
@@ -541,6 +625,17 @@ const ru: Dictionary = {
     eyebrow: 'поддержка',
     title: 'Хотите помочь?',
     text: 'Ваше пожертвование помогает продолжать образовательные программы, публиковать новые статьи и проводить мероприятия для молодёжи.',
+    description: 'Поддержите «Поколение независимости»: ваше пожертвование помогает образовательным программам, новым статьям и мероприятиям для молодёжи.',
+    impactEyebrow: 'ваша поддержка',
+    impactTitle: 'На что идут пожертвования',
+    impact: [
+      { title: 'Образовательные программы', text: 'Курсы, дискуссии и мастер-классы для школьников и студентов.' },
+      { title: 'Новые статьи', text: 'Публикация историй, интервью и исследований о поколении независимости.' },
+      { title: 'Мероприятия', text: 'Встречи, выставки и молодёжные мероприятия по всей Армении.' },
+    ],
+    transparency: 'Мы открыты: годовой отчёт обо всех пожертвованиях публикуется на сайте.',
+    otherTitle: 'Другие способы помочь',
+    otherText: 'Помочь можно не только деньгами: присоединяйтесь к нам как волонтёр или напишите нам о своих идеях.',
   },
 
   donate: {
@@ -555,6 +650,34 @@ const ru: Dictionary = {
     thanks: 'Спасибо 💛',
     demoNote: 'Это демонстрационная форма: платёжная система ещё не подключена.',
     back: 'Вернуться',
+  },
+
+  podcast: {
+    eyebrow: 'подкаст',
+    title: 'Подкаст «Анках»',
+    intro: '«Анках» — серия бесед от «Поколения независимости». В каждом выпуске мы открыто говорим с гостем об образовании, культуре, обществе и технологиях — о вопросах, которые волнуют наше поколение.',
+    description: 'Подкаст «Анках»: беседы об образовании, культуре и обществе от «Поколения независимости».',
+    watchChannel: 'Смотреть на YouTube',
+    latest: 'Последние выпуски',
+    episode: 'Выпуск',
+    watch: 'Смотреть',
+    subscribeTitle: 'Подпишитесь на наш канал',
+    subscribeText: 'Подпишитесь на YouTube-канал подкаста «Анках», чтобы первыми смотреть новые выпуски.',
+    subscribe: 'Подписаться',
+    allEpisodes: 'Все выпуски',
+  },
+
+  reports: {
+    eyebrow: 'прозрачность',
+    title: 'Годовые отчёты',
+    intro: 'Мы публикуем годовые отчёты, чтобы каждый жертвователь видел, как используется его поддержка.',
+    description: 'Годовые отчёты «Поколения независимости»: наши программы и финансы.',
+    reportFor: 'Годовой отчёт',
+    download: 'Скачать PDF',
+    empty: 'Первый годовой отчёт скоро будет опубликован здесь.',
+    questionsTitle: 'Есть вопросы?',
+    questionsText: 'Если у вас есть вопросы о наших финансах или программах, напишите нам — мы с радостью ответим.',
+    write: 'Написать нам',
   },
 
   involved: {
@@ -586,9 +709,9 @@ const ru: Dictionary = {
 
 
   latest: {
-    all: 'Все статьи',
-    eyebrow: 'статьи',
-    title: 'Последние статьи',
+    all: 'Все публикации',
+    eyebrow: 'блог',
+    title: 'Последние публикации',
   },
 
   faq: {
@@ -598,16 +721,20 @@ const ru: Dictionary = {
     contact: 'Связаться с нами',
     items: [
       {
-        q: 'Что такое инициатива «Поколение независимости»?',
-        a: 'Это платформа, на которой мы собираем и публикуем истории, мысли и инициативы поколения, родившегося и выросшего в годы независимости Армении.',
+        q: 'Бесплатны ли программы «Поколения независимости»?',
+        a: 'Да, участие во всех наших инициативах бесплатное.',
       },
       {
-        q: 'Могу ли я тоже написать статью?',
-        a: 'Да. Отправьте свою статью или идею на нашу электронную почту, и редакция свяжется с вами в течение недели.',
+        q: 'Могу ли я стать волонтёром «Поколения независимости»?',
+        a: 'Да! Мы рады, что вы хотите присоединиться к нашей команде как волонтёр и внести позитивный вклад в жизнь сёл Армении. Пожалуйста, заполните анкету волонтёра.',
+        linkLabel: 'Заполнить анкету',
+        linkTo: 'volunteer',
       },
       {
-        q: 'Как стать волонтёром?',
-        a: 'Заполните анкету волонтёра в разделе «Присоединяйтесь». Мы привлекаем волонтёров к проведению мероприятий, переводам и фотосъёмке.',
+        q: 'Могут ли частные лица или организации сотрудничать с «Поколением независимости»?',
+        a: 'Да, мы открыты к сотрудничеству. Если у вас есть идея или предложение, напишите нам — мы с радостью его обсудим.',
+        linkLabel: 'Написать нам',
+        linkTo: 'email',
       },
       {
         q: 'Как используются пожертвования?',
@@ -627,7 +754,7 @@ const ru: Dictionary = {
     ctaEyebrow: 'присоединяйтесь',
     ctaTitle: 'Изменим мир к лучшему вместе',
     navigation: 'Навигация',
-    articles: 'Статьи',
+    blog: 'Блог',
     contact: 'Контакты',
     copyright: '© {year} {name}. Все права защищены.',
     faq: 'FAQ',
@@ -667,16 +794,16 @@ const ru: Dictionary = {
 
   blog: {
     eyebrow: 'блог',
-    title: 'Статьи',
+    title: 'Блог',
     subtitle: 'Истории, интервью и размышления о поколении независимости',
     description: 'Статьи, воспоминания и интервью о поколении независимости.',
     searchTitle: 'Поиск',
     searchLabel: 'Поиск',
-    searchPlaceholder: 'Искать статьи…',
+    searchPlaceholder: 'Поиск по блогу…',
     searchButton: 'Найти',
     results: 'Результаты поиска «{q}»: {n}',
     pagination: 'Страницы',
-    notFound: 'Статьи не найдены',
+    notFound: 'Публикации не найдены',
     seeAll: 'Показать все',
   },
 
@@ -685,14 +812,14 @@ const ru: Dictionary = {
     copyLink: 'Копировать ссылку',
     linkCopied: 'Ссылка скопирована',
     minRead: '{n} мин. чтения',
-    allArticles: '← Все статьи',
+    allPosts: '← Все публикации',
   },
 
   notFound: {
     title: 'Страница не найдена',
     text: 'Возможно, страница была перемещена или больше не существует.',
     home: 'На главную',
-    articles: 'Статьи',
+    blog: 'Блог',
   },
 };
 

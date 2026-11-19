@@ -7,7 +7,7 @@
  * Replace each URL with your own photo before the site goes public.
  */
 import { localizePath, useTranslations, type Language } from '@/i18n';
-import { VOLUNTEER_FORM_URL, YOUTUBE_URL } from '@/data/contacts';
+import { VOLUNTEER_FORM_URL } from '@/data/contacts';
 import hero1 from '@/assets/hero/01-first-pic.jpg';
 import hero2 from '@/assets/hero/02-second-pic.jpg';
 import hero3 from '@/assets/hero/03-third-pic.jpg';
@@ -48,9 +48,9 @@ type CategorySlug = (typeof categorySlugs)[number];
 export const categoryLabel = (slug: string, lang: Language) =>
   useTranslations(lang).categories[slug as CategorySlug] ?? slug;
 
-/** /articles, /articles/page/2 … (localized). There is one list of all articles, no category filters. */
-export function articlesPath(lang: Language, page = 1) {
-  const parts = ['/articles', page > 1 && `page/${page}`].filter(Boolean);
+/** /blog, /blog/page/2 … (localized). There is one list of all posts, no category filters. */
+export function blogPath(lang: Language, page = 1) {
+  const parts = ['/blog', page > 1 && `page/${page}`].filter(Boolean);
   return localizePath(parts.join('/'), lang);
 }
 
@@ -63,7 +63,7 @@ export const externalLinkProps = { target: '_blank', rel: 'noopener noreferrer' 
 export function getNav(lang: Language): NavItem[] {
   const t = useTranslations(lang).nav;
   const p = (path: string) => localizePath(path, lang);
-  // TODO: history, programs and annual reports have no pages yet — anchors are placeholders.
+  // TODO: history and programs have no pages yet — anchors are placeholders.
   return [
     {
       label: t.about,
@@ -71,7 +71,6 @@ export function getNav(lang: Language): NavItem[] {
       children: [
         { label: t.team, href: p('/team') },
         { label: t.board, href: p('/board') },
-        { label: t.mission, href: p('/#about') },
         { label: t.history, href: p('/#about') },
       ],
     },
@@ -81,15 +80,15 @@ export function getNav(lang: Language): NavItem[] {
       children: [
         { label: t.citizen, href: p('/#programs') },
         { label: t.power, href: p('/#programs') },
-        { label: t.podcast, href: YOUTUBE_URL, external: true },
+        { label: t.podcast, href: p('/podcast') },
       ],
     },
     {
       label: t.resources,
-      href: articlesPath(lang),
+      href: blogPath(lang),
       children: [
-        { label: t.articles, href: articlesPath(lang) },
-        { label: t.annualReports, href: p('/#about') },
+        { label: t.blog, href: blogPath(lang) },
+        { label: t.annualReports, href: p('/annual-report') },
         { label: t.faq, href: p('/#faq') },
       ],
     },
@@ -97,7 +96,7 @@ export function getNav(lang: Language): NavItem[] {
       label: t.join,
       href: p('/#get-involved'),
       children: [
-        { label: t.donate, href: p('/#support') },
+        { label: t.donate, href: p('/donation') },
         { label: t.volunteer, href: VOLUNTEER_FORM_URL, external: true },
         { label: t.contact, href: p('/#contact') },
       ],
@@ -111,7 +110,7 @@ export const stats = [
   { value: 12000, suffix: '+' },
 ];
 
-/** Card visuals for the "How we help" section; text comes from ui.programs.items (same order). All cards link to the articles list. */
+/** Card visuals for the "How we help" section; text comes from ui.programs.items (same order). All cards link to the blog. */
 export const programCards = [
   { category: 'history', image: images.card1, variant: 'photo' as const },
   { category: 'education', image: images.sunCard, variant: 'doodle' as const },

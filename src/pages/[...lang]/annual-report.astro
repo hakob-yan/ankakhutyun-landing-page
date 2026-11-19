@@ -1,0 +1,71 @@
+---
+import { FileText, Download, Clock } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StairsSpinner from '@/components/StairsSpinner.astro';
+import { annualReports } from '@/data/reports';
+import { EMAIL_HREF } from '@/data/contacts';
+import { localizePath, useTranslations } from '@/i18n';
+import { routeLanguage } from '@/lib/articles';
+
+// /annual-report, /en/annual-report and /ru/annual-report
+const lang = routeLanguage(Astro.params.lang);
+if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
+const dict = useTranslations(lang);
+const t = dict.reports;
+---
+
+<BaseLayout lang={lang} path="/annual-report" title={t.title} description={t.description}>
+  <!-- intro on the same light warm-gray band as the donation page -->
+  <section class="bg-cream pt-12 pb-16 lg:pt-16 lg:pb-20">
+    <div class="container-x max-w-4xl text-center">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1 class="section-title">{t.title}</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-ink/70">{t.intro}</p>
+    </div>
+  </section>
+
+  <!-- reports list (src/data/reports.ts) -->
+  <section class="container-x max-w-4xl py-16 lg:py-24">
+    {annualReports.length > 0 ? (
+      <ul class="grid gap-5 sm:grid-cols-2">
+        {annualReports.map((r) => (
+          <li class="cta-card flex items-center gap-5 p-6">
+            <span class="inline-flex size-14 shrink-0 items-center justify-center rounded-full bg-sand">
+              <FileText className="size-7 text-ink" aria-hidden="true" />
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm text-ink/60">{t.reportFor}</p>
+              <p class="text-2xl font-bold">{r.year}</p>
+            </div>
+            <a href={r.href} target="_blank" rel="noopener noreferrer" class="btn-soft !px-4 !py-2.5" aria-label={`${t.download} — ${t.reportFor} ${r.year}`}>
+              <Download className="size-4" aria-hidden="true" />
+              <span class="hidden sm:inline">PDF</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="cta-card flex flex-col items-center gap-4 px-6 py-12 text-center">
+        <span class="inline-flex size-14 items-center justify-center rounded-full bg-sand">
+          <Clock className="size-7 text-ink" aria-hidden="true" />
+        </span>
+        <p class="max-w-md text-lg font-medium">{t.empty}</p>
+      </div>
+    )}
+  </section>
+
+  <!-- questions / donate -->
+  <section class="container-x pb-40 lg:pb-44">
+    <div class="cta-card px-6 py-14 text-center sm:px-12 lg:py-20">
+      <StairsSpinner class="absolute right-4 bottom-4 w-28 opacity-80" />
+      <div class="relative mx-auto max-w-2xl">
+        <h2 class="section-title">{t.questionsTitle}</h2>
+        <p class="mt-5 text-lg text-ink/70">{t.questionsText}</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href={EMAIL_HREF} class="btn-outline">{t.write}</a>
+          <a href={localizePath('/donation', lang)} class="btn-primary">{dict.common.donate}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

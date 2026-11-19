@@ -1,7 +1,8 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import { Plus } from 'lucide-react';
 
-type Props = { items: { q: string; a: string }[] };
+/** `link` (optional): web links open in a new tab, mailto: links do not. */
+type Props = { items: { q: string; a: string; link?: { label: string; href: string } }[] };
 
 /** FAQ accordion (Radix) — one item open at a time, animated height. */
 export default function Faq({ items }: Props) {
@@ -22,7 +23,18 @@ export default function Faq({ items }: Props) {
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="accordion-content overflow-hidden">
-            <p className="px-6 pb-6 text-ink/75 sm:px-8">{item.a}</p>
+            <div className="px-6 pb-6 sm:px-8">
+              <p className="text-ink/75">{item.a}</p>
+              {item.link && (
+                <a
+                  href={item.link.href}
+                  {...(item.link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="link-arrow mt-4"
+                >
+                  {item.link.label} →
+                </a>
+              )}
+            </div>
           </Accordion.Content>
         </Accordion.Item>
       ))}

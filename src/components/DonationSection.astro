@@ -1,5 +1,5 @@
 ---
-import DonateWidget from '../react/DonateWidget';
+import DonateWidget from './react/DonateWidget';
 import { images } from '@/data/site';
 import { locales } from '@/i18n';
 import { useTranslations, type Language } from '@/i18n';
@@ -8,16 +8,16 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<!-- dark section (same espresso as the page banners and footer); the white donation form stands out on it -->
-<section id="support" class="relative overflow-hidden bg-night py-20 text-cream lg:py-28">
+<!-- /donation page content: light warm-gray section; the white donation form stands out on it -->
+<section id="support" class="relative overflow-hidden bg-cream py-20 text-ink lg:py-28">
   <div class="container-x relative grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
     <div>
-      <p class="eyebrow text-cream/80!">{t.support.eyebrow}</p>
-      <h2 class="section-title text-white">{t.support.title}</h2>
-      <p class="mt-5 max-w-lg text-lg text-cream/70">
+      <p class="eyebrow">{t.support.eyebrow}</p>
+      <h1 class="section-title">{t.support.title}</h1>
+      <p class="mt-5 max-w-lg text-lg text-ink/70">
         {t.support.text}
       </p>
-      <div class="mt-8 hidden overflow-hidden rounded-card shadow-xl ring-1 ring-white/10 lg:block">
+      <div class="mt-8 hidden overflow-hidden rounded-card shadow-xl ring-1 ring-ink/5 lg:block">
         <img src={images.help} alt="" loading="lazy" class="aspect-[16/9] w-full object-cover" />
       </div>
     </div>

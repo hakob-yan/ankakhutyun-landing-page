@@ -6,14 +6,14 @@ export type Article = Omit<ApiArticle, 'publishedAt' | 'updatedAt'> & { publishe
 
 const toArticle = (a: ApiArticle): Article => ({ ...a, publishedAt: new Date(a.publishedAt), updatedAt: new Date(a.updatedAt) });
 
-/** Articles are written in Armenian and have one page each, at /articles/<slug> (no language prefix). */
+/** Articles are written in Armenian and have one page each, at /blog/<slug> (no language prefix). */
 export const ARTICLE_LANG: Language = 'hy';
 
-export const articleUrl = (a: Article) => localizePath(`/articles/${a.slug}`, ARTICLE_LANG);
+export const articleUrl = (a: Article) => localizePath(`/blog/${a.slug}`, ARTICLE_LANG);
 
 /**
  * Language of a `[...lang]` route param ('en', 'ru', or undefined for Armenian at the root), or null
- * for anything else. On-demand pages use it to 404 unknown prefixes like /foo/articles.
+ * for anything else. On-demand pages use it to 404 unknown prefixes like /foo/blog.
  */
 export function routeLanguage(param: string | undefined): Language | null {
   if (param === undefined) return defaultLanguage;

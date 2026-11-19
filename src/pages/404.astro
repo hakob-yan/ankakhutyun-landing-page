@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import { articlesPath } from '@/data/site';
+import { blogPath } from '@/data/site';
 import { languages, localizePath, useTranslations } from '@/i18n';
 
 // Shown for every missing URL (unknown routes and pages that return a 404).
@@ -10,7 +10,7 @@ const t = useTranslations('hy');
 const variants = Object.fromEntries(
   languages.map((lang) => {
     const d = useTranslations(lang);
-    return [lang, { ...d.notFound, homeHref: localizePath('/', lang), articlesHref: articlesPath(lang) }];
+    return [lang, { ...d.notFound, homeHref: localizePath('/', lang), blogHref: blogPath(lang) }];
   }),
 );
 ---
@@ -19,7 +19,7 @@ const variants = Object.fromEntries(
   <PageHero eyebrow="404" title={t.notFound.title} subtitle={t.notFound.text}>
     <div class="mt-8 flex justify-center gap-3">
       <a href="/" class="btn-primary" data-nf="home">{t.notFound.home}</a>
-      <a href={articlesPath('hy')} class="btn-white" data-nf="articles">{t.notFound.articles}</a>
+      <a href={blogPath('hy')} class="btn-white" data-nf="blog">{t.notFound.blog}</a>
     </div>
   </PageHero>
   <div class="pb-40"></div>
@@ -34,7 +34,7 @@ const variants = Object.fromEntries(
     document.querySelector('h1 + p').textContent = v.text;
     const home = document.querySelector('[data-nf="home"]');
     home.textContent = v.home; home.href = v.homeHref;
-    const articles = document.querySelector('[data-nf="articles"]');
-    articles.textContent = v.articles; articles.href = v.articlesHref;
+    const blog = document.querySelector('[data-nf="blog"]');
+    blog.textContent = v.blog; blog.href = v.blogHref;
   }
 </script>

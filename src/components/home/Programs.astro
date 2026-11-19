@@ -1,10 +1,10 @@
 ---
-import { programCards, articlesPath } from '@/data/site';
+import { programCards, blogPath } from '@/data/site';
 import { useTranslations, type Language } from '@/i18n';
 interface Props { lang: Language }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const programs = programCards.map((card, i) => ({ ...card, ...t.programs.items[i], href: articlesPath(lang) }));
+const programs = programCards.map((card, i) => ({ ...card, ...t.programs.items[i], href: blogPath(lang) }));
 ---
 
 <section id="programs" class="bg-cream pb-20 lg:pb-28">

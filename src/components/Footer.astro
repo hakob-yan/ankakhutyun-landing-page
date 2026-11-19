@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { getNav, articlesPath } from '@/data/site';
+import { getNav, blogPath } from '@/data/site';
 import { articleUrl, getLatestArticles } from '@/lib/articles';
 import { ADDRESS, ADDRESS_MAP_URL, EMAIL, EMAIL_HREF, PHONE, PHONE_HREF, SOCIAL_LINKS } from '@/data/contacts';
 import { fill, localizePath, useTranslations, type Language } from '@/i18n';
@@ -45,10 +45,10 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h3 class="mb-5 text-lg text-white">{t.footer.articles}</h3>
+        <h3 class="mb-5 text-lg text-white">{t.footer.blog}</h3>
         <ul class="space-y-3 text-cream/65">
           {latest.map((a) => <li><a href={articleUrl(a)} class="line-clamp-2 decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-white hover:underline">{a.title}</a></li>)}
-          <li><a href={articlesPath(lang)} class="font-semibold text-accent decoration-2 underline-offset-4 hover:underline">{t.blog.seeAll} →</a></li>
+          <li><a href={blogPath(lang)} class="font-semibold text-accent decoration-2 underline-offset-4 hover:underline">{t.blog.seeAll} →</a></li>
         </ul>
       </div>
 

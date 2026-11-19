@@ -35,13 +35,13 @@ const nav = getNav(lang);
         ))}
       </nav>
       <!-- fixed min width (fits the longest label, Russian) so the language switcher doesn't move when the language changes -->
-      <a id="header-donate" href={localizePath('/#support', lang)} class="splash-reveal btn-primary hidden min-w-[10.75rem] !py-2 sm:inline-flex">{t.common.donate}</a>
+      <a id="header-donate" href={localizePath('/donation', lang)} class="splash-reveal btn-primary hidden min-w-[10.75rem] !py-2 sm:inline-flex">{t.common.donate}</a>
       <div class="lg:hidden">
         <MobileNav
           client:idle
           items={nav}
           siteName={t.siteName}
-          donate={{ label: t.common.donate, href: localizePath('/#support', lang) }}
+          donate={{ label: t.common.donate, href: localizePath('/donation', lang) }}
           labels={{ open: t.common.openMenu, close: t.common.closeMenu, description: t.common.siteNavigation }}
         />
       </div>

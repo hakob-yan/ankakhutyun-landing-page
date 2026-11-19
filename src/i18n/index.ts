@@ -19,7 +19,7 @@ export const fill = (text: string, vars: Record<string, string | number>) =>
 
 /**
  * Prefix an unprefixed site path with the language.
- * '/' → '/en/', '/#about' → '/en/#about', '/articles' → '/en/articles'
+ * '/' → '/en/', '/#about' → '/en/#about', '/blog' → '/en/blog'
  */
 export function localizePath(path: string, lang: Language) {
   const clean = path.startsWith('/') ? path : `/${path}`;

@@ -16,7 +16,7 @@ import armenian700 from '@fontsource/noto-sans-armenian/files/noto-sans-armenian
 
 interface Props {
   lang: Language;
-  /** Page path without the language prefix, e.g. '/articles/foo'. Used for the language switcher and hreflang. */
+  /** Page path without the language prefix, e.g. '/blog/foo'. Used for the language switcher and hreflang. */
   path: string;
   title?: string;
   description?: string;
@@ -88,7 +88,7 @@ const preloadFonts = lang === 'hy' ? [armenian500, armenian600, armenian700] : [
       <slot />
     </main>
     <Footer lang={lang} />
-    <FloatingDonate client:idle label={t.common.donate} href={localizePath('/#support', lang)} />
+    {path !== '/donation' && <FloatingDonate client:idle label={t.common.donate} href={localizePath('/donation', lang)} />}
     <script>
       import '@/scripts/animations';
     </script>

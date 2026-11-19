@@ -1,7 +1,7 @@
 ---
 import ArticleCarousel from '../react/ArticleCarousel';
 import { getLatestArticles, toCard } from '@/lib/articles';
-import { articlesPath } from '@/data/site';
+import { blogPath } from '@/data/site';
 import { useTranslations, type Language } from '@/i18n';
 interface Props { lang: Language }
 const { lang } = Astro.props;
@@ -16,7 +16,7 @@ const articles = (await getLatestArticles(6)).map((a) => toCard(a, lang));
         <p class="eyebrow">{t.latest.eyebrow}</p>
         <h2 class="section-title">{t.latest.title}</h2>
       </div>
-      <a href={articlesPath(lang)} class="btn-outline shrink-0">{t.latest.all}</a>
+      <a href={blogPath(lang)} class="btn-outline shrink-0">{t.latest.all}</a>
     </div>
     <ArticleCarousel client:visible articles={articles} labels={t.common} />
   </div>
