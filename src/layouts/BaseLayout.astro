@@ -7,11 +7,9 @@ import { languages, localizePath, ogLocales, useTranslations, type Language } fr
 
 // Font files to preload, so text is drawn in the real font right away instead of
 // flashing in a system font first. `?url` gives the same hashed file the CSS uses.
-import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
 import poppins500 from '@fontsource/poppins/files/poppins-latin-500-normal.woff2?url';
 import poppins600 from '@fontsource/poppins/files/poppins-latin-600-normal.woff2?url';
 import poppins700 from '@fontsource/poppins/files/poppins-latin-700-normal.woff2?url';
-import armenian400 from '@fontsource/noto-sans-armenian/files/noto-sans-armenian-armenian-400-normal.woff2?url';
 import armenian500 from '@fontsource/noto-sans-armenian/files/noto-sans-armenian-armenian-500-normal.woff2?url';
 import armenian600 from '@fontsource/noto-sans-armenian/files/noto-sans-armenian-armenian-600-normal.woff2?url';
 import armenian700 from '@fontsource/noto-sans-armenian/files/noto-sans-armenian-armenian-700-normal.woff2?url';
@@ -40,12 +38,10 @@ const metaDescription = description ?? t.description;
 const fullTitle = title ? `${title} | ${t.siteName}` : `${t.siteName} — ${t.tagline}`;
 const canonical = new URL(localizePath(path, lang), Astro.site);
 
-// Poppins (Latin + digits) is on every page; Armenian glyphs only matter on hy pages.
-// Russian has no Cyrillic web font yet (falls back to the system font), so nothing extra to preload.
-const preloadFonts = [
-  poppins400, poppins500, poppins600, poppins700,
-  ...(lang === 'hy' ? [armenian400, armenian500, armenian600, armenian700] : []),
-];
+// Only the weights visible above the fold (nav/subtitle 500, buttons 600, hero title/logo 700), and only
+// for the page's own script: Armenian on hy pages, Poppins (Latin) otherwise. Russian has no Cyrillic web
+// font yet. Every preload competes with the hero photo for bandwidth, so the rest load normally via CSS.
+const preloadFonts = lang === 'hy' ? [armenian500, armenian600, armenian700] : [poppins500, poppins600, poppins700];
 ---
 
 <!doctype html>

@@ -27,6 +27,15 @@ export default function HeroSlider({ slides, labels }: Props) {
   ]);
   const [selected, setSelected] = useState(0);
   const [playing, setPlaying] = useState(!reduceMotion);
+  // Only the first photo downloads with the page (it is the LCP element). The others wait until
+  // the page has finished loading, so they don't compete with it for bandwidth.
+  const [loadRest, setLoadRest] = useState(false);
+  useEffect(() => {
+    if (document.readyState === 'complete') return setLoadRest(true);
+    const onLoad = () => setLoadRest(true);
+    window.addEventListener('load', onLoad, { once: true });
+    return () => window.removeEventListener('load', onLoad);
+  }, []);
 
   useEffect(() => {
     if (!embla) return;
@@ -71,8 +80,8 @@ export default function HeroSlider({ slides, labels }: Props) {
                 aria-hidden={i !== selected}
               >
                 <motion.img
-                  src={s.src}
-                  srcSet={s.srcSet}
+                  src={i === 0 || loadRest ? s.src : undefined}
+                  srcSet={i === 0 || loadRest ? s.srcSet : undefined}
                   sizes="100vw"
                   alt={s.alt}
                   draggable={false}
