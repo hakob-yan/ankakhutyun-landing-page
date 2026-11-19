@@ -91,7 +91,6 @@ export default function DesktopNav({ items, currentPath, homePath }: Props) {
                           <motion.a
                             href={child.href}
                             {...(child.external ? externalLinkProps : {})}
-                            whileHover={{ x: 6 }}
                             transition={spring}
                             className="block rounded-xl px-4 py-2.5 text-[15px] text-ink transition-colors hover:bg-accent-soft"
                           >

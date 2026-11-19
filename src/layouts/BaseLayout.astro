@@ -54,6 +54,15 @@ const preloadFonts = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffa41c" />
+    <script is:inline>
+      // Show the intro logo animation when the site is opened or reloaded,
+      // but not when clicking between pages of the site.
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        var internal = document.referrer && new URL(document.referrer).origin === location.origin;
+        if (internal && !(nav && nav.type === 'reload')) document.documentElement.classList.add('splash-seen');
+      } catch (e) {}
+    </script>
     {preloadFonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
     <link rel="icon" type="image/svg+xml" href="/logo_yellow_bg.svg" />
     <title>{fullTitle}</title>

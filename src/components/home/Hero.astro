@@ -1,4 +1,5 @@
 ---
+import SplashLogo from '@/components/SplashLogo.astro';
 import { getImage } from 'astro:assets';
 import Counter from '../react/Counter';
 import HeroButtons from './HeroButtons.astro';
@@ -27,16 +28,17 @@ const slides = await Promise.all(
       slides={slides}
       labels={{ previous: t.common.previous, next: t.common.next, pause: t.hero.pause, play: t.hero.play, slide: t.hero.slideLabel }}
     />
+    <SplashLogo />
     <div class="pointer-events-none absolute inset-x-0 bottom-8 z-10 lg:bottom-12">
       <div class="container-x">
         <HeroHeading client:load title={t.hero.title} subtitle={t.hero.subtitle} />
-        <HeroButtons lang={lang} onPhoto class="pointer-events-auto mt-6 hidden w-fit lg:flex" />
+        <HeroButtons lang={lang} onPhoto class="splash-reveal pointer-events-auto mt-6 hidden w-fit lg:flex" />
       </div>
     </div>
   </div>
 
   <!-- buttons below the photos on mobile -->
-  <div class="container-x py-8 lg:hidden">
+  <div class="splash-reveal container-x py-8 lg:hidden">
     <HeroButtons lang={lang} />
   </div>
 </section>

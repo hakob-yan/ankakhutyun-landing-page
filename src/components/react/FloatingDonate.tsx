@@ -12,6 +12,7 @@ import {
   useVelocity,
 } from 'motion/react';
 import { Heart } from 'lucide-react';
+import { splashDelay } from '@/lib/splash';
 
 type Props = { label: string; href: string };
 
@@ -30,7 +31,14 @@ let hasFlown = false;
  */
 export default function FloatingDonate({ label, href }: Props) {
   const [scrolledEnough, setScrolledEnough] = useState(false);
+  // stay hidden while the intro logo (SplashLogo.astro) plays
+  const [splashDone, setSplashDone] = useState(false);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const id = setTimeout(() => setSplashDone(true), splashDelay() * 1000);
+    return () => clearTimeout(id);
+  }, []);
 
   useEffect(() => {
     setScrolledEnough(window.scrollY > SHOW_AFTER);
@@ -40,7 +48,7 @@ export default function FloatingDonate({ label, href }: Props) {
   return (
     <MotionConfig reducedMotion="user">
       <AnimatePresence>
-        {scrolledEnough && <FlyingButton label={label} href={href} />}
+        {scrolledEnough && splashDone && <FlyingButton label={label} href={href} />}
       </AnimatePresence>
     </MotionConfig>
   );
@@ -115,17 +123,8 @@ function FlyingButton({ label, href }: Props) {
         <motion.a
           href={href}
           className="relative inline-flex items-center gap-2 rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-[15px] font-semibold text-ink shadow-xl shadow-accent/30 transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.94 }}
         >
-          <motion.span
-            aria-hidden
-            className="inline-flex"
-            animate={{ scale: [1, 1.25, 1, 1.18, 1] }}
-            transition={{ duration: 1.1, repeat: Infinity, repeatDelay: 1.6 }}
-          >
-            <Heart className="size-4 fill-current" />
-          </motion.span>
+          <Heart aria-hidden className="size-4 fill-current" />
           {label}
         </motion.a>
       </motion.div>

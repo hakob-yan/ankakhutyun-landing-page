@@ -8,7 +8,6 @@ import Programs from '@/components/home/Programs.astro';
 import Events from '@/components/home/Events.astro';
 import LatestArticles from '@/components/home/LatestArticles.astro';
 import FaqSection from '@/components/home/FaqSection.astro';
-import Partners from '@/components/home/Partners.astro';
 import { routeLanguage } from '@/lib/articles';
 
 // /, /en/ and /ru/
@@ -25,5 +24,4 @@ if (!lang) return new Response(null, { status: 404, statusText: 'Not found' });
   <Events lang={lang} />
   <LatestArticles lang={lang} />
   <FaqSection lang={lang} />
-  <Partners lang={lang} />
 </BaseLayout>

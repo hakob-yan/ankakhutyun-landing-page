@@ -1,11 +1,12 @@
 import { MotionConfig, motion, type Variants } from 'motion/react';
+import { splashDelay } from '@/lib/splash';
 
 type Props = { /** one entry per line */ title: string[]; subtitle: string };
 
-const container: Variants = {
+const container = (delay: number): Variants => ({
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
-};
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 + delay } },
+});
 // each line slides up from behind a mask
 const word: Variants = {
   hidden: { y: '110%' },
@@ -14,9 +15,10 @@ const word: Variants = {
 
 /** Hero title + subtitle over the photos, animated in with Motion. */
 export default function HeroHeading({ title, subtitle }: Props) {
+  const variants = container(splashDelay());
   return (
     <MotionConfig reducedMotion="user">
-      <motion.div initial="hidden" animate="show" variants={container} className="text-white">
+      <motion.div initial="hidden" animate="show" variants={variants} className="text-white">
         <h1 className="text-[min(2.25rem,9vw)] leading-[1.05] font-bold text-white [text-shadow:0_2px_24px_rgb(0_0_0/0.35)] sm:text-5xl lg:text-6xl">
           {title.map((line, i) => (
             // each line on its own row, sliding up from behind a mask

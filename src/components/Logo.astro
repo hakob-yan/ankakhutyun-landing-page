@@ -7,7 +7,7 @@ const t = useTranslations(lang);
 ---
 
 <a href={localizePath('/', lang)} class="group inline-flex min-w-0 items-center gap-2 sm:gap-3" aria-label={t.siteName}>
-  <StairsSpinner background="var(--color-accent)" color="#fff" class="size-10 shrink-0 sm:size-11 transition-transform duration-300 group-hover:rotate-6" />
+  <StairsSpinner background="var(--color-accent)" color="#fff" class="size-10 shrink-0 sm:size-11" />
   <span class:list={['text-sm leading-tight font-bold sm:text-[17px]', dark ? 'text-white' : 'text-ink']}>
     {t.logoLines[0]}<br />{t.logoLines[1]}
   </span>

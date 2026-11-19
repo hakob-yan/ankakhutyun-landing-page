@@ -23,37 +23,47 @@ const card: Variants = {
 };
 
 function MemberCard({ m, lead, more, onOpen }: { m: TeamCard; lead?: boolean; more: string; onOpen: () => void }) {
-  return (
-    <motion.li variants={card} className={lead ? '' : 'h-full'}>
-      <button
-        type="button"
-        onClick={onOpen}
-        className={`group relative flex h-full w-full cursor-pointer overflow-hidden rounded-card bg-white text-left ring-1 ring-ink/8 shadow-[0_1px_2px_rgb(51_38_29/0.06),0_12px_32px_-12px_rgb(51_38_29/0.2)] transition-[box-shadow,translate] duration-300 hover:-translate-y-1 hover:shadow-[0_2px_4px_rgb(51_38_29/0.08),0_24px_48px_-16px_rgb(51_38_29/0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
-          lead ? 'flex-col sm:flex-row' : 'flex-col'
-        }`}
-      >
-        <div className={`relative overflow-hidden bg-cream ${lead ? 'aspect-square sm:aspect-auto sm:w-1/2' : 'aspect-[4/5]'}`}>
-          <motion.img
-            layoutId={`photo-${m.id}`}
-            src={m.photo}
-            alt={m.name}
-            loading="lazy"
-            className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          />
-        </div>
+  const className = `group relative flex h-full w-full overflow-hidden rounded-card bg-white text-left ring-1 ring-ink/8 shadow-[0_1px_2px_rgb(51_38_29/0.06),0_12px_32px_-12px_rgb(51_38_29/0.2)] transition-shadow duration-300 hover:shadow-[0_2px_4px_rgb(51_38_29/0.08),0_24px_48px_-16px_rgb(51_38_29/0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
+    lead ? 'flex-col sm:flex-row' : 'flex-col'
+  } ${m.bio ? 'cursor-pointer' : ''}`;
 
-        <div className={`flex flex-1 flex-col p-6 ${lead ? 'justify-center sm:p-10' : ''}`}>
-          <p className="mb-2 text-xs font-semibold tracking-wider text-accent uppercase">{m.role}</p>
-          <motion.h3 layoutId={`name-${m.id}`} className={lead ? 'text-2xl lg:text-3xl' : 'text-xl'}>
-            {m.name}
-          </motion.h3>
-          {lead && <p className="mt-4 line-clamp-4 text-ink/70">{m.bio}</p>}
+  const content = (
+    <>
+      <div className={`relative overflow-hidden bg-cream ${lead ? 'aspect-square sm:aspect-auto sm:w-1/2' : 'aspect-[4/5]'}`}>
+        <motion.img
+          layoutId={`photo-${m.id}`}
+          src={m.photo}
+          alt={m.name}
+          loading="lazy"
+          className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        />
+      </div>
+
+      <div className={`flex flex-1 flex-col p-6 ${lead ? 'justify-center sm:p-10' : ''}`}>
+        <p className="mb-2 text-xs font-semibold tracking-wider text-accent uppercase">{m.role}</p>
+        <motion.h3 layoutId={`name-${m.id}`} className={lead ? 'text-2xl lg:text-3xl' : 'text-xl'}>
+          {m.name}
+        </motion.h3>
+        {lead && m.bio && <p className="mt-4 line-clamp-4 text-ink/70">{m.bio}</p>}
+        {m.bio && (
           <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold">
             <span className="border-b-2 border-accent pb-0.5">{more}</span>
-            <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="size-4" />
           </span>
-        </div>
-      </button>
+        )}
+      </div>
+    </>
+  );
+
+  return (
+    <motion.li variants={card} className={lead ? '' : 'h-full w-full sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-4rem)/3)]'}>
+      {m.bio ? (
+        <button type="button" onClick={onOpen} className={className}>
+          {content}
+        </button>
+      ) : (
+        <div className={className}>{content}</div>
+      )}
     </motion.li>
   );
 }
@@ -77,7 +87,7 @@ export default function TeamGrid({ members, labels }: Props) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={spring}
-      className="mb-10 flex items-center gap-4 text-2xl lg:text-3xl"
+      className="mb-10 flex items-center justify-center gap-4 text-2xl lg:text-3xl"
     >
       <span className="h-1 w-10 rounded-full bg-accent" aria-hidden />
       {text}
@@ -102,7 +112,7 @@ export default function TeamGrid({ members, labels }: Props) {
 
         <section>
           {heading(labels.members)}
-          <motion.ul {...listProps} className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.ul {...listProps} className="flex flex-wrap justify-center gap-8">
             {rest.map((m) => (
               <MemberCard key={m.id} m={m} more={labels.more} onOpen={() => setOpenId(m.id)} />
             ))}
@@ -141,8 +151,6 @@ export default function TeamGrid({ members, labels }: Props) {
                         <Dialog.Close asChild>
                           <motion.button
                             aria-label={labels.close}
-                            whileHover={{ rotate: 90 }}
-                            whileTap={{ scale: 0.85 }}
                             className="absolute top-4 right-4 inline-flex size-10 items-center justify-center rounded-full bg-white/90 shadow transition-colors hover:bg-accent"
                           >
                             <X className="size-5" />

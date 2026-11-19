@@ -178,6 +178,7 @@ const hy = {
     articles: 'Հոդվածներ',
     contact: 'Կապ',
     copyright: '© {year} {name}։ Բոլոր իրավունքները պաշտպանված են։',
+    faq: 'ՀՏՀ',
   },
 
   team: {
@@ -205,7 +206,7 @@ const hy = {
     less: 'Թաքցնել',
     howTitle: 'Ինչպես է աշխատում խորհուրդը',
     facts: [
-      { value: '7', label: 'անդամ՝ տարբեր մասնագիտություններից' },
+      { value: '3', label: 'անդամ, բոլորը՝ պատմաբաններ' },
       { value: '4', label: 'նիստ տարեկան, որոնց որոշումները հրապարակվում են' },
       { value: '3', label: 'տարի՝ անդամակցության ժամկետը' },
       { value: '0', label: 'վարձատրություն. անդամները կամավոր են' },
@@ -419,6 +420,7 @@ const en: Dictionary = {
     articles: 'Articles',
     contact: 'Contact',
     copyright: '© {year} {name}. All rights reserved.',
+    faq: 'FAQ',
   },
 
   team: {
@@ -446,7 +448,7 @@ const en: Dictionary = {
     less: 'Less',
     howTitle: 'How the board works',
     facts: [
-      { value: '7', label: 'members from different professions' },
+      { value: '3', label: 'members, all of them historians' },
       { value: '4', label: 'meetings a year, with published decisions' },
       { value: '3', label: 'year term for each member' },
       { value: '0', label: 'pay: board members are volunteers' },
@@ -658,6 +660,7 @@ const ru: Dictionary = {
     articles: 'Статьи',
     contact: 'Контакты',
     copyright: '© {year} {name}. Все права защищены.',
+    faq: 'FAQ',
   },
 
   team: {
@@ -685,7 +688,7 @@ const ru: Dictionary = {
     less: 'Скрыть',
     howTitle: 'Как работает правление',
     facts: [
-      { value: '7', label: 'членов разных профессий' },
+      { value: '3', label: 'члена правления, все — историки' },
       { value: '4', label: 'заседания в год с публикацией решений' },
       { value: '3', label: 'года — срок полномочий' },
       { value: '0', label: 'оплаты: члены правления — волонтёры' },

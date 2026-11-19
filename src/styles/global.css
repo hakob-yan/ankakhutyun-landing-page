@@ -75,9 +75,9 @@
   @apply text-3xl sm:text-4xl lg:text-[50px] lg:leading-[1.1];
 }
 
-/* Buttons: brand-colored pills; on hover they turn white, keep a colored border and lift slightly */
+/* Buttons: brand-colored pills. On hover only the colors change (no movement). */
 @utility btn {
-  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border-2 px-7 py-3.5 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:hover:translate-y-0 disabled:hover:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border-2 px-7 py-3.5 text-[15px] font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50;
 }
 @utility btn-primary {
   @apply btn border-accent bg-accent text-ink hover:bg-white;
@@ -89,7 +89,7 @@
   @apply btn border-ink bg-transparent text-ink hover:border-accent hover:bg-white;
 }
 @utility btn-white {
-  @apply btn border-white bg-white text-ink hover:border-accent;
+  @apply btn border-white bg-white text-ink hover:border-accent hover:bg-sand;
 }
 
 /*
@@ -116,3 +116,16 @@
 }
 .accordion-content[data-state='open'] { animation: accordion-down 0.3s ease-out; }
 .accordion-content[data-state='closed'] { animation: accordion-up 0.3s ease-out; }
+
+/* Hero content (buttons, donate) waits for the intro logo (SplashLogo.astro), then fades in
+   as the logo leaves. html.splash-seen = the logo is skipped on this load (internal page click).
+   React parts wait via splashDelay() in src/lib/splash.ts, which uses the same 1.8s. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.splash-seen) .splash-reveal {
+    animation: splash-reveal 0.7s ease-out 1.8s both;
+  }
+}
+@keyframes splash-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}

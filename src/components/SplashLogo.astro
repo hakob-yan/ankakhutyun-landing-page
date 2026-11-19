@@ -1,0 +1,92 @@
+---
+/**
+ * Intro animation shown when the site first opens: the left and right stairs of
+ * public/favicon.svg slide in toward the center, the middle stair pops in to complete
+ * the logo, then the whole overlay fades away.
+ *
+ * It is an absolute overlay inside the hero (the parent must be position: relative),
+ * so it scrolls away with the hero. It has pointer-events: none, so the page underneath loads and
+ * renders normally (no layout shift, no blocked clicks). Pure CSS, so it starts before
+ * any JavaScript runs. Shown when the site is opened or reloaded, not on internal
+ * page-to-page clicks (see the inline script in BaseLayout's <head>), and skipped for visitors who prefer reduced motion.
+ */
+import favicon from '../../public/favicon.svg?raw';
+
+// [left stair, middle stair, right stair] — read from the file, so the logo stays in sync.
+const paths = [...favicon.matchAll(/<path\s+d="([^"]+)"[^>]*?transform="([^"]+)"/g)].map(([, d, transform]) => ({
+  d,
+  transform,
+}));
+const roles = ['left', 'center', 'right'];
+---
+
+<div class="splash" aria-hidden="true">
+  <svg viewBox="0 0 336 336" class="splash-logo">
+    {paths.map((p, i) => (
+      <g class={`splash-stair splash-${roles[i]}`}>
+        <path d={p.d} transform={p.transform} />
+      </g>
+    ))}
+  </svg>
+</div>
+
+<style>
+  .splash {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    animation: splash-out 0.5s ease-in 1.7s forwards;
+  }
+  .splash-logo {
+    width: min(90vw, 540px);
+    max-height: 85%;
+    fill: #fff;
+    overflow: visible;
+    animation: splash-logo-out 0.5s ease-in 1.7s forwards;
+  }
+  .splash-stair {
+    transform-box: view-box;
+    transform-origin: 168px 168px;
+  }
+  .splash-left {
+    animation: splash-from-left 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+  .splash-right {
+    animation: splash-from-right 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+  .splash-center {
+    animation: splash-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.75s both;
+  }
+
+  @keyframes splash-from-left {
+    from { transform: translateX(-160px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  @keyframes splash-from-right {
+    from { transform: translateX(160px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  @keyframes splash-pop {
+    from { transform: scale(0.4); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  @keyframes splash-logo-out {
+    to { transform: scale(1.15); }
+  }
+  @keyframes splash-out {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  /* Hero content marked .splash-reveal waits for this animation: see .splash-reveal in global.css. */
+
+  :global(html.splash-seen) .splash {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .splash { display: none; }
+  }
+</style>

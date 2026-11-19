@@ -2,13 +2,11 @@
  * Site-wide motion effects, powered by Motion (https://motion.dev):
  *  - scroll progress bar under the header
  *  - sections / cards fade-and-rise into view while scrolling (cards are staggered)
- *  - buttons: magnetic pull toward the cursor + springy press
  * Everything is skipped for visitors who ask for reduced motion.
  */
-import { animate, hover, inView, press, scroll } from 'motion';
+import { animate, inView, scroll } from 'motion';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 /* ---------- scroll progress bar ---------- */
 const progress = document.getElementById('scroll-progress');
@@ -44,36 +42,6 @@ function setupReveal() {
   });
 }
 
-/* ---------- buttons ---------- */
-function setupButtons() {
-  const buttons = document.querySelectorAll<HTMLElement>('[class*="btn-"]');
-
-  // springy press feedback (works for touch too)
-  press(buttons, (el) => {
-    animate(el, { scale: 0.94 }, { type: 'spring', stiffness: 600, damping: 20 });
-    return () => animate(el, { scale: 1 }, { type: 'spring', stiffness: 400, damping: 12 });
-  });
-
-  if (!finePointer) return;
-
-  // magnetic hover: the button follows the cursor a little, then springs back
-  hover(buttons, (target) => {
-    const el = target as HTMLElement;
-    const onMove = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - (r.left + r.width / 2)) * 0.25;
-      const y = (e.clientY - (r.top + r.height / 2)) * 0.35;
-      animate(el, { x, y }, { type: 'spring', stiffness: 300, damping: 18, mass: 0.5 });
-    };
-    el.addEventListener('pointermove', onMove);
-    return () => {
-      el.removeEventListener('pointermove', onMove);
-      animate(el, { x: 0, y: 0 }, { type: 'spring', stiffness: 250, damping: 10 });
-    };
-  });
-}
-
 if (!reduceMotion) {
   setupReveal();
-  setupButtons();
 }

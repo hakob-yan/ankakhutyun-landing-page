@@ -35,8 +35,6 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
         <Dialog.Trigger asChild>
           <motion.button
             aria-label={labels.open}
-            whileHover={{ scale: 1.08, rotate: -6 }}
-            whileTap={{ scale: 0.9 }}
             className="inline-flex size-11 items-center justify-center rounded-full border-2 border-accent bg-accent text-ink transition-colors hover:bg-white"
           >
             <Menu className="size-5" />
@@ -67,8 +65,6 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                     <Dialog.Close asChild>
                       <motion.button
                         aria-label={labels.close}
-                        whileHover={{ rotate: 90 }}
-                        whileTap={{ scale: 0.85 }}
                         className="inline-flex size-10 items-center justify-center rounded-full bg-cream transition-colors hover:bg-accent"
                       >
                         <X className="size-5" />
@@ -95,8 +91,7 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                                     key={c.label}
                                     href={c.href}
                                     {...(c.external ? externalLinkProps : {})}
-                                    whileTap={{ scale: 0.97 }}
-                                    className="block rounded-lg px-3 py-2 text-ink/80 transition-[padding,background-color] duration-300 hover:bg-accent-soft hover:pl-5"
+                                    className="block rounded-lg px-3 py-2 text-ink/80 transition-colors duration-200 hover:bg-accent-soft"
                                   >
                                     {c.label}
                                   </motion.a>
@@ -111,7 +106,6 @@ export default function MobileNav({ items, siteName, donate, labels }: Props) {
                           href={item.href}
                           {...(item.external ? externalLinkProps : {})}
                           variants={row}
-                          whileTap={{ scale: 0.97 }}
                           className="block py-4 text-lg font-semibold transition-colors hover:text-accent"
                         >
                           {item.label}
