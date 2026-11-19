@@ -105,6 +105,28 @@ const hy = {
     back: 'Վերադառնալ',
   },
 
+  power: {
+    eyebrow: 'ճամբար',
+    title: 'Անկախության ուժը',
+    intro: '«Անկախության ուժը» «Անկախության սերունդ»-ի ամառային ուսանողական-երիտասարդական ճամբարն է։ Այն ծնվեց 2020 թվականի պատերազմից հետո՝ որպես պատասխան հուսահատությանը, և այսօր համախմբում է երիտասարդներին հայրենիքի, պետության և անկախության գաղափարի շուրջ։',
+    description: '«Անկախության ուժը»՝ «Անկախության սերունդ»-ի ամառային ուսանողական-երիտասարդական ճամբարը։',
+    campsHeld: 'ճամբար',
+    campsHeldText: 'անցկացրել ենք արդեն',
+    camp: 'Անկախության ուժը {n}',
+    infoTitle: 'Ինչպես է անցնում ճամբարը',
+    info: [
+      { title: 'Ամեն ամառ', text: 'Մի քանի օր քաղաքից հեռու՝ ամառային արձակուրդի ընթացքում։' },
+      { title: 'Հայաստանի բնության գրկում', text: 'Ճամբարն անցկացվում է Հայաստանի գեղատեսիլ վայրերում, օրինակ՝ Հանքավանում։' },
+      { title: 'Երիտասարդներ ամենուրեքից', text: 'Ուսանողներ և երիտասարդներ Հայաստանից, Արցախից և Սփյուռքից։' },
+      { title: 'Գաղափարներ և ընկերություն', text: 'Դասախոսություններ, քննարկումներ, գործնական աշխատանք և ժամանց։' },
+    ],
+    free: 'Մասնակցությունն անվճար է',
+    joinTitle: 'Ուզո՞ւմ եք մասնակցել հաջորդ ճամբարին',
+    joinText: 'Հետևեք մեզ Instagram-ում, որպեսզի առաջինը իմանաք հաջորդ ճամբարի մասին, կամ գրեք մեզ ձեր հարցերով։',
+    follow: 'Հետևել Instagram-ում',
+    write: 'Գրել մեզ',
+  },
+
   podcast: {
     eyebrow: 'փոդքաստ',
     title: 'Անկախ փոդքաստ',
@@ -380,6 +402,28 @@ const en: Dictionary = {
     back: 'Go back',
   },
 
+  power: {
+    eyebrow: 'camp',
+    title: 'The Power of Independence',
+    intro: 'The Power of Independence is the summer student and youth camp of Generation of Independence. It was born after the 2020 war as a response to despair, and today it brings young people together around the idea of homeland, state and independence.',
+    description: 'The Power of Independence: the summer student and youth camp of Generation of Independence.',
+    campsHeld: 'camps',
+    campsHeldText: 'held so far',
+    camp: 'The Power of Independence {n}',
+    infoTitle: 'What the camp is like',
+    info: [
+      { title: 'Every summer', text: 'A few days away from the city during the summer holidays.' },
+      { title: 'In Armenia’s nature', text: 'The camp takes place in beautiful parts of Armenia, such as Hankavan.' },
+      { title: 'Young people from everywhere', text: 'Students and young people from Armenia, Artsakh and the Diaspora.' },
+      { title: 'Ideas and friendship', text: 'Lectures, discussions, hands-on work and fun.' },
+    ],
+    free: 'Taking part is free',
+    joinTitle: 'Want to join the next camp?',
+    joinText: 'Follow us on Instagram to be the first to hear about the next camp, or write to us with your questions.',
+    follow: 'Follow on Instagram',
+    write: 'Write to us',
+  },
+
   podcast: {
     eyebrow: 'podcast',
     title: 'Ankakh podcast',
@@ -650,6 +694,28 @@ const ru: Dictionary = {
     thanks: 'Спасибо 💛',
     demoNote: 'Это демонстрационная форма: платёжная система ещё не подключена.',
     back: 'Вернуться',
+  },
+
+  power: {
+    eyebrow: 'лагерь',
+    title: 'Сила независимости',
+    intro: '«Сила независимости» — летний студенческо-молодёжный лагерь «Поколения независимости». Он появился после войны 2020 года как ответ на отчаяние и сегодня объединяет молодёжь вокруг идеи родины, государства и независимости.',
+    description: '«Сила независимости»: летний студенческо-молодёжный лагерь «Поколения независимости».',
+    campsHeld: 'лагерей',
+    campsHeldText: 'уже провели',
+    camp: 'Сила независимости {n}',
+    infoTitle: 'Как проходит лагерь',
+    info: [
+      { title: 'Каждое лето', text: 'Несколько дней вдали от города во время летних каникул.' },
+      { title: 'На природе Армении', text: 'Лагерь проходит в живописных местах Армении, например в Анкаване.' },
+      { title: 'Молодёжь отовсюду', text: 'Студенты и молодёжь из Армении, Арцаха и диаспоры.' },
+      { title: 'Идеи и дружба', text: 'Лекции, дискуссии, практическая работа и отдых.' },
+    ],
+    free: 'Участие бесплатное',
+    joinTitle: 'Хотите попасть в следующий лагерь?',
+    joinText: 'Подпишитесь на нас в Instagram, чтобы первыми узнать о следующем лагере, или напишите нам.',
+    follow: 'Подписаться в Instagram',
+    write: 'Написать нам',
   },
 
   podcast: {

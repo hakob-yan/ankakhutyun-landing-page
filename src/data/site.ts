@@ -79,7 +79,7 @@ export function getNav(lang: Language): NavItem[] {
       href: p('/#programs'),
       children: [
         { label: t.citizen, href: p('/#programs') },
-        { label: t.power, href: p('/#programs') },
+        { label: t.power, href: p('/power-of-independence') },
         { label: t.podcast, href: p('/podcast') },
       ],
     },
